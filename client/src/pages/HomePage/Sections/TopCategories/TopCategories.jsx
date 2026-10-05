@@ -45,7 +45,7 @@ const TopCategories = () => {
           {categories.map((category) => (
             <div key={category?._id} className="space-y-4">
               {/* Category Title Header */}
-              <div className="relative flex items-center justify-between bg-gradient-to-r from-primary-500/10 via-card-bg to-transparent border-l-4 border-primary-600 dark:border-primary-500 px-4 py-3 rounded-r-xl shadow-xs">
+              <div className="relative flex items-center justify-between bg-linear-to-r from-primary-500/10 via-card-bg to-transparent border-l-4 border-primary-600 dark:border-primary-500 px-4 py-3 rounded-r-xl shadow-xs">
                 <div className="flex items-center gap-3">
                   <h3 className="text-base sm:text-xl font-bold tracking-tight text-text-primary flex items-center gap-2">
                     {category?.name}

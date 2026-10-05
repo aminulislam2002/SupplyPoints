@@ -34,7 +34,7 @@ const SubCategories = ({ category }) => {
                   className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
                 />
                 {/* Gradient Overlay for better text readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-80 transition-opacity group-hover:opacity-90"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent opacity-80 transition-opacity group-hover:opacity-90"></div>
               </div>
 
               {/* Title and Product Count Overlay */}
