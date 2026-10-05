@@ -3,12 +3,11 @@ import {
   FiMenu,
   FiX,
   FiShoppingCart,
-  FiHeart,
   FiSearch,
   FiSun,
   FiMoon,
 } from "react-icons/fi";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import useAuth from "../../../hooks/useAuth/useAuth";
 import { IoCallOutline } from "react-icons/io5";
 import Loader from "../../../components/Loader/Loader";
@@ -26,6 +25,7 @@ import { ThemeContext } from "../../../providers/ThemeProvider/ThemeProvider";
 
 const Navbar = () => {
   const axiosPublic = useAxiosPublic();
+  const location = useLocation();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -77,6 +77,11 @@ const Navbar = () => {
     { name: "মাইক্রো জব", path: "/marketing" },
   ];
 
+  const closeSearch = () => {
+    setSearchOpen(false);
+    setSearchQuery("");
+  };
+
   if (isUserPending || isRolePending || isPlatformPending) {
     return <Loader />;
   }
@@ -85,32 +90,35 @@ const Navbar = () => {
     <>
       {/* Top Bar */}
       <div
-        className={`block w-full fixed top-0 left-0 right-0 z-50 bg-section-bg/95 backdrop-blur-sm border-b border-border-color transition-all duration-300 ${
+        className={`block w-full fixed top-0 left-0 right-0 z-50 bg-secondary-950 text-secondary-200 transition-all duration-300 ${
           scrolled ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
         }`}
       >
         <div className="container mx-auto px-5">
-          <div className="flex items-center justify-between h-9 text-xs text-text-secondary">
-            <div className="flex items-center gap-5">
+          <div className="flex h-10 items-center justify-between text-[11px]">
+            <div className="flex items-center gap-4">
               <Link
                 to={`tel:${platform?.phoneNumber || "+8801700000000"}`}
-                className="flex items-center gap-2 hover:text-primary-600 transition-colors"
+                className="flex items-center gap-2 transition-colors hover:text-primary-300"
               >
                 <IoCallOutline size={16} />{" "}
                 {platform?.phoneNumber || "+8801700000000"}
               </Link>
               <Link
                 to={`mailto:${platform?.emailAddress || "info@yourdomain.com"}`}
-                className="hidden lg:flex items-center gap-2 hover:text-primary-600 transition-colors"
+                className="hidden items-center gap-2 transition-colors hover:text-primary-300 lg:flex"
               >
                 <MdOutlineEmail size={16} />{" "}
                 {platform?.emailAddress || "info@yourdomain.com"}
               </Link>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 font-semibold">
+              <span className="hidden text-secondary-400 sm:inline">
+                Grow smarter with Supply Points
+              </span>
               <Link
                 to="/support"
-                className="hover:text-primary-600 transition-colors"
+                className="transition-colors hover:text-primary-300"
               >
                 Support
               </Link>
@@ -121,22 +129,22 @@ const Navbar = () => {
 
       {/* Main Navbar */}
       <header
-        className={`fixed left-0 right-0 z-50 bg-section-bg transition-all duration-300 ${
-          scrolled ? "top-0 backdrop-blur-md shadow-lg" : "top-10 shadow-sm"
+        className={`fixed left-0 right-0 z-50 border-b border-border-color/80 bg-section-bg/95 transition-all duration-300 ${
+          scrolled ? "top-0 shadow-lg backdrop-blur-md" : "top-10 shadow-sm"
         }`}
       >
         <style>{`body { padding-top: ${scrolled ? "64px" : "104px"}; }`}</style>
         <div className="container mx-auto px-5">
-          <div className="flex items-center justify-between min-h-16 gap-4">
+          <div className="flex min-h-18 items-center justify-between gap-4">
             {/* Logo */}
             <Link
               to="/"
               onClick={() => {
-                (setSearchOpen(false), setSearchQuery(" "));
+                closeSearch();
               }}
-              className="flex items-center gap-2 group"
+              className="group flex items-center gap-2.5"
             >
-              <div className="relative overflow-hidden rounded-lg border border-border-color bg-card-bg">
+              <div className="relative overflow-hidden rounded-xl border border-primary-200 bg-primary-50 shadow-sm dark:border-primary-900 dark:bg-primary-950">
                 <img
                   src={logo}
                   className="h-11 w-11 object-cover transition-transform duration-300 group-hover:scale-105"
@@ -144,7 +152,7 @@ const Navbar = () => {
                 />
               </div>
               <div>
-                <h1 className="text-base md:text-lg lg:text-xl font-extrabold tracking-tight text-primary-700 dark:text-primary-400 transition-colors duration-300 uppercase">
+                <h1 className="text-base font-extrabold uppercase tracking-tight text-primary-700 transition-colors duration-300 dark:text-primary-400 md:text-lg lg:text-xl">
                   Supply Points
                 </h1>
                 <p className="hidden sm:block text-[10px] text-text-muted tracking-wide">
@@ -154,18 +162,24 @@ const Navbar = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-1 rounded-lg border border-border-color bg-card-bg/70 p-1">
+            <nav className="hidden items-center gap-1 rounded-xl border border-border-color bg-card-bg p-1 shadow-sm lg:flex">
               {navLinks.map((link, index) => (
                 <Link
                   key={index}
                   to={link.path}
-                  onClick={() => {
-                    (setSearchOpen(false), setSearchQuery(" "));
-                  }}
-                  className="relative rounded-md px-3.5 py-2.5 text-sm font-semibold text-text-secondary hover:bg-primary-50 hover:text-primary-700 dark:hover:bg-primary-950 dark:hover:text-primary-300 transition-colors duration-300 group"
+                  onClick={closeSearch}
+                  className={`group relative rounded-lg px-3.5 py-2.5 text-sm font-semibold transition-colors duration-300 ${
+                    location.pathname === link.path
+                      ? "bg-primary-50 text-primary-700 dark:bg-primary-950 dark:text-primary-300"
+                      : "text-text-secondary hover:bg-primary-50 hover:text-primary-700 dark:hover:bg-primary-950 dark:hover:text-primary-300"
+                  }`}
                 >
                   {link.name}
-                  <span className="absolute bottom-1 left-3.5 right-3.5 h-0.5 origin-left scale-x-0 bg-primary-600 transition-transform duration-300 group-hover:scale-x-100"></span>
+                  <span className={`absolute bottom-1 left-3.5 right-3.5 h-0.5 origin-left bg-primary-600 transition-transform duration-300 ${
+                    location.pathname === link.path
+                      ? "scale-x-100"
+                      : "scale-x-0 group-hover:scale-x-100"
+                  }`}></span>
                 </Link>
               ))}
             </nav>
@@ -177,7 +191,7 @@ const Navbar = () => {
                 onClick={toggleTheme}
                 aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
                 title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-                className="hidden sm:inline-flex items-center gap-2 rounded-lg border border-border-color bg-card-bg px-2.5 py-2 text-xs font-semibold text-text-secondary transition-colors hover:border-primary-400 hover:text-primary-700 dark:hover:text-primary-300"
+                className="hidden items-center gap-2 rounded-lg border border-border-color bg-card-bg px-2.5 py-2 text-xs font-semibold text-text-secondary transition-colors hover:border-primary-400 hover:text-primary-700 dark:hover:text-primary-300 sm:inline-flex"
               >
                 {theme === "dark" ? (
                   <FiSun size={16} className="text-primary-400" />
@@ -276,12 +290,11 @@ const Navbar = () => {
               <button
                 onClick={() => {
                   if (searchOpen) {
-                    setSearchOpen(false);
-                    setSearchQuery(" ");
+                    closeSearch();
                   }
                   setOpen(!open);
                 }}
-                className="lg:hidden p-2 rounded-md hover:bg-primary-100  transition-colors duration-300"
+                className="btn-icon lg:hidden"
                 aria-label="Toggle menu"
               >
                 {open ? <FiX size={24} /> : <FiMenu size={24} />}
@@ -292,13 +305,13 @@ const Navbar = () => {
 
         {/* Search Bar Overlay */}
         {searchOpen && (
-          <div className="border-t border-border-color bg-section-bg">
-            <div className="container mx-auto h-[calc(100vh-64px)] overflow-y-auto px-5 py-4">
+          <div className="border-t border-border-color bg-section-bg shadow-xl">
+            <div className="container mx-auto h-[calc(100vh-64px)] overflow-y-auto px-5 py-5">
               <form
                 // onSubmit={handleSearch}
-                className="max-w-2xl mx-auto"
+                className="mx-auto max-w-2xl"
               >
-                <div className="relative">
+                <div className="relative rounded-xl border border-border-color bg-card-bg shadow-sm">
                   <FiSearch
                     className="absolute left-4 top-1/2 -translate-y-1/2"
                     size={20}
@@ -308,7 +321,7 @@ const Navbar = () => {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search products..."
-                    className="control w-full pl-12 pr-4 py-3"
+                    className="control w-full border-0 bg-transparent py-3 pl-12 pr-4"
                     autoFocus
                   />
                 </div>
@@ -323,15 +336,13 @@ const Navbar = () => {
                   <p className="text-sm">Fetching products...</p>
                 </div>
               ) : productData && productData.length > 0 ? (
-                <div className="mt-5 space-y-2.5">
+                <div className="mx-auto mt-5 max-w-2xl space-y-2">
                   {productData.map((product) => (
                     <Link
                       key={product?._id}
                       to={`/products/${product?._id}`}
-                      onClick={() => {
-                        (setSearchOpen(false), setSearchQuery(" "));
-                      }}
-                      className="w-full overflow-hidden hover:shadow-lg transition-shadow duration-300 flex justify-start items-center gap-2"
+                      onClick={closeSearch}
+                      className="flex w-full items-center gap-3 overflow-hidden rounded-xl border border-border-color bg-card-bg p-2 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-primary-300 hover:shadow-md"
                     >
                       <img
                         src={
@@ -339,17 +350,17 @@ const Navbar = () => {
                           logo
                         }
                         alt={product?.title}
-                        className="w-12 h-12 object-cover rounded-md"
+                        className="h-14 w-14 rounded-lg object-cover"
                       />
-                      <div className="p-3">
+                      <div className="min-w-0 p-2">
                         <h3 className="text-sm font-medium line-clamp-1">
                           {product?.title}
                         </h3>
                         <div className="flex justify-between items-center">
-                          <p className="text-sm mt-1 text-gray-300">
+                          <p className="mt-1 text-xs text-text-muted">
                             দাম: {product?.price?.toFixed(2)}
                           </p>
-                          <p className="text-sm mt-1 text-gray-300">
+                          <p className="mt-1 text-xs text-text-muted">
                             Code: {product?.productCode}
                           </p>
                         </div>
@@ -368,8 +379,8 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {open && (
-          <div className="lg:hidden border-t border-border-color bg-section-bg">
-            <div className="container mx-auto px-5 py-4 space-y-1">
+          <div className="border-t border-border-color bg-section-bg lg:hidden">
+            <div className="container mx-auto space-y-1 px-5 py-5">
               {/* Mobile Navigation */}
               {navLinks.map((link, index) => (
                 <Link
@@ -377,7 +388,7 @@ const Navbar = () => {
                   to={link.path}
                   onClick={() => {
                     setSearchOpen(false);
-                    setSearchQuery(" ");
+                    setSearchQuery("");
                     setOpen(false);
                   }}
                   className="block rounded-lg px-4 py-3 text-sm font-medium text-text-secondary transition-colors duration-200 hover:bg-primary-50 hover:text-primary-700 dark:hover:bg-primary-950 dark:hover:text-primary-300"
