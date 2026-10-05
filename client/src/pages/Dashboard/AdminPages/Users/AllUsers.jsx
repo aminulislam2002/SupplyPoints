@@ -9,7 +9,7 @@ import { Link } from "react-router";
 import { LuEye, LuKeyRound } from "react-icons/lu";
 import { RiDeleteBin5Line, RiShieldUserLine } from "react-icons/ri";
 import { FaUser } from "react-icons/fa6";
-import { TbPlaystationTriangle } from "react-icons/tb";
+import { TbHandClick, TbPlaystationTriangle } from "react-icons/tb";
 import { FcApproval } from "react-icons/fc";
 
 const AllUsers = () => {
@@ -383,6 +383,8 @@ const AllUsers = () => {
               <th>#</th>
               <th className="text-left">Profile</th>
               <th>Role</th>
+              <th>Code</th>
+              <th>Invite</th>
               <th>Balance</th>
               <th>Earnings</th>
               <th>Action</th>
@@ -401,7 +403,7 @@ const AllUsers = () => {
               allUser?.map((user, index) => (
                 <tr
                   key={user?._id}
-                  className="h-10 text-sm text-nowrap font-normal text-center border-b border-border-color"
+                  className={`h-10 text-sm text-nowrap font-normal text-center border-b border-border-color ${searchQuery && user?.referralCode?.includes(searchQuery) ? "text-yellow-500 animate-pulse hover:animate-none transition-all duration-300" : ""}`}
                 >
                   <th>{currentPage * limitPerPage + index + 1}</th>
                   <td>
@@ -442,6 +444,20 @@ const AllUsers = () => {
                     >
                       {user?.role}
                     </p>
+                  </td>
+                  <td>{user?.referralCode} </td>
+                  <td>
+                    {user?.referredBy && (
+                      <button
+                        className="btn btn-primary w-full sm:w-auto"
+                        onClick={() =>
+                          searchQuery !== user?.referredBy &&
+                          setSearchQuery(user?.referredBy)
+                        }
+                      >
+                        Click <TbHandClick size={16} />
+                      </button>
+                    )}
                   </td>
                   <td>৳ {user?.balance?.toFixed(2)}</td>
                   <td>৳ {user?.withdrawals?.toFixed(2)}</td>

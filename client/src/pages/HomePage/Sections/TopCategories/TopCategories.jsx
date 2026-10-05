@@ -11,7 +11,7 @@ const TopCategories = () => {
   }
 
   return (
-    <section className="container mx-auto px-4 py-10 sm:px-6 lg:px-8">
+    <section className="container mx-auto px-4 py-10">
       {isCategoriesFetching ? (
         <>
           <h3 className="text-center">Loading Categories...</h3>

@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import usePlatform from "../../../../hooks/usePlatform/usePlatform";
+import usePlatform from "../../hooks/usePlatform/usePlatform";
 
 const ResellingBanner = () => {
   const { platform } = usePlatform();

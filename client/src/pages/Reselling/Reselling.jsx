@@ -1,6 +1,6 @@
-import ResellingBanner from "../HomePage/Sections/Banner/ResellingBanner";
 import TopCategories from "../HomePage/Sections/TopCategories/TopCategories";
 import WhyChooseUs from "../HomePage/Sections/WhyChooseUs/WhyChooseUs";
+import ResellingBanner from "./ResellingBanner";
 
 const Reselling = () => {
   return (

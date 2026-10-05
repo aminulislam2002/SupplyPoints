@@ -10,14 +10,16 @@ const ProductTextarea = ({
 }) => {
   return (
     <div className="space-y-2.5">
-      <label className="block text-sm font-semibold text-text-primary">{label}</label>
+      <label className="block text-sm font-semibold text-text-primary">
+        {label}
+      </label>
       <textarea
         rows={rows}
         placeholder={placeholder}
         {...register(name, { required: required })}
         defaultValue={defaultValue}
         aria-invalid={errors[name] ? "true" : "false"}
-        className="textarea min-h-32 w-full text-sm leading-6 sm:text-base"
+        className="control min-h-32 w-full text-sm leading-6 sm:text-base"
       />
 
       {errors[name] && (

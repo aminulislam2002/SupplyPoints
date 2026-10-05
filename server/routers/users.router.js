@@ -22,6 +22,7 @@ const {
   getUserById,
   getUserRole,
   getUserStatus,
+  getMyReferrals,
   updateRole,
   updateStatus,
   subscriptionType,
@@ -38,6 +39,8 @@ router.get("/id/:id", verifyToken, verifyAdmin, getUserById);
 router.get("/role", verifyToken, getUserRole);
 
 router.get("/status", verifyToken, getUserStatus);
+
+router.get("/referrals/:referralCode", verifyToken, getMyReferrals);
 
 router.put("/role/:id", verifyToken, verifyAdmin, updateRole);
 
@@ -62,12 +65,7 @@ router.post("/impersonate", verifyToken, verifyAdmin, impersonated);
 
 router.post("/exit-impersonation", verifyToken, exitImpersonation);
 
-router.put(
-  "/change-by-admin",
-  verifyToken,
-  verifyAdmin,
-  changePassByAdmin,
-);
+router.put("/change-by-admin", verifyToken, verifyAdmin, changePassByAdmin);
 
 router.post("/forgot", forgot);
 

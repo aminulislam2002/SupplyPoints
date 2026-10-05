@@ -4,11 +4,33 @@ import Swal from "sweetalert2";
 import useAuth from "../../../../hooks/useAuth/useAuth";
 import Loader from "../../../../components/Loader/Loader";
 import usePlatform from "../../../../hooks/usePlatform/usePlatform";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure/useAxiosSecure";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { FaUser } from "react-icons/fa6";
 
 const MyRefer = () => {
   const { user, isUserPending } = useAuth();
   const { platform, isPlatformPending } = usePlatform();
   const [copiedLink, setCopiedLink] = useState(false);
+  const axiosSecure = useAxiosSecure();
+
+  // Fetch all users
+  const {
+    isLoading,
+    isFetching,
+    data: myReferrals = [], // Default to an empty array
+    isPlaceholderData,
+  } = useQuery({
+    queryKey: ["myReferrals"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(
+        `/users/referrals/${user?.referralCode}`,
+        {},
+      );
+      return res?.data && res.data?.data;
+    },
+    placeholderData: keepPreviousData,
+  });
 
   // Generate referral link with user ID or referral code
   const referralCode =
@@ -44,7 +66,7 @@ const MyRefer = () => {
     }
   };
 
-  if (isUserPending || isPlatformPending) {
+  if (isUserPending || isPlatformPending || isLoading) {
     return <Loader />;
   }
 
@@ -95,6 +117,99 @@ const MyRefer = () => {
             <FaCopy size={14} />
             {copiedLink ? "Copied" : "Copy Link"}
           </button>
+        </div>
+      </div>
+
+      <div className="card p-5 sm:p-6 shadow-sm space-y-4">
+        <div className="flex items-center gap-2">
+          <FaShare className="text-primary-400" size={18} />
+          <h2 className="text-lg font-semibold">Referral Link</h2>
+        </div>
+
+        {/* User Table */}
+        <div className="overflow-x-auto">
+          <table className="table table-xs">
+            <thead className="bg-primary-950 ">
+              <tr className="h-10 text-sm text-nowrap font-normal text-center">
+                <th>#</th>
+                <th className="text-left">Profile</th>
+                <th>Status</th>
+                <th>Balance</th>
+                <th>Earnings</th>
+              </tr>
+            </thead>
+            <tbody>
+              {isFetching && isPlaceholderData ? (
+                <tr className="h-10 text-sm text-nowrap font-normal text-center border-b border-border-color">
+                  <td colSpan="5">Loading...</td>
+                </tr>
+              ) : myReferrals?.length === 0 ? (
+                <tr className="h-10 text-sm text-nowrap font-normal text-center border-b border-border-color">
+                  <td colSpan="5">No referrals found.</td>
+                </tr>
+              ) : (
+                myReferrals?.map((referral, index) => (
+                  <tr
+                    key={referral?._id}
+                    className="h-10 text-sm text-nowrap font-normal text-center border-b border-border-color"
+                  >
+                    <th>{index + 1}</th>
+                    <td>
+                      <div className="flex justify-start items-center gap-2.5">
+                        <div>
+                          {referral?.photo ? (
+                            <div className="w-12 h-12 mx-auto">
+                              <img
+                                src={
+                                  import.meta.env.VITE_IMAGE_URL +
+                                  referral?.photo
+                                }
+                                alt={referral?.name}
+                                className="w-full h-full rounded-full object-cover"
+                              />
+                            </div>
+                          ) : (
+                            <div className="w-12 h-12 mx-auto flex justify-center items-center bg-primary-950  rounded-full">
+                              <FaUser size={20} className="text-primary-600" />
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="text-start space-y-0.5">
+                          <p>{referral?.name}</p>
+                          <p className="text-xs">{referral?.identifier}</p>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td className="text-sm font-medium">
+                      <p
+                        className={
+                          user?.role === "User"
+                            ? "text-yellow-500"
+                            : user?.role === "Seller"
+                              ? "text-primary-500"
+                              : user?.role === "Blocked"
+                                ? "text-red-500"
+                                : ""
+                        }
+                      >
+                        {user?.role === "User"
+                          ? "Inactive"
+                          : user?.role === "Seller"
+                            ? "Active"
+                            : user?.role === "Blocked"
+                              ? "Blocked"
+                              : ""}
+                      </p>
+                    </td>
+                    <td>৳ {referral?.balance?.toFixed(2)}</td>
+                    <td>৳ {referral?.withdrawals?.toFixed(2)}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
 

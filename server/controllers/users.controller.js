@@ -23,6 +23,8 @@ const allUsers = async (req, res) => {
     query.$or = [
       { identifier: { $regex: new RegExp(searchQuery, "i") } },
       { name: { $regex: new RegExp(searchQuery, "i") } },
+      { referralCode: { $regex: new RegExp(searchQuery, "i") } },
+      { referredBy: { $regex: new RegExp(searchQuery, "i") } },
     ];
   }
 
@@ -129,6 +131,23 @@ const getUserStatus = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({ message: "Internal Server Error", error });
+  }
+};
+
+// Get my referral users
+const getMyReferrals = async (req, res) => {
+  const { referralCode } = req.params;
+
+  try {
+    const referralUsers = await users
+      .find({ referredBy: referralCode })
+      .select("-password -securityAnswer")
+      .lean();
+
+    return res.status(200).json({ data: referralUsers });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "সার্ভার সমস্যা হয়েছে!" });
   }
 };
 
@@ -439,6 +458,7 @@ module.exports = {
   getUserById,
   getUserRole,
   getUserStatus,
+  getMyReferrals,
   updateRole,
   updateBalance,
   updateStatus,

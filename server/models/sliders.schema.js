@@ -3,7 +3,8 @@ const { Schema } = mongoose;
 
 const slidersSchema = new Schema({
   image: { type: String, required: true },
-  link: { type: String, required: false },
+  position: { type: String },
+  link: { type: String },
   addedAt: { type: Date, default: Date.now },
 });
 
