@@ -1,19 +1,20 @@
 import { useContext, useState, useEffect } from "react";
 import {
-  FiMenu,
-  FiX,
-  FiShoppingCart,
-  FiSearch,
-  FiSun,
-  FiMoon,
-} from "react-icons/fi";
+  HiOutlineMenuAlt3,
+  HiOutlineX,
+  HiOutlineShoppingBag,
+  HiOutlineSearch,
+  HiOutlineSun,
+  HiOutlineMoon,
+  HiOutlineUser,
+  HiOutlinePhone,
+  HiOutlineMail,
+  HiOutlineChevronDown,
+  HiOutlineLogout,
+} from "react-icons/hi";
 import { Link, useLocation } from "react-router";
 import useAuth from "../../../hooks/useAuth/useAuth";
-import { IoCallOutline } from "react-icons/io5";
 import Loader from "../../../components/Loader/Loader";
-import { CgLogOut } from "react-icons/cg";
-import { FaRegUser, FaChevronDown } from "react-icons/fa6";
-import { MdOutlineEmail } from "react-icons/md";
 import useRole from "../../../hooks/useRole/useRole";
 import { CartContext } from "../../../providers/CartProvider/CartProvider";
 import usePlatform from "../../../hooks/usePlatform/usePlatform";
@@ -65,11 +66,6 @@ const Navbar = () => {
     refetchOnWindowFocus: true,
   });
 
-  // const handleSearch = (e) => {
-  //   e.preventDefault();
-  //   console.log(e);
-  // };
-
   const navLinks = [
     { name: "হোম", path: "/" },
     { name: "রিসেলিং প্রোডাক্ট", path: "/reselling" },
@@ -88,184 +84,201 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Top Bar */}
+      {/* International Style Top Bar with Marquee */}
       <div
-        className={`block w-full fixed top-0 left-0 right-0 z-50 bg-secondary-950 text-secondary-200 transition-all duration-300 ${
+        className={`w-full fixed top-0 left-0 right-0 z-50 bg-secondary-900 text-secondary-200 border-b border-border-color transition-all duration-300 ${
           scrolled ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
         }`}
       >
-        <div className="container mx-auto px-5">
-          <div className="flex h-10 items-center justify-between text-[11px]">
-            <div className="flex items-center gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex h-10 items-center justify-between gap-4 text-xs">
+            {/* Contact Info (Left) */}
+            <div className="hidden md:flex items-center gap-6 text-secondary-300">
               <Link
                 to={`tel:${platform?.phoneNumber || "+8801700000000"}`}
-                className="flex items-center gap-2 transition-colors hover:text-primary-300"
+                className="flex items-center gap-2 hover:text-white transition-colors"
               >
-                <IoCallOutline size={16} />{" "}
-                {platform?.phoneNumber || "+8801700000000"}
+                <HiOutlinePhone className="text-primary-400" size={14} />
+                <span>{platform?.phoneNumber || "+8801700000000"}</span>
               </Link>
               <Link
                 to={`mailto:${platform?.emailAddress || "info@yourdomain.com"}`}
-                className="hidden items-center gap-2 transition-colors hover:text-primary-300 lg:flex"
+                className="flex items-center gap-2 hover:text-white transition-colors"
               >
-                <MdOutlineEmail size={16} />{" "}
-                {platform?.emailAddress || "info@yourdomain.com"}
+                <HiOutlineMail className="text-primary-400" size={14} />
+                <span>{platform?.emailAddress || "info@yourdomain.com"}</span>
               </Link>
             </div>
-            <div className="flex items-center gap-4 font-semibold">
-              <span className="hidden text-secondary-400 sm:inline">
-                Grow smarter with Supply Points
-              </span>
+
+            {/* Center Marquee */}
+            <div className="flex-1 overflow-hidden px-2">
+              <marquee className="pt-1.5 pb-0.5 text-sm md:text-base font-semibold tracking-wide text-primary-300">
+                {platform?.marqueeText ||
+                  "Welcome to Supply Points - Global Standard Digital Marketplace & Reselling Platform"}
+              </marquee>
+            </div>
+
+            {/* Right Links */}
+            <div className="hidden sm:flex items-center gap-4 font-medium text-secondary-300">
               <Link
                 to="/support"
-                className="transition-colors hover:text-primary-300"
+                className="hover:text-white transition-colors"
               >
-                Support
+                Help Center
               </Link>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Main Navbar */}
+      {/* Modern International Header */}
       <header
-        className={`fixed left-0 right-0 z-50 border-b border-border-color/80 bg-section-bg/95 transition-all duration-300 ${
-          scrolled ? "top-0 shadow-lg backdrop-blur-md" : "top-10 shadow-sm"
+        className={`fixed left-0 right-0 z-50 bg-card-bg/80 backdrop-blur-xl border-b border-border-color transition-all duration-300 ${
+          scrolled ? "top-0 shadow-md" : "top-10 shadow-sm"
         }`}
       >
-        <style>{`body { padding-top: ${scrolled ? "64px" : "104px"}; }`}</style>
-        <div className="container mx-auto px-5">
-          <div className="flex min-h-18 items-center justify-between gap-4">
-            {/* Logo */}
+        <style>{`body { padding-top: ${scrolled ? "72px" : "112px"}; }`}</style>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-18 gap-6">
+            {/* Global Branding / Logo Part */}
             <Link
               to="/"
-              onClick={() => {
-                closeSearch();
-              }}
-              className="group flex items-center gap-2.5"
+              onClick={closeSearch}
+              className="flex items-center gap-3 group focus:outline-none"
             >
-              <div className="relative overflow-hidden rounded-xl border border-primary-200 bg-primary-50 shadow-sm dark:border-primary-900 dark:bg-primary-950">
+              <div className="relative w-10 h-10 rounded-xl overflow-hidden shadow-md ring-2 ring-primary-500/20 group-hover:ring-primary-500 transition-all duration-300">
                 <img
                   src={logo}
-                  className="h-11 w-11 object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                   alt="Supply Points Logo"
                 />
               </div>
-              <div>
-                <h1 className="text-base font-extrabold uppercase tracking-tight text-primary-700 transition-colors duration-300 dark:text-primary-400 md:text-lg lg:text-xl">
-                  Supply Points
-                </h1>
-                <p className="hidden sm:block text-[10px] text-text-muted tracking-wide">
-                  Your Shopping Paradise
-                </p>
+              <div className="flex flex-col">
+                <h2 className="text-xl font-black tracking-tight text-text-primary transition-colors duration-300 group-hover:text-primary-500">
+                  Supply<span className="text-primary-500">Points</span>
+                </h2>
+                <span className="text-[10px] uppercase tracking-widest text-text-secondary font-semibold mt-1">
+                  Global Hub
+                </span>
               </div>
             </Link>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden items-center gap-1 rounded-xl border border-border-color bg-card-bg p-1 shadow-sm lg:flex">
-              {navLinks.map((link, index) => (
-                <Link
-                  key={index}
-                  to={link.path}
-                  onClick={closeSearch}
-                  className={`group relative rounded-lg px-3.5 py-2.5 text-sm font-semibold transition-colors duration-300 ${
-                    location.pathname === link.path
-                      ? "bg-primary-50 text-primary-700 dark:bg-primary-950 dark:text-primary-300"
-                      : "text-text-secondary hover:bg-primary-50 hover:text-primary-700 dark:hover:bg-primary-950 dark:hover:text-primary-300"
-                  }`}
-                >
-                  {link.name}
-                  <span className={`absolute bottom-1 left-3.5 right-3.5 h-0.5 origin-left bg-primary-600 transition-transform duration-300 ${
-                    location.pathname === link.path
-                      ? "scale-x-100"
-                      : "scale-x-0 group-hover:scale-x-100"
-                  }`}></span>
-                </Link>
-              ))}
+            {/* Navigation Items Part (Pill Style Container) */}
+            <nav className="hidden lg:flex items-center gap-1 bg-secondary-100/80 dark:bg-secondary-800/60 p-1.5 rounded-full border border-border-color shadow-inner">
+              {navLinks.map((link, index) => {
+                const isActive = location.pathname === link.path;
+                return (
+                  <Link
+                    key={index}
+                    to={link.path}
+                    onClick={closeSearch}
+                    className={`relative px-5 py-2 text-sm font-medium rounded-full transition-all duration-300 ${
+                      isActive
+                        ? "bg-card-bg text-primary-600 shadow-sm font-semibold"
+                        : "text-text-secondary hover:text-text-primary hover:bg-card-bg/50"
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                );
+              })}
             </nav>
 
-            {/* Right Side Actions */}
-            <div className="flex items-center gap-2 lg:gap-3">
+            {/* Action Buttons & Profile Part */}
+            <div className="flex items-center gap-3">
+              {/* Theme Toggle */}
               <button
                 type="button"
                 onClick={toggleTheme}
-                aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-                title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-                className="hidden items-center gap-2 rounded-lg border border-border-color bg-card-bg px-2.5 py-2 text-xs font-semibold text-text-secondary transition-colors hover:border-primary-400 hover:text-primary-700 dark:hover:text-primary-300 sm:inline-flex"
+                aria-label="Toggle theme"
+                className="w-10 h-10 rounded-full flex items-center justify-center text-text-secondary hover:bg-secondary-100 dark:hover:bg-secondary-800  transition-colors border border-border-color cursor-pointer"
               >
                 {theme === "dark" ? (
-                  <FiSun size={16} className="text-primary-400" />
+                  <HiOutlineSun size={18} className="text-amber-400" />
                 ) : (
-                  <FiMoon size={16} className="text-primary-600" />
+                  <HiOutlineMoon size={18} className="text-text-primary" />
                 )}
               </button>
-              {/* Search Button */}
+
+              {/* Search Toggle Button */}
               <button
                 onClick={() => setSearchOpen(!searchOpen)}
-                className="btn-icon rounded-lg border border-transparent transition-colors duration-300 hover:border-border-color hover:bg-primary-50 dark:hover:bg-primary-950"
+                className="w-10 h-10 rounded-full flex items-center justify-center text-text-secondary hover:bg-secondary-100 dark:hover:bg-secondary-800  transition-colors border border-border-color cursor-pointer"
                 aria-label="Search"
               >
-                {searchOpen ? <FiX size={20} /> : <FiSearch size={20} />}
+                {searchOpen ? (
+                  <HiOutlineX size={20} />
+                ) : (
+                  <HiOutlineSearch size={20} />
+                )}
               </button>
 
-              {/* Cart */}
+              {/* Shopping Cart Button */}
               <Link
                 to="/cart"
-                className="btn-icon relative hidden rounded-lg border border-transparent transition-colors duration-300 hover:border-border-color hover:bg-primary-50 dark:hover:bg-primary-950 lg:flex"
-                aria-label="Shopping cart"
+                className="relative w-10 h-10 rounded-full hidden sm:flex items-center justify-center text-text-secondary hover:bg-secondary-100 dark:hover:bg-secondary-800  transition-colors border border-border-color"
+                aria-label="Shopping Cart"
               >
-                <FiShoppingCart size={20} />
-                <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary-700 px-1 text-[10px] font-bold text-white">
-                  {cartData?.length || 0}
-                </span>
+                <HiOutlineShoppingBag size={20} />
+                {cartData?.length > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-primary-600 text-white rounded-full text-[10px] font-bold flex items-center justify-center shadow-sm">
+                    {cartData.length}
+                  </span>
+                )}
               </Link>
 
-              {/* User Menu */}
+              {/* User Dropdown / Authentication */}
               {user ? (
-                <div className="hidden lg:block relative group">
-                  <button className="flex items-center gap-2 rounded-lg border border-transparent px-2 py-2 hover:border-border-color hover:bg-primary-50 dark:hover:bg-primary-950 transition-colors duration-300">
-                    <div className="w-8 h-8 rounded-full bg-linear-to-br from-primary-700 to-primary-800 flex items-center justify-center text-primary-50 text-sm font-semibold">
+                <div className="relative group hidden lg:block">
+                  <button className="flex items-center gap-2.5 pl-2 pr-3 py-1.5 rounded-full border border-border-color bg-card-bg hover:shadow-sm transition-all duration-300">
+                    <div className="w-8 h-8 rounded-full bg-linear-to-tr from-primary-600 to-primary-500 text-white flex items-center justify-center text-sm font-semibold shadow-sm">
                       {user?.name?.charAt(0).toUpperCase()}
                     </div>
-                    <span className="text-sm font-medium">
+                    <span className="text-sm font-medium text-text-primary">
                       {user?.name?.split(" ")[0]}
                     </span>
-                    <FaChevronDown className="text-xs text-primary-600" />
+                    <HiOutlineChevronDown
+                      size={14}
+                      className="text-text-secondary group-hover:rotate-180 transition-transform duration-300"
+                    />
                   </button>
 
-                  {/* Dropdown */}
-                  <div className="invisible absolute right-0 top-full z-50 mt-2 w-60 origin-top-right rounded-xl border border-border-color bg-card-bg p-1.5 text-text-primary opacity-0 shadow-xl shadow-slate-900/10 transition-all duration-200 group-hover:visible group-hover:opacity-100 dark:shadow-black/30">
-                    <div className="border-b border-border-color px-3 py-3">
-                      <p className="truncate text-sm font-semibold">
-                        {user?.name}
-                      </p>
-                      <p className="mt-0.5 truncate text-xs text-text-muted">
-                        {user?.identifier}
-                      </p>
-                    </div>
-                    <div className="space-y-1 p-1.5">
-                      <Link
-                        to={
-                          isAdmin
-                            ? "/dashboard/admin/overview"
-                            : isSeller || isUser
-                              ? "/dashboard/seller/overview"
-                              : isBlocked
-                                ? "/support"
-                                : "/"
-                        }
-                        className="flex min-h-10 items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-text-secondary transition-colors duration-200 hover:bg-primary-50 hover:text-primary-700 dark:hover:bg-primary-950 dark:hover:text-primary-300"
-                      >
-                        <FaRegUser size={16} />
-                        <span>Profile</span>
-                      </Link>
-                      <button
-                        onClick={loggedOut}
-                        className="flex min-h-10 w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm font-medium text-danger transition-colors duration-200 hover:bg-red-50 dark:hover:bg-red-950/30"
-                      >
-                        <CgLogOut size={18} />
-                        <span>Logout</span>
-                      </button>
+                  {/* Dropdown Menu */}
+                  <div className="absolute right-0 top-full pt-2 w-56 opacity-0 translate-y-2 invisible group-hover:opacity-100 group-hover:translate-y-0 group-hover:visible transition-all duration-200 z-50">
+                    <div className="bg-card-bg rounded-2xl shadow-xl border border-border-color p-2 overflow-hidden backdrop-blur-xl">
+                      <div className="px-3 py-3 border-b border-border-color">
+                        <p className="text-sm font-semibold text-text-primary truncate">
+                          {user?.name}
+                        </p>
+                        <p className="text-xs text-text-secondary truncate mt-0.5">
+                          {user?.identifier}
+                        </p>
+                      </div>
+                      <div className="py-1">
+                        <Link
+                          to={
+                            isAdmin
+                              ? "/dashboard/admin/overview"
+                              : isSeller || isUser
+                                ? "/dashboard/seller/overview"
+                                : isBlocked
+                                  ? "/support"
+                                  : "/"
+                          }
+                          className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-text-secondary rounded-xl hover:bg-primary-50 dark:hover:bg-secondary-800 hover:text-primary-600 transition-colors"
+                        >
+                          <HiOutlineUser size={18} />
+                          <span>প্রোফাইল</span>
+                        </Link>
+                        <button
+                          onClick={loggedOut}
+                          className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-danger rounded-xl hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
+                        >
+                          <HiOutlineLogout size={18} />
+                          <span>লগ আউট</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -273,76 +286,79 @@ const Navbar = () => {
                 <div className="hidden lg:flex items-center gap-2">
                   <Link
                     to="/auth/sign-in"
-                    className="px-4 py-3 text-sm font-medium hover:text-primary-500 transition-colors duration-300"
+                    className="px-4 py-2 text-sm font-semibold text-text-secondary hover:text-primary-600 transition-colors"
                   >
-                    Sign In
+                    সাইন-ইন
                   </Link>
                   <Link
                     to="/auth/sign-up"
-                    className="rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-semibold text-primary-50 shadow-sm transition-all duration-300 hover:bg-primary-700"
+                    className="px-5 py-2 text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 rounded-full shadow-md shadow-primary-600/20 hover:shadow-lg hover:shadow-primary-600/30 transition-all duration-300"
                   >
-                    Sign Up
+                    শুরু করুন
                   </Link>
                 </div>
               )}
 
-              {/* Mobile Menu Button */}
+              {/* Mobile Menu Trigger */}
               <button
                 onClick={() => {
-                  if (searchOpen) {
-                    closeSearch();
-                  }
+                  if (searchOpen) closeSearch();
                   setOpen(!open);
                 }}
-                className="btn-icon lg:hidden"
-                aria-label="Toggle menu"
+                className="w-10 h-10 rounded-full flex items-center justify-center text-text-primary hover:bg-secondary-100 dark:hover:bg-secondary-800 transition-colors border border-border-color lg:hidden cursor-pointer"
+                aria-label="Toggle Menu"
               >
-                {open ? <FiX size={24} /> : <FiMenu size={24} />}
+                {open ? (
+                  <HiOutlineX size={22} />
+                ) : (
+                  <HiOutlineMenuAlt3 size={22} />
+                )}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Search Bar Overlay */}
+        {/* Search Overlay Panel */}
         {searchOpen && (
-          <div className="border-t border-border-color bg-section-bg shadow-xl">
-            <div className="container mx-auto h-[calc(100vh-64px)] overflow-y-auto px-5 py-5">
-              <form
-                // onSubmit={handleSearch}
-                className="mx-auto max-w-2xl"
-              >
-                <div className="relative rounded-xl border border-border-color bg-card-bg shadow-sm">
-                  <FiSearch
-                    className="absolute left-4 top-1/2 -translate-y-1/2"
-                    size={20}
-                  />
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search products..."
-                    className="control w-full border-0 bg-transparent py-3 pl-12 pr-4"
-                    autoFocus
-                  />
-                </div>
+          <div className="absolute top-full left-0 right-0 bg-card-bg/95 backdrop-blur-2xl border-b border-border-color shadow-2xl transition-all duration-300">
+            <div className="max-w-3xl mx-auto px-4 py-6">
+              <form onSubmit={(e) => e.preventDefault()} className="relative">
+                <HiOutlineSearch
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-text-secondary"
+                  size={22}
+                />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="টাইটেল, কোড বা ক্যাটাগরি অনুযায়ী পণ্য খুঁজুন..."
+                  className="w-full bg-secondary-100 border border-border-color rounded-2xl py-4 pl-12 pr-12 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary-500 text-base"
+                  autoFocus
+                />
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery("")}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-text-secondary hover:text-text-primary"
+                  >
+                    <HiOutlineX size={18} />
+                  </button>
+                )}
               </form>
 
-              {isProductLoading ? (
-                <div className="flex justify-center items-center mt-5">
-                  <p className="text-sm">Loading products...</p>
-                </div>
-              ) : isProductFetching ? (
-                <div className="flex justify-center items-center mt-5">
-                  <p className="text-sm">Fetching products...</p>
-                </div>
-              ) : productData && productData.length > 0 ? (
-                <div className="mx-auto mt-5 max-w-2xl space-y-2">
-                  {productData.map((product) => (
+              {/* Search Results Container */}
+              <div className="mt-4 max-h-[60vh] overflow-y-auto space-y-2">
+                {isProductLoading || isProductFetching ? (
+                  <div className="text-center py-8 text-text-secondary">
+                    পণ্যগুলি খুঁজে বার হচ্ছে...
+                  </div>
+                ) : productData && productData.length > 0 ? (
+                  productData.map((product) => (
                     <Link
                       key={product?._id}
                       to={`/products/${product?._id}`}
                       onClick={closeSearch}
-                      className="flex w-full items-center gap-3 overflow-hidden rounded-xl border border-border-color bg-card-bg p-2 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-primary-300 hover:shadow-md"
+                      className="flex items-center gap-4 p-3 rounded-2xl bg-secondary-50 dark:bg-secondary-800/50 hover:bg-primary-50/50 border border-border-color transition-all group"
                     >
                       <img
                         src={
@@ -350,140 +366,137 @@ const Navbar = () => {
                           logo
                         }
                         alt={product?.title}
-                        className="h-14 w-14 rounded-lg object-cover"
+                        className="w-14 h-14 rounded-xl object-cover shadow-sm"
                       />
-                      <div className="min-w-0 p-2">
-                        <h3 className="text-sm font-medium line-clamp-1">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-text-primary truncate group-hover:text-primary-600 transition-colors">
                           {product?.title}
-                        </h3>
-                        <div className="flex justify-between items-center">
-                          <p className="mt-1 text-xs text-text-muted">
-                            দাম: {product?.price?.toFixed(2)}
-                          </p>
-                          <p className="mt-1 text-xs text-text-muted">
-                            Code: {product?.productCode}
-                          </p>
+                        </h4>
+                        <div className="flex items-center gap-4 mt-1 text-xs text-text-secondary">
+                          <span className="font-semibold text-primary-600">
+                            ৳ {product?.price?.toFixed(2)}
+                          </span>
+                          <span>Code: {product?.productCode}</span>
                         </div>
                       </div>
                     </Link>
-                  ))}
-                </div>
-              ) : (
-                <div className="flex justify-center items-center mt-6">
-                  <p className="text-sm">No products found</p>
-                </div>
-              )}
+                  ))
+                ) : searchQuery ? (
+                  <div className="text-center py-8 text-text-secondary">
+                    কোনো পণ্য পাওয়া যায়নি &quot;{searchQuery}&quot;
+                  </div>
+                ) : null}
+              </div>
             </div>
           </div>
         )}
 
-        {/* Mobile Menu */}
+        {/* Mobile Navigation Drawer */}
         {open && (
-          <div className="border-t border-border-color bg-section-bg lg:hidden">
-            <div className="container mx-auto space-y-1 px-5 py-5">
-              {/* Mobile Navigation */}
-              {navLinks.map((link, index) => (
-                <Link
-                  key={index}
-                  to={link.path}
-                  onClick={() => {
-                    setSearchOpen(false);
-                    setSearchQuery("");
-                    setOpen(false);
-                  }}
-                  className="block rounded-lg px-4 py-3 text-sm font-medium text-text-secondary transition-colors duration-200 hover:bg-primary-50 hover:text-primary-700 dark:hover:bg-primary-950 dark:hover:text-primary-300"
-                >
-                  {link.name}
-                </Link>
-              ))}
+          <div className="absolute top-full left-0 right-0 bg-card-bg border-b border-border-color shadow-2xl lg:hidden">
+            <div className="max-w-7xl mx-auto px-4 py-6 space-y-4">
+              {/* Nav links */}
+              <div className="space-y-1">
+                {navLinks.map((link, index) => (
+                  <Link
+                    key={index}
+                    to={link.path}
+                    onClick={() => {
+                      setSearchOpen(false);
+                      setSearchQuery("");
+                      setOpen(false);
+                    }}
+                    className={`block px-4 py-3 rounded-xl text-base font-medium transition-colors ${
+                      location.pathname === link.path
+                        ? "bg-primary-50 dark:bg-primary-950/50 text-primary-600 font-semibold"
+                        : "text-text-secondary hover:bg-secondary-100 dark:hover:bg-secondary-800 "
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+              </div>
 
-              {/* Wishlist & Cart */}
-              <div className="pt-4 mt-4 border-t border-border-color space-y-2">
-                <button
-                  type="button"
-                  onClick={toggleTheme}
-                  className="flex w-full items-center gap-3 rounded-md px-4 py-3 text-left transition-colors hover:bg-primary-50 dark:hover:bg-primary-950"
-                  aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-                >
-                  {theme === "dark" ? (
-                    <FiSun size={18} />
-                  ) : (
-                    <FiMoon size={18} />
-                  )}
-                  {theme === "dark" ? "Light mode" : "Dark mode"}
-                </button>
+              {/* Cart link for mobile */}
+              <div className="pt-4 border-t border-border-color">
                 <Link
                   to="/cart"
                   onClick={() => setOpen(false)}
-                  className="flex items-center justify-between rounded-lg px-4 py-3 text-sm font-medium text-text-secondary transition-colors duration-200 hover:bg-primary-50 hover:text-primary-700 dark:hover:bg-primary-950 dark:hover:text-primary-300"
+                  className="flex items-center justify-between px-4 py-3 rounded-xl text-base font-medium text-text-secondary hover:bg-secondary-100 dark:hover:bg-secondary-800"
                 >
                   <span className="flex items-center gap-3">
-                    <FiShoppingCart size={18} />
-                    Cart
+                    <HiOutlineShoppingBag size={20} />
+                    কার্ট আইটেম
                   </span>
-                  <span className="text-xs bg-primary-950  px-2 py-0.5 rounded-full">
+                  <span className="px-2.5 py-0.5 bg-primary-600 text-white text-xs font-bold rounded-full">
                     {cartData?.length || 0}
                   </span>
                 </Link>
               </div>
 
-              {/* User Menu */}
-              {user ? (
-                <div className="pt-4 mt-4 border-t border-border-color space-y-2">
-                  <div className="px-4 py-3 flex justify-start items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-full bg-linear-to-br from-primary-700 to-primary-800 flex items-center justify-center text-primary-50 text-sm font-semibold">
-                      {user?.name?.charAt(0).toUpperCase()}
+              {/* User authentication / profile menu for mobile */}
+              <div className="pt-4 border-t border-border-color">
+                {user ? (
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-3 px-4 py-2">
+                      <div className="w-10 h-10 rounded-full bg-linear-to-tr from-primary-600 to-primary-500 text-white flex items-center justify-center font-bold">
+                        {user?.name?.charAt(0).toUpperCase()}
+                      </div>
+                      <div>
+                        <p className="font-semibold text-text-primary">
+                          {user?.name}
+                        </p>
+                        <p className="text-xs text-text-secondary">
+                          {user?.identifier}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-sm font-semibold">{user?.name}</p>
-                      <p className="text-xs">{user?.identifier}</p>
-                    </div>
+                    <Link
+                      to={
+                        isAdmin
+                          ? "/dashboard/admin/overview"
+                          : isSeller || isUser
+                            ? "/dashboard/seller/overview"
+                            : isBlocked
+                              ? "/support"
+                              : "/"
+                      }
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-3 px-4 py-3 rounded-xl text-text-secondary hover:bg-secondary-100 dark:hover:bg-secondary-800 font-medium"
+                    >
+                      <HiOutlineUser size={18} />
+                      প্রোফাইল
+                    </Link>
+                    <button
+                      onClick={() => {
+                        loggedOut();
+                        setOpen(false);
+                      }}
+                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-danger hover:bg-red-50 dark:hover:bg-red-950/30 font-medium text-left"
+                    >
+                      <HiOutlineLogout size={18} />
+                      লগ আউট
+                    </button>
                   </div>
-                  <Link
-                    to={
-                      isAdmin
-                        ? "/dashboard/admin/overview"
-                        : isSeller || isUser
-                          ? "/dashboard/seller/overview"
-                          : isBlocked
-                            ? "/support"
-                            : "/"
-                    }
-                    onClick={() => setOpen(false)}
-                    className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-text-secondary transition-colors duration-200 hover:bg-primary-50 hover:text-primary-700 dark:hover:bg-primary-950 dark:hover:text-primary-300"
-                  >
-                    <FaRegUser size={16} />
-                    Profile
-                  </Link>
-                  <button
-                    onClick={() => {
-                      loggedOut();
-                      setOpen(false);
-                    }}
-                    className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left text-sm font-medium text-danger transition-colors duration-200 hover:bg-red-50 dark:hover:bg-red-950/30"
-                  >
-                    <CgLogOut size={18} />
-                    Logout
-                  </button>
-                </div>
-              ) : (
-                <div className="pt-4 mt-4 border-t border-border-color space-y-2">
-                  <Link
-                    to="/auth/sign-in"
-                    onClick={() => setOpen(false)}
-                    className="block px-4 py-3 text-center rounded-md hover:bg-primary-100  transition-colors duration-300"
-                  >
-                    Sign In
-                  </Link>
-                  <Link
-                    to="/auth/sign-up"
-                    onClick={() => setOpen(false)}
-                    className="block px-4 py-3 text-center rounded-md text-primary-50 bg-linear-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 transition-all duration-300"
-                  >
-                    Sign Up
-                  </Link>
-                </div>
-              )}
+                ) : (
+                  <div className="grid grid-cols-2 gap-3 pt-2">
+                    <Link
+                      to="/auth/sign-in"
+                      onClick={() => setOpen(false)}
+                      className="w-full py-3 text-center text-sm font-semibold rounded-xl border border-border-color text-text-secondary hover:bg-secondary-100 dark:hover:bg-secondary-800  transition-colors"
+                    >
+                      সাইন-ইন
+                    </Link>
+                    <Link
+                      to="/auth/sign-up"
+                      onClick={() => setOpen(false)}
+                      className="w-full py-3 text-center text-sm font-semibold rounded-xl text-white bg-primary-600 hover:bg-primary-700 shadow-md transition-colors"
+                    >
+                      শুরু করুন
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         )}

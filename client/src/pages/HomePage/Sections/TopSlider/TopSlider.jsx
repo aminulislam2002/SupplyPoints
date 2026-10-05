@@ -75,10 +75,7 @@ const TopSlider = () => {
   }
 
   return (
-    <div className="w-full h-full relative">
-      {/* Marquee Text */}
-      <marquee className="pt-1.5 pb-0.5 text-lg font-semibold">{platform?.marqueeText}</marquee>
-
+    <div className="container mx-auto px-4 py-5 lg:py-10">
       {/* Slider */}
       <div className="navigation-wrapper">
         {sliders?.length > 0 ? (
@@ -101,7 +98,7 @@ const TopSlider = () => {
                     src={import.meta.env.VITE_IMAGE_URL + slider?.image}
                     effect="blur"
                     alt={`Slider Image ${slider?._id}`}
-                    className="w-full object-cover bg-center slider-image"
+                    className="w-full h-full object-cover bg-center slider-image rounded-2xl"
                   />
                 </motion.div>
                 <div></div>
@@ -181,4 +178,3 @@ function Arrow(props) {
     </svg>
   );
 }
-
