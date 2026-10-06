@@ -16,9 +16,21 @@ const storage = multer.diskStorage({
       cb(null, "images/categories");
     } else if (req.path.includes("/update-sub-category")) {
       cb(null, "images/categories");
-    } else if (req.path.includes("/add-category")) {
+    } else if (
+      req.baseUrl.includes("/categories") &&
+      (req.path.includes("/add-category") ||
+        req.path.includes("/update-category"))
+    ) {
+      cb(null, "images/categories");
+    } else if (
+      req.baseUrl.includes("/promotion-categories") &&
+      req.path.includes("/add-category")
+    ) {
       cb(null, "images/promotions");
-    } else if (req.path.includes("/update-category")) {
+    } else if (
+      req.baseUrl.includes("/promotion-categories") &&
+      req.path.includes("/update-category")
+    ) {
       cb(null, "images/promotions");
     } else if (req.path.includes("/add-pack")) {
       cb(null, "images/promotions");

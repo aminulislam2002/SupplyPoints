@@ -164,7 +164,7 @@ const AllSubCategory = () => {
                         ></FaRegEdit>
                       </button>
 
-                      <button
+                      {/* <button
                         title="Delete"
                         onClick={() => handleDeleteCategory(category?._id)}
                         className="btn-icon h-9 w-9 rounded-full border-danger/20 hover:bg-red-50"
@@ -173,7 +173,7 @@ const AllSubCategory = () => {
                           className="text-red-500"
                           size={18}
                         ></RiDeleteBin6Line>
-                      </button>
+                      </button> */}
                     </div>
                   </td>
                 </tr>

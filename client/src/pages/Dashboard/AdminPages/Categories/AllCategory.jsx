@@ -112,6 +112,7 @@ const AllCategory = () => {
           <thead className="bg-section-bg">
             <tr className="h-10 text-sm text-nowrap font-normal text-center">
               <th>#</th>
+              <th>Image</th>
               <th>Category</th>
               <th>Action</th>
             </tr>
@@ -119,11 +120,11 @@ const AllCategory = () => {
           <tbody>
             {isFetching && isPlaceholderData ? (
               <tr className="h-10 text-base text-nowrap font-normal text-center border-b border-border-color">
-                <td colSpan="3">Loading...</td>
+                <td colSpan="4">Loading...</td>
               </tr>
             ) : allCategory?.length === 0 ? (
               <tr className="h-10 text-base text-nowrap font-normal text-center border-b border-border-color">
-                <td colSpan="3">No categories found.</td>
+                <td colSpan="4">No categories found.</td>
               </tr>
             ) : (
               allCategory?.map((category, index) => (
@@ -132,6 +133,17 @@ const AllCategory = () => {
                   className="h-10 text-base text-nowrap font-normal text-center border-b border-border-color"
                 >
                   <th>{index + 1}</th>
+
+                  <td>
+                    <div className="relative w-full h-full overflow-hidden">
+                      <LazyLoadImage
+                        src={import.meta.env.VITE_IMAGE_URL + category?.image}
+                        alt={category?.name}
+                        effect="blur"
+                        className="w-20 h-20 object-cover rounded-md"
+                      />
+                    </div>
+                  </td>
 
                   <td>
                     {category?.name} - (
@@ -153,7 +165,7 @@ const AllCategory = () => {
                         ></FaRegEdit>
                       </button>
 
-                      <button
+                      {/* <button
                         title="Delete"
                         onClick={() => handleDeleteCategory(category?._id)}
                         className="btn-icon h-9 w-9 rounded-full border-danger/20 hover:bg-red-50"
@@ -162,7 +174,7 @@ const AllCategory = () => {
                           className="text-red-500"
                           size={18}
                         ></RiDeleteBin6Line>
-                      </button>
+                      </button> */}
                     </div>
                   </td>
                 </tr>

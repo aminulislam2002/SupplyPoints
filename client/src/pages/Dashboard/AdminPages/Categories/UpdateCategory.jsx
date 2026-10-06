@@ -19,6 +19,7 @@ const UpdateCategory = ({
   const [isLoading, setIsLoading] = useState(false);
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
+  const [selectedImage, setSelectedImage] = useState(null);
 
   // Get a specific category by id
   const { isPending: isCategoryLoading, data: category = {} } = useQuery({
@@ -40,18 +41,37 @@ const UpdateCategory = ({
 
   setValue("name", category?.name || "");
 
+  const imageChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setSelectedImage(e.target.files[0]);
+    }
+  };
+
+  const removeSelectedImage = () => {
+    setSelectedImage(null);
+  };
+
   // Update Category
   const onSubmit = async (data) => {
     setIsLoading(true);
+    const formData = new FormData();
+    formData.append("image", selectedImage);
+
+    for (const key in data) {
+      if (key !== "image") {
+        formData.append(key, data[key]);
+      }
+    }
 
     try {
       const res = await axiosSecure.put(
         `/categories/update-category/${category?._id}`,
-        data,
+        formData,
       );
 
       refetch();
       reset();
+      setSelectedImage(null);
       setIsUpdateCategory(false);
       setCategoryId(null);
       await modal.close();
@@ -75,6 +95,7 @@ const UpdateCategory = ({
   // Update Category Modal Close
   const handleCloseUpdateCategory = () => {
     reset();
+    setSelectedImage(null);
     setIsUpdateCategory(false);
     setCategoryId(null);
     modal.close();
@@ -91,6 +112,62 @@ const UpdateCategory = ({
       </h3>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 py-2.5">
+        <div className="relative w-full h-full flex flex-col">
+          <label
+            htmlFor="image"
+            className="text-base font-medium mb-1 lg:mb-1.5"
+          >
+            Category Image
+          </label>
+
+          <div className="flex flex-wrap justify-start items-center gap-5">
+            <label
+              htmlFor="image"
+              className="w-[125px] h-[125px] flex flex-col justify-center items-center gap-2.5 cursor-pointer border border-border-color border-dashed rounded-md"
+            >
+              <IoImageOutline size={20} />
+              <span className="text-[12px] font-normal text-primary-600 text-center">
+                Recommended Size (500px × 500px)
+              </span>
+              <input
+                {...register("image", { required: false })}
+                id="image"
+                type="file"
+                onChange={imageChange}
+                accept="image/jpg, image/jpeg, image/png, image/webp, image/gif"
+                style={{ display: "none" }}
+              />
+            </label>
+
+            {selectedImage ? (
+              <div className="mt-2 relative">
+                <img
+                  src={URL.createObjectURL(selectedImage)}
+                  alt="Selected"
+                  className="w-[125px] h-[125px] object-cover rounded"
+                />
+                <button
+                  type="button"
+                  onClick={removeSelectedImage}
+                  className="text-red-500 text-sm absolute top-1 right-1 cursor-pointer bg-primary-50 rounded-full p-1 hover:bg-primary-100 transition-colors duration-300"
+                >
+                  <MdDeleteForever size={20} />
+                </button>
+              </div>
+            ) : category?.image ? (
+              <div className="mt-2">
+                <img
+                  src={import.meta.env.VITE_IMAGE_URL + category.image}
+                  alt="Selected"
+                  className="w-[125px] h-[125px] object-cover rounded"
+                />
+              </div>
+            ) : (
+              <p>Please Select an Image</p>
+            )}
+          </div>
+        </div>
+
         <div className="relative w-full h-full flex flex-col">
           <label
             htmlFor="name"
