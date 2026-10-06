@@ -5,6 +5,7 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic/useAxiosPublic";
 import Loader from "../../../components/Loader/Loader";
 import ProductCard from "../ProductCard/ProductCard";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb";
 
 const ProductsByCategory = () => {
   const { category, subCategory } = useParams();
@@ -115,11 +116,19 @@ const ProductsByCategory = () => {
     return <Loader />;
   }
 
+  const breadcrumbItems = [
+    { label: "Home", link: "/" },
+    { label: "Categories", link: "/reselling" },
+    { label: subCategoryData?.name || "Sub-Category", active: true },
+  ];
+
   return (
-    <div
-      ref={productsRef}
-      className="container mx-auto px-3 sm:px-4 py-4 sm:py-8"
-    >
+    <div>
+      <Breadcrumb items={breadcrumbItems} />
+      <div
+        ref={productsRef}
+        className="container mx-auto px-3 py-4 sm:px-4 sm:py-8"
+      >
       {/* Top Header & Controls Bar */}
       <div className="flex flex-col lg:flex-row gap-2.5 justify-between items-center bg-card-bg border border-border-color p-2.5 lg:p-4 rounded-xl mb-5 shadow-xs">
         {/* Title & Item Info */}
@@ -265,6 +274,7 @@ const ProductsByCategory = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

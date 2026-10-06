@@ -75,7 +75,7 @@ const TopSlider = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-5 lg:py-10">
+    <div className="w-full py-5 lg:py-10">
       {/* Slider */}
       <div className="navigation-wrapper">
         {sliders?.length > 0 ? (
@@ -98,10 +98,9 @@ const TopSlider = () => {
                     src={import.meta.env.VITE_IMAGE_URL + slider?.image}
                     effect="blur"
                     alt={`Slider Image ${slider?._id}`}
-                    className="w-full h-full object-cover bg-center slider-image rounded-2xl"
+                    className="w-full h-full object-cover bg-center slider-image"
                   />
                 </motion.div>
-                <div></div>
               </Link>
             ))}
           </div>
@@ -134,24 +133,24 @@ const TopSlider = () => {
             />
           </>
         )}
+        {loaded && instanceRef.current && (
+          <div className="dots">
+            {[
+              ...Array(instanceRef.current.track.details.slides.length).keys(),
+            ].map((idx) => {
+              return (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    instanceRef.current?.moveToIdx(idx);
+                  }}
+                  className={"dot" + (currentSlide === idx ? " active" : "")}
+                ></button>
+              );
+            })}
+          </div>
+        )}
       </div>
-      {loaded && instanceRef.current && (
-        <div className="dots">
-          {[
-            ...Array(instanceRef.current.track.details.slides.length).keys(),
-          ].map((idx) => {
-            return (
-              <button
-                key={idx}
-                onClick={() => {
-                  instanceRef.current?.moveToIdx(idx);
-                }}
-                className={"dot" + (currentSlide === idx ? " active" : "")}
-              ></button>
-            );
-          })}
-        </div>
-      )}
     </div>
   );
 };

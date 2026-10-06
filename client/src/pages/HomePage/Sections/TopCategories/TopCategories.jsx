@@ -1,8 +1,7 @@
-import { FaChevronRight } from "react-icons/fa6";
 import Loader from "../../../../components/Loader/Loader";
 import useCategories from "../../../../hooks/useCategories/useCategories";
-import SubCategories from "./SubCategories";
 import { FaLayerGroup } from "react-icons/fa";
+import { Link } from "react-router";
 
 const TopCategories = () => {
   const { isCategoriesLoading, isCategoriesFetching, categories } =
@@ -41,27 +40,24 @@ const TopCategories = () => {
           </h3>
         </div>
       ) : (
-        <div className="space-y-12">
+        <div className="grid grid-cols-3 gap-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
           {categories.map((category) => (
-            <div key={category?._id} className="space-y-4">
-              {/* Category Title Header */}
-              <div className="relative flex items-center justify-between bg-linear-to-r from-primary-500/10 via-card-bg to-transparent border-l-4 border-primary-600 dark:border-primary-500 px-4 py-3 rounded-r-xl shadow-xs">
-                <div className="flex items-center gap-3">
-                  <h3 className="text-base sm:text-xl font-bold tracking-tight text-text-primary flex items-center gap-2">
-                    {category?.name}
-                  </h3>
-                </div>
-
-                {/* Optional Action / Pill indicator */}
-                <div className="flex items-center gap-1 text-xs font-semibold text-primary-600 dark:text-primary-400 cursor-pointer hover:underline group">
-                  <span>সব দেখুন</span>
-                  <FaChevronRight className="text-[10px] transition-transform duration-300 group-hover:translate-x-1" />
-                </div>
+            <Link
+              key={category?._id}
+              to={`/category/${category?._id}`}
+              className="group flex flex-col items-center rounded-xl border border-border-color bg-card-bg shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary-500 hover:shadow-lg"
+            >
+              <div className="aspect-square w-full overflow-hidden rounded-t-lg border border-border-color bg-primary-50/50 dark:bg-primary-950/20">
+                <img
+                  src={import.meta.env.VITE_IMAGE_URL + category?.image}
+                  alt={category?.name}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
               </div>
-
-              {/* SubCategories Grid Container */}
-              <SubCategories category={category?._id} />
-            </div>
+              <h3 className="p-2.5 w-full truncate text-center text-xs font-semibold text-text-primary transition-colors group-hover:text-primary-600 sm:text-sm">
+                {category?.name}
+              </h3>
+            </Link>
           ))}
         </div>
       )}

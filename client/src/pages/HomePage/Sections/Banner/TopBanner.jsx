@@ -12,7 +12,7 @@ const TopBanner = () => {
           {/* Top content wrapper to group heading, badge & buttons */}
           <div className="flex flex-col items-center lg:items-start space-y-5 w-full">
             {/* Main Heading */}
-            <h1 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold text-primary-700 dark:text-primary-400 leading-tight">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary-700 dark:text-primary-400 leading-tight">
               ব্যবসা গড়ে তুলুন
             </h1>
 

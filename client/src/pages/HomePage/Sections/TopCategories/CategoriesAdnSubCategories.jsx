@@ -4,7 +4,7 @@ import useCategories from "../../../../hooks/useCategories/useCategories";
 import SubCategories from "./SubCategories";
 import { FaLayerGroup } from "react-icons/fa";
 
-const TopCategories = () => {
+const CategoriesAdnSubCategories = () => {
   const { isCategoriesLoading, isCategoriesFetching, categories } =
     useCategories();
 
@@ -51,12 +51,6 @@ const TopCategories = () => {
                     {category?.name}
                   </h3>
                 </div>
-
-                {/* Optional Action / Pill indicator */}
-                <div className="flex items-center gap-1 text-xs font-semibold text-primary-600 dark:text-primary-400 cursor-pointer hover:underline group">
-                  <span>সব দেখুন</span>
-                  <FaChevronRight className="text-[10px] transition-transform duration-300 group-hover:translate-x-1" />
-                </div>
               </div>
 
               {/* SubCategories Grid Container */}
@@ -69,4 +63,4 @@ const TopCategories = () => {
   );
 };
 
-export default TopCategories;
+export default CategoriesAdnSubCategories;

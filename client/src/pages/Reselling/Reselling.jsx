@@ -1,12 +1,19 @@
-import TopCategories from "../HomePage/Sections/TopCategories/TopCategories";
-import WhyChooseUs from "../HomePage/Sections/WhyChooseUs/WhyChooseUs";
 import ResellingBanner from "./ResellingBanner";
+import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
+import CategoriesAdnSubCategories from "../HomePage/Sections/TopCategories/CategoriesAdnSubCategories";
 
 const Reselling = () => {
   return (
-    <div className="space-y-10 pb-8">
+    <div className="relative w-full h-full">
+      <Breadcrumb
+        items={[
+          { label: "Home", link: "/" },
+          { label: "Reselling", active: true },
+        ]}
+      />
+
       <ResellingBanner />
-      <TopCategories />
+      <CategoriesAdnSubCategories />
       {/* <WhyChooseUs /> */}
     </div>
   );

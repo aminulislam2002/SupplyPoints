@@ -80,6 +80,7 @@ import AllSubmittedTasks from "../../pages/Dashboard/AdminPages/SubmittedTasks/A
 import ManualPayment from "../../pages/PaymentPages/ManualPayment";
 import StarPaySuccess from "../../pages/PaymentPages/StarPaySuccess";
 import ReqFreeActivation from "../../components/ReqFreeActivation/ReqFreeActivation";
+import SubCategoriesByCategory from "../../pages/SubCategoriesByCategory/SubCategoriesByCategory";
 
 const router = createBrowserRouter([
   {
@@ -106,6 +107,10 @@ const router = createBrowserRouter([
       {
         path: "products",
         element: <Shop />,
+      },
+      {
+        path: "category/:category",
+        element: <SubCategoriesByCategory />,
       },
       {
         path: "category/:category/sub/:subCategory",

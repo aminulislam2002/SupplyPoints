@@ -10,6 +10,7 @@ import useStatus from "../../hooks/useStatus/useStatus";
 import usePlatform from "../../hooks/usePlatform/usePlatform";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../components/Loader/Loader";
+import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 
 const MarketingPackages = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -24,7 +25,7 @@ const MarketingPackages = () => {
     useMarketingPacks({ category: selectedCategory });
 
   // Fetch owned selectedPacks for current user
-  const { data: ownedSelectedPacks = [], isPending: isOwnedLoading } = useQuery(
+  const { data: ownedSelectedPacks = [], isLoading: isOwnedLoading } = useQuery(
     {
       queryKey: ["owned-pack", user?.identifier],
       queryFn: async () => {
@@ -85,153 +86,158 @@ const MarketingPackages = () => {
     return <Loader />;
   }
 
+  const breadcrumbItems = [
+    { label: "Home", link: "/" },
+    { label: "Marketing", active: true },
+  ];
+
   return (
-    <section className="container mx-auto px-5 py-10 space-y-8">
-      <MarketingBanner />
+    <div className="relative w-full h-full">
+      <Breadcrumb items={breadcrumbItems} />
+      <section className="container mx-auto space-y-8 px-5 py-10">
+        <MarketingBanner />
 
-      <div className="text-center">
-        <p className="metadata uppercase tracking-[0.2em]">Earn with intention</p>
-        <h2 className="page-title mt-2">Marketing</h2>
-        <p className="body-copy mt-2">
-          Start your earning journey with our ready-to-work marketing packages.
-        </p>
-      </div>
+        <div className="text-center">
+          <p className="metadata uppercase tracking-[0.2em]">
+            Earn with intention
+          </p>
+          <h2 className="page-title mt-2">Marketing</h2>
+          <p className="body-copy mt-2">
+            Start your earning journey with our ready-to-work marketing
+            packages.
+          </p>
+        </div>
 
-      <div className="flex max-w-full gap-2 overflow-x-auto border-b border-border-color pb-1" role="tablist" aria-label="Marketing package categories">
-        {[
-          { label: "All", value: "" },
-          { label: "FREE", value: "FREE" },
-          { label: "Regular", value: "Regular" },
-          { label: "Standard", value: "Standard" },
-          { label: "Premium", value: "Premium" },
-        ].map((category) => (
-          <button
-            key={category.value}
-            onClick={() => setSelectedCategory(category.value)}
-            className={`shrink-0 rounded-t-lg border-b-2 px-4 py-2.5 text-sm font-semibold transition-colors duration-300 cursor-pointer ${
-              selectedCategory === category.value
-                ? "border-primary-600 text-primary-700 dark:text-primary-300"
-                : "border-transparent text-text-secondary hover:border-primary-300 hover:text-primary-700 dark:hover:text-primary-300"
-            }`}
-            role="tab"
-            aria-selected={selectedCategory === category.value}
-          >
-            {category.label}
-          </button>
-        ))}
-      </div>
+        <div
+          className="flex max-w-full gap-2 overflow-x-auto border-b border-border-color pb-1"
+          role="tablist"
+          aria-label="Marketing package categories"
+        >
+          {[
+            { label: "All", value: "" },
+            { label: "FREE", value: "FREE" },
+            { label: "Regular", value: "Regular" },
+            { label: "Standard", value: "Standard" },
+            { label: "Premium", value: "Premium" },
+          ].map((category) => (
+            <button
+              key={category.value}
+              onClick={() => setSelectedCategory(category.value)}
+              className={`shrink-0 rounded-t-lg border-b-2 px-4 py-2.5 text-sm font-semibold transition-colors duration-300 cursor-pointer ${
+                selectedCategory === category.value
+                  ? "border-primary-600 text-primary-700 dark:text-primary-300"
+                  : "border-transparent text-text-secondary hover:border-primary-300 hover:text-primary-700 dark:hover:text-primary-300"
+              }`}
+              role="tab"
+              aria-selected={selectedCategory === category.value}
+            >
+              {category.label}
+            </button>
+          ))}
+        </div>
 
-      <div>
-        {isMarketingPacksLoading || isMarketingPacksFetching ? (
-          <p className="text-sm text-center">Loading marketing packages...</p>
-        ) : marketingPacks.length === 0 ? (
-          <div className="surface-muted rounded-xl p-10 text-center">
-            <p className="body-copy">No marketing packages found.</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {marketingPacks.map((pack) => (
-              <div
-                key={pack?._id}
-                className="card overflow-hidden transition-all duration-300 hover:-translate-y-0.5"
-              >
-                <img
-                  src={import.meta.env.VITE_IMAGE_URL + pack?.image}
-                  alt={pack?.name}
-                  className="w-full h-52 object-cover"
-                />
+        <div>
+          {isMarketingPacksLoading || isMarketingPacksFetching ? (
+            <p className="text-sm text-center">Loading marketing packages...</p>
+          ) : marketingPacks.length === 0 ? (
+            <div className="surface-muted rounded-xl p-10 text-center">
+              <p className="body-copy">No marketing packages found.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {marketingPacks.map((pack) => (
+                <div
+                  key={pack?._id}
+                  className="card overflow-hidden transition-all duration-300 hover:-translate-y-0.5"
+                >
+                  <img
+                    src={import.meta.env.VITE_IMAGE_URL + pack?.image}
+                    alt={pack?.name}
+                    className="w-full h-52 object-cover"
+                  />
 
-                <div className="p-4 space-y-2.5">
-                  <p className="metadata uppercase tracking-wide text-primary-500">
-                    {pack?.category || "Marketing"}
-                  </p>
-                  <h3 className="card-title line-clamp-1">
-                    {pack?.title}
-                  </h3>
-                  <p className="metadata">
-                    {pack?.name}
-                  </p>
-                  <p className="body-copy line-clamp-3">
-                    {pack?.description}
-                  </p>
-                  <div className="grid grid-cols-2 gap-2 pt-1">
-                    <p className="text-base lg:text-lg font-bold text-primary-500">
-                      BDT {pack?.price}
+                  <div className="p-4 space-y-2.5">
+                    <p className="metadata uppercase tracking-wide text-primary-500">
+                      {pack?.category || "Marketing"}
                     </p>
-                    <p className="text-xs lg:text-sm font-normal text-end">
-                      Duration:{" "}
-                      <span className="text-primary-500 font-medium">
-                        {pack?.durationDays} days
-                      </span>
+                    <h3 className="card-title line-clamp-1">{pack?.title}</h3>
+                    <p className="metadata">{pack?.name}</p>
+                    <p className="body-copy line-clamp-3">
+                      {pack?.description}
                     </p>
-                    <p className="text-xs lg:text-sm font-normal col-span-2">
-                      Work Value:{" "}
-                      <span className="text-primary-500 font-medium ">
-                        BDT {pack?.taskValue}
-                      </span>
-                    </p>
-                    {pack?.taskQty && (
-                      <p className="text-xs lg:text-sm font-normal col-span-2">
-                        Work Quantity:{" "}
-                        <span className="text-primary-500 font-medium ">
-                          {pack?.taskQty}
+                    <div className="grid grid-cols-2 gap-2 pt-1">
+                      <p className="text-base lg:text-lg font-bold text-primary-500">
+                        BDT {pack?.price}
+                      </p>
+                      <p className="text-xs lg:text-sm font-normal text-end">
+                        Duration:{" "}
+                        <span className="text-primary-500 font-medium">
+                          {pack?.durationDays} days
                         </span>
                       </p>
-                    )}
+                      <p className="text-xs lg:text-sm font-normal col-span-2">
+                        Work Value:{" "}
+                        <span className="text-primary-500 font-medium ">
+                          BDT {pack?.taskValue}
+                        </span>
+                      </p>
+                      {pack?.taskQty && (
+                        <p className="text-xs lg:text-sm font-normal col-span-2">
+                          Work Quantity:{" "}
+                          <span className="text-primary-500 font-medium ">
+                            {pack?.taskQty}
+                          </span>
+                        </p>
+                      )}
+                    </div>
+                    {!user ? (
+                      <Link
+                        to="/auth/sign-in"
+                        className="btn btn-outline w-full"
+                      >
+                        লগইন আবশ্যক
+                      </Link>
+                    ) : !isActive ? (
+                      <>
+                        {platform?.paymentGateway === "Manual" ? (
+                          <Link
+                            to={`/payment/Account/${platform?.accountActivationFee}`}
+                            className="btn btn-primary w-full"
+                          >
+                            Become a Seller
+                          </Link>
+                        ) : platform?.paymentGateway === "ClickPay" ||
+                          platform?.paymentGateway === "StarPay" ? (
+                          <SubscriptionPaymentTrigger className="btn btn-primary w-full">
+                            Become a Seller
+                          </SubscriptionPaymentTrigger>
+                        ) : null}
+                      </>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => handleGetStarted(pack)}
+                        disabled={
+                          purchasePackId === pack?._id ||
+                          !isActive ||
+                          !user ||
+                          ownedSelectedPacks.includes(pack?._id)
+                        }
+                        className="btn btn-primary w-full disabled:cursor-not-allowed disabled:opacity-60"
+                      >
+                        {ownedSelectedPacks.includes(pack?._id)
+                          ? "ইতোমধ্যে কেনা হয়েছে"
+                          : "Get Started"}
+                      </button>
+                    )}{" "}
                   </div>
-                  {console.log(
-                    "isActive:",
-                    isActive,
-                    "paymentGateway:",
-                    platform?.paymentGateway,
-                  )}
-                  {!user ? (
-                    <Link
-                      to="/auth/sign-in"
-                      className="btn btn-outline w-full"
-                    >
-                      লগইন আবশ্যক
-                    </Link>
-                  ) : !isActive ? (
-                    <>
-                      {platform?.paymentGateway === "Manual" ? (
-                        <Link
-                          to={`/payment/Account/${platform?.accountActivationFee}`}
-                          className="btn btn-primary w-full"
-                        >
-                          Become a Seller
-                        </Link>
-                      ) : platform?.paymentGateway === "ClickPay" ||
-                        platform?.paymentGateway === "StarPay" ? (
-                        <SubscriptionPaymentTrigger className="btn btn-primary w-full">
-                          Become a Seller
-                        </SubscriptionPaymentTrigger>
-                      ) : null}
-                    </>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => handleGetStarted(pack)}
-                      disabled={
-                        purchasePackId === pack?._id ||
-                        !isActive ||
-                        !user ||
-                        ownedSelectedPacks.includes(pack?._id)
-                      }
-                      className="btn btn-primary w-full disabled:cursor-not-allowed disabled:opacity-60"
-                    >
-                      {ownedSelectedPacks.includes(pack?._id)
-                        ? "ইতোমধ্যে কেনা হয়েছে"
-                        : "Get Started"}
-                    </button>
-                  )}{" "}
                 </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </section>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+    </div>
   );
 };
 

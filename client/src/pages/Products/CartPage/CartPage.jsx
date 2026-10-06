@@ -13,11 +13,18 @@ const CartPage = () => {
     refetch();
   }, [refetch]);
 
+  const breadcrumbItems = [
+    { label: "Home", link: "/" },
+    { label: "Cart", active: true },
+  ];
+
   // If there are no products in cart then show this component
   if (cartData?.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
-        <div className="surface flex flex-col items-center justify-center p-10 text-center">
+      <div>
+        <Breadcrumb items={breadcrumbItems} />
+        <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
+          <div className="surface flex flex-col items-center justify-center p-10 text-center">
           <p className="caption mb-2 uppercase tracking-[0.18em]">Your bag</p>
           <h1 className="section-title mb-4">
             Cart is Empty
@@ -29,15 +36,11 @@ const CartPage = () => {
           >
             Start Reselling
           </Link>
+          </div>
         </div>
       </div>
     );
   }
-
-  const breadcrumbItems = [
-    { label: "Home", link: "/" },
-    { label: "Cart", active: true },
-  ];
 
   return (
     <div className="relative w-full min-h-screen">
