@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import InputField from "../../../components/InputField/InputField";
+import InputField from "../../../components/AuthFields/InputField";
 import { Link, useLocation, useNavigate } from "react-router";
 import { useState } from "react";
 import Alert from "../../../components/Alert/Alert";
@@ -117,10 +117,7 @@ const SignIn = () => {
         />
 
         <p className="text-sm mb-4 text-right">
-          <Link
-            to="/auth/forgot-pass"
-            className="link hover:underline"
-          >
+          <Link to="/auth/forgot-pass" className="link hover:underline">
             Forgot Password?
           </Link>
         </p>
@@ -139,10 +136,7 @@ const SignIn = () => {
           />
         )}
 
-        <button
-          type="submit"
-          className="btn btn-primary w-full"
-        >
+        <button type="submit" className="btn btn-primary w-full">
           {isLoading ? (
             <div className="flex items-center justify-center gap-2">
               <TbLoader3
@@ -158,10 +152,7 @@ const SignIn = () => {
 
         <p className="text-sm mt-4 text-center">
           Don't have an account?{" "}
-          <Link
-            to="/auth/sign-up"
-            className="link hover:underline"
-          >
+          <Link to="/auth/sign-up" className="link hover:underline">
             Sign Up
           </Link>
         </p>

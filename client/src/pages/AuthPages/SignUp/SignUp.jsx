@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
-import InputField from "../../../components/InputField/InputField";
+import InputField from "../../../components/AuthFields/InputField";
 import { Link, useNavigate, useSearchParams } from "react-router";
 import useAxiosPublic from "../../../hooks/useAxiosPublic/useAxiosPublic";
 import { useState } from "react";
 import Alert from "../../../components/Alert/Alert";
 import useAuth from "../../../hooks/useAuth/useAuth";
 import { TbLoader3 } from "react-icons/tb";
-import Select from "../../../components/FormFileds/Select";
+import SelectField from "../../../components/AuthFields/SelectField";
 
 const SignUp = () => {
   const axiosPublic = useAxiosPublic();
@@ -127,7 +127,7 @@ const SignUp = () => {
           errors={errors}
         />
 
-        <Select
+        <SelectField
           label="Gender"
           placeholder="Select gender"
           register={register}
@@ -204,10 +204,7 @@ const SignUp = () => {
           />
         )}
 
-        <button
-          type="submit"
-          className="btn btn-primary w-full"
-        >
+        <button type="submit" className="btn btn-primary w-full">
           {isLoading ? (
             <div className="flex items-center justify-center gap-2">
               <TbLoader3
@@ -223,10 +220,7 @@ const SignUp = () => {
 
         <p className="text-sm mt-4 text-center">
           Already have an account?{" "}
-          <Link
-            to="/auth/sign-in"
-            className="link hover:underline"
-          >
+          <Link to="/auth/sign-in" className="link hover:underline">
             Sign In
           </Link>
         </p>

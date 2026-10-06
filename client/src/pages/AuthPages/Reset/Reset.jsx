@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import InputField from "../../../components/InputField/InputField";
+import InputField from "../../../components/AuthFields/InputField";
 import { Link, useNavigate } from "react-router";
 import useAxiosPublic from "../../../hooks/useAxiosPublic/useAxiosPublic";
 import { useState } from "react";
