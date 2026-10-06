@@ -6,6 +6,7 @@ import { useState } from "react";
 import Alert from "../../../components/Alert/Alert";
 import useAuth from "../../../hooks/useAuth/useAuth";
 import { TbLoader3 } from "react-icons/tb";
+import { FiLock } from "react-icons/fi";
 
 const Reset = () => {
   const axiosPublic = useAxiosPublic();
@@ -25,7 +26,6 @@ const Reset = () => {
     formState: { errors },
   } = useForm();
 
-  // Watch for password and confirmPassword fields
   const password = watch("password", "");
   const confirmPassword = watch("confirmPassword", "");
 
@@ -47,14 +47,13 @@ const Reset = () => {
         setVisibleMessage("success");
         reset();
         setTimeout(() => {
-          // localStorage.setItem("user", JSON.stringify(res?.data?.user));
           navigate(res?.data?.navigateTo || "/");
         }, 1000);
       }
     } catch (error) {
       if (!error.response?.data?.isValid) {
         setInvalidMessage(
-          error.response?.data?.message || "Something went wrong.",
+          error.response?.data?.message ||           "কিছু ভুল হয়েছে।",
         );
         setVisibleMessage("error");
         reset();
@@ -71,47 +70,49 @@ const Reset = () => {
   if (password && confirmPassword && password !== confirmPassword) {
     passwordError = {
       isMismatched: true,
-      message: "Passwords do not match.",
+      message: "পাসওয়ার্ড দুটি এক নয়।",
     };
   }
 
   return (
-    <div className="surface mx-auto w-full max-w-xl rounded-2xl p-6 shadow-lg sm:p-8">
-      <div className="mb-6 text-center space-y-2">
+    <div className="card surface mx-auto w-full p-6 sm:p-10 shadow-xl">
+      <div className="mb-8 text-center space-y-2">
         <p className="caption uppercase tracking-[0.2em] text-primary-600">
-          Set New Password
+          নতুন পাসওয়ার্ড সেট করুন
         </p>
-        <h2 className="text-2xl font-semibold text-center">
-          Reset Your Password
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
+          আপনার পাসওয়ার্ড পুনরায় সেট করুন
         </h2>
         <p className="body-copy text-sm">
-          Choose a strong password to secure your account.
+          অ্যাকাউন্ট সুরক্ষিত রাখতে একটি শক্তিশালী পাসওয়ার্ড বেছে নিন।
         </p>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <InputField
-          label="New Password"
+          label="নতুন পাসওয়ার্ড"
           type="password"
-          placeholder="Enter your new password"
+          placeholder="আপনার নতুন পাসওয়ার্ড লিখুন"
           register={register}
           name="password"
           required
           errors={errors}
+          icon={FiLock}
         />
 
         <InputField
-          label="Confirm Password"
+          label="পাসওয়ার্ড নিশ্চিত করুন"
           type="password"
-          placeholder="Confirm your new password"
+          placeholder="আপনার নতুন পাসওয়ার্ড নিশ্চিত করুন"
           register={register}
           name="confirmPassword"
           required
           errors={errors}
+          icon={FiLock}
         />
 
         {passwordError?.isMismatched ? (
-          <p className="mb-4 text-sm text-danger">{passwordError.message}</p>
+          <p className="text-xs text-danger -mt-2 mb-2 font-medium">{passwordError.message}</p>
         ) : null}
 
         {visibleMessage && (
@@ -128,30 +129,21 @@ const Reset = () => {
           />
         )}
 
-        <button
-          type="submit"
-          className="btn btn-primary h-12 w-full"
-        >
+        <button type="submit" disabled={isLoading} className="btn btn-primary w-full mt-2">
           {isLoading ? (
             <div className="flex items-center justify-center gap-2">
-              <TbLoader3
-                className="animate-spin text-primary-50"
-                size={18}
-              />
-              Processing...
+              <TbLoader3 className="animate-spin text-primary-50" size={18} />
+              প্রক্রিয়াকরণ হচ্ছে...
             </div>
           ) : (
-            "Reset Password"
+            "পাসওয়ার্ড পুনরায় সেট করুন"
           )}
         </button>
 
-        <p className="text-sm mt-4 text-center">
-          Back to login?{" "}
-          <Link
-            to="/auth/sign-in"
-            className="link"
-          >
-            Sign In
+        <p className="text-sm mt-6 text-center body-copy">
+          লগইন পাতায় ফিরে যাবেন?{" "}
+          <Link to="/auth/sign-in" className="link hover:underline">
+            লগইন করুন
           </Link>
         </p>
       </form>

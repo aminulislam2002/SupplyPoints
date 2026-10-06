@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import Alert from "../../../components/Alert/Alert";
 import { TbLoader3 } from "react-icons/tb";
+import { FiHelpCircle, FiPhone } from "react-icons/fi";
 
 const Forgot = () => {
   const axiosPublic = useAxiosPublic();
@@ -50,7 +51,7 @@ const Forgot = () => {
     } catch (error) {
       if (!error.response?.data?.isValid) {
         setInvalidMessage(
-          error.response?.data?.message || "Something went wrong.",
+          error.response?.data?.message ||           "কিছু ভুল হয়েছে।",
         );
         setVisibleMessage("error");
         reset();
@@ -66,45 +67,47 @@ const Forgot = () => {
   if (identifier && !phonePattern.test(identifier)) {
     phoneError = {
       isInvalid: true,
-      message: "Enter a valid Phone Number.",
+      message: "সঠিক ফোন নম্বর লিখুন।",
     };
   }
 
   return (
-    <div className="surface mx-auto w-full max-w-xl rounded-2xl p-6 shadow-lg sm:p-8">
-      <div className="mb-6 text-center space-y-2">
+    <div className="card surface mx-auto w-full p-6 sm:p-10 shadow-xl">
+      <div className="mb-8 text-center space-y-2">
         <p className="caption uppercase tracking-[0.2em] text-primary-600">
-          Password Recovery
+          পাসওয়ার্ড পুনরুদ্ধার
         </p>
-        <h2 className="text-2xl sm:text-3xl font-semibold">Account Recovery</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">অ্যাকাউন্ট পুনরুদ্ধার</h2>
         <p className="body-copy text-sm">
-          Verify your account details to continue resetting your password.
+          পাসওয়ার্ড পুনরায় সেট করতে আপনার অ্যাকাউন্টের তথ্য যাচাই করুন।
         </p>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <InputField
-          label="Phone Number"
+          label="ফোন নম্বর"
           type="text"
-          placeholder="Enter your phone number"
+          placeholder="আপনার ফোন নম্বর লিখুন"
           register={register}
           name="identifier"
           required
           errors={errors}
+          icon={FiPhone}
         />
 
         {phoneError?.isInvalid ? (
-          <p className="mb-4 text-sm text-danger">{phoneError.message}</p>
+          <p className="text-xs text-danger -mt-2 mb-2 font-medium">{phoneError.message}</p>
         ) : null}
 
         <InputField
-          label="Security Question"
+          label="নিরাপত্তা প্রশ্ন"
           type="text"
-          placeholder="What is your nickname?"
+          placeholder="আপনার ডাকনাম কী?"
           register={register}
           name="securityAnswer"
           required
           errors={errors}
+          icon={FiHelpCircle}
         />
 
         {visibleMessage && (
@@ -123,7 +126,8 @@ const Forgot = () => {
 
         <button
           type="submit"
-          className="btn btn-primary h-12 w-full"
+          disabled={isLoading}
+          className="btn btn-primary w-full mt-2"
         >
           {isLoading ? (
             <div className="flex items-center justify-center gap-2">
@@ -131,20 +135,20 @@ const Forgot = () => {
                 className="animate-spin text-primary-50"
                 size={18}
               />
-              Processing...
+              প্রক্রিয়াকরণ হচ্ছে...
             </div>
           ) : (
-            "Forgot Password"
+            "পাসওয়ার্ড ভুলে গেছি"
           )}
         </button>
 
-        <p className="text-sm mt-4 text-center">
-          Remember your password?{" "}
+        <p className="text-sm mt-6 text-center body-copy">
+          পাসওয়ার্ড মনে পড়েছে?{" "}
           <Link
             to="/auth/sign-in"
-            className="link"
+            className="link hover:underline"
           >
-            Sign In
+            লগইন করুন
           </Link>
         </p>
       </form>

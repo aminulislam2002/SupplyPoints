@@ -6,7 +6,13 @@ import { useState } from "react";
 import Alert from "../../../components/Alert/Alert";
 import useAuth from "../../../hooks/useAuth/useAuth";
 import { TbLoader3 } from "react-icons/tb";
-import SelectField from "../../../components/AuthFields/SelectField";
+import {
+  FiBriefcase,
+  FiHelpCircle,
+  FiLock,
+  FiPhone,
+  FiUser,
+} from "react-icons/fi";
 
 const SignUp = () => {
   const axiosPublic = useAxiosPublic();
@@ -29,7 +35,6 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  // Watch for password and confirmPassword fields
   const password = watch("password", "");
   const confirmPassword = watch("confirmPassword", "");
   const identifier = watch("identifier", "");
@@ -81,113 +86,108 @@ const SignUp = () => {
   if (password && confirmPassword && password !== confirmPassword) {
     passwordError = {
       isMismatched: true,
-      message: "Passwords do not match.",
+      message: "পাসওয়ার্ড দুটি এক নয়।",
     };
   }
 
   if (identifier && !phonePattern.test(identifier)) {
     phoneError = {
       isInvalid: true,
-      message: "Enter a valid Phone Number.",
+      message: "সঠিক ফোন নম্বর লিখুন।",
     };
   }
 
   return (
-    <div className="surface mx-auto w-full max-w-xl p-6 sm:p-8">
-      <div className="mb-6 text-center space-y-2">
+    <div className="card surface mx-auto w-full p-6 sm:p-10 shadow-xl">
+      <div className="mb-8 text-center space-y-2">
         <p className="caption uppercase tracking-[0.2em] text-primary-600">
-          New Account
+          নতুন অ্যাকাউন্ট
         </p>
-        <h2 className="text-2xl font-semibold text-center">
-          Create Your Account
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-center">
+          আপনার অ্যাকাউন্ট তৈরি করুন
         </h2>
         <p className="body-copy text-sm">
-          Register once and start using all platform services.
+          একবার নিবন্ধন করে প্ল্যাটফর্মের সব সেবা ব্যবহার করুন।
         </p>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <InputField
-          label="Full Name"
-          type="name"
-          placeholder="Write your full name"
+          label="পূর্ণ নাম"
+          type="text"
+          placeholder="আপনার পূর্ণ নাম লিখুন"
           register={register}
           name="name"
           required
           errors={errors}
+          icon={FiUser}
         />
 
         <InputField
-          label="Business Name"
+          label="ব্যবসার নাম"
           type="text"
-          placeholder="Write your business name"
+          placeholder="আপনার ব্যবসার নাম লিখুন"
           register={register}
           name="businessName"
           required
           errors={errors}
-        />
-
-        <SelectField
-          label="Gender"
-          placeholder="Select gender"
-          register={register}
-          name="gender"
-          options={["Male", "Female", "Other"]}
-          required
-          errors={errors}
-          defaultValue=""
+          icon={FiBriefcase}
         />
 
         <InputField
-          label="Phone Number"
+          label="ফোন নম্বর"
           type="text"
-          placeholder="Enter your phone number"
+          placeholder="আপনার ফোন নম্বর লিখুন"
           register={register}
           name="identifier"
           required
           errors={errors}
+          icon={FiPhone}
         />
 
         {phoneError?.isInvalid ? (
-          <p className="text-sm text-red-400 mb-4">{phoneError.message}</p>
+          <p className="text-xs text-danger -mt-2 mb-2 font-medium">{phoneError.message}</p>
         ) : null}
 
         <InputField
-          label="Enter Password"
+          label="পাসওয়ার্ড লিখুন"
           type="password"
-          placeholder="Enter your password"
+          placeholder="আপনার পাসওয়ার্ড লিখুন"
           register={register}
           name="password"
           required
           errors={errors}
+          icon={FiLock}
         />
 
         <InputField
-          label="Confirm Password"
+          label="পাসওয়ার্ড নিশ্চিত করুন"
           type="password"
-          placeholder="Confirm your password"
+          placeholder="আপনার পাসওয়ার্ড নিশ্চিত করুন"
           register={register}
           name="confirmPassword"
           required
           errors={errors}
+          icon={FiLock}
         />
 
         {passwordError?.isMismatched ? (
-          <p className="text-sm text-red-400 mb-4">{passwordError.message}</p>
+          <p className="text-xs text-danger -mt-2 mb-2 font-medium">{passwordError.message}</p>
         ) : null}
 
         <InputField
-          label="Security Question"
+          label="নিরাপত্তা প্রশ্ন"
           type="text"
-          placeholder="What is your nickname?"
+          placeholder="আপনার ডাকনাম কী?"
           register={register}
           name="securityAnswer"
           required
           errors={errors}
+          icon={FiHelpCircle}
         />
 
-        <p className="body-copy mb-4 text-sm font-medium">
-          Note: Security Question is required for account recovery.
+        <p className="metadata mb-4 rounded-lg bg-secondary-100 dark:bg-secondary-800 p-3">
+          <span className="font-semibold text-text-primary">নোট:</span> অ্যাকাউন্ট পুনরুদ্ধারের জন্য নিরাপত্তা প্রশ্নটি আবশ্যক।
         </p>
 
         {visibleMessage && (
@@ -204,24 +204,24 @@ const SignUp = () => {
           />
         )}
 
-        <button type="submit" className="btn btn-primary w-full">
+        <button type="submit" disabled={isLoading} className="btn btn-primary w-full mt-2">
           {isLoading ? (
             <div className="flex items-center justify-center gap-2">
               <TbLoader3
-                className="animate-spin text-primary-50 text-center"
+                className="animate-spin text-white"
                 size={18}
               />
-              Processing...
+              প্রক্রিয়াকরণ হচ্ছে...
             </div>
           ) : (
-            "Sign Up"
+            "নিবন্ধন করুন"
           )}
         </button>
 
-        <p className="text-sm mt-4 text-center">
-          Already have an account?{" "}
+        <p className="text-sm mt-6 text-center body-copy">
+          ইতিমধ্যে অ্যাকাউন্ট আছে?{" "}
           <Link to="/auth/sign-in" className="link hover:underline">
-            Sign In
+            লগইন করুন
           </Link>
         </p>
       </form>

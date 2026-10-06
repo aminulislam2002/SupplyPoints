@@ -6,6 +6,7 @@ import Alert from "../../../components/Alert/Alert";
 import useAxiosPublic from "../../../hooks/useAxiosPublic/useAxiosPublic";
 import useAuth from "../../../hooks/useAuth/useAuth";
 import { TbLoader3 } from "react-icons/tb";
+import { FiLock, FiPhone } from "react-icons/fi";
 
 const SignIn = () => {
   const axiosPublic = useAxiosPublic();
@@ -43,7 +44,6 @@ const SignIn = () => {
       const res = await axiosPublic.post("/users/signin", data);
 
       if (res?.data?.isValid) {
-        // store token immediately so secure axios picks it up
         localStorage.setItem("accessToken", res?.data?.accessToken);
         refetchUser();
 
@@ -51,7 +51,6 @@ const SignIn = () => {
         setVisibleMessage("success");
         reset();
 
-        // navigate after a short delay
         setTimeout(() => {
           navigate(state || res?.data?.navigateTo || "/");
         }, 1000);
@@ -59,7 +58,7 @@ const SignIn = () => {
     } catch (error) {
       if (!error.response?.data?.isValid) {
         setInvalidMessage(
-          error.response?.data?.message || "Something went wrong.",
+          error.response?.data?.message ||           "কিছু ভুল হয়েছে।",
         );
         setVisibleMessage("error");
         reset();
@@ -75,52 +74,57 @@ const SignIn = () => {
   if (identifier && !phonePattern.test(identifier)) {
     phoneError = {
       isInvalid: true,
-      message: "Enter a valid Phone Number.",
+      message: "সঠিক ফোন নম্বর লিখুন।",
     };
   }
 
   return (
-    <div className="surface mx-auto w-full max-w-xl p-6 sm:p-8">
-      <div className="mb-6 text-center space-y-2">
+    <div className="card surface mx-auto w-full p-6 sm:p-10 shadow-xl">
+      <div className="mb-8 text-center space-y-2">
         <p className="caption uppercase tracking-[0.2em] text-primary-600">
-          Secure Access
+          নিরাপদ প্রবেশ
         </p>
-        <h2 className="text-2xl sm:text-3xl font-semibold">Welcome Back</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">আবারও স্বাগতম</h2>
         <p className="body-copy text-sm">
-          Sign in to continue managing your account.
+          অ্যাকাউন্ট পরিচালনা চালিয়ে যেতে লগইন করুন।
         </p>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <InputField
-          label="Phone Number"
+          label="ফোন নম্বর"
           type="text"
-          placeholder="Enter your phone number"
+          placeholder="আপনার ফোন নম্বর লিখুন"
           register={register}
           name="identifier"
           required
           errors={errors}
+          icon={FiPhone}
         />
 
         {phoneError?.isInvalid ? (
-          <p className="text-sm text-red-400 mb-4">{phoneError.message}</p>
+          <p className="text-xs text-danger -mt-2 mb-2 font-medium">{phoneError.message}</p>
         ) : null}
 
         <InputField
-          label="Enter Password"
+          label="পাসওয়ার্ড লিখুন"
           type="password"
-          placeholder="Enter your password"
+          placeholder="আপনার পাসওয়ার্ড লিখুন"
           register={register}
           name="password"
           required
           errors={errors}
+          icon={FiLock}
         />
 
-        <p className="text-sm mb-4 text-right">
-          <Link to="/auth/forgot-pass" className="link hover:underline">
-            Forgot Password?
+        <div className="flex items-center justify-end pb-1">
+          <Link
+            to="/auth/forgot-pass"
+            className="link text-sm hover:underline"
+          >
+            পাসওয়ার্ড ভুলে গেছেন?
           </Link>
-        </p>
+        </div>
 
         {visibleMessage && (
           <Alert
@@ -136,24 +140,28 @@ const SignIn = () => {
           />
         )}
 
-        <button type="submit" className="btn btn-primary w-full">
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="btn btn-primary w-full mt-2"
+        >
           {isLoading ? (
             <div className="flex items-center justify-center gap-2">
               <TbLoader3
-                className="animate-spin text-primary-50 text-center"
+                className="animate-spin text-white"
                 size={18}
               />
-              Processing...
+              প্রক্রিয়াকরণ হচ্ছে...
             </div>
           ) : (
-            "Sign In"
+            "লগইন করুন"
           )}
         </button>
 
-        <p className="text-sm mt-4 text-center">
-          Don't have an account?{" "}
+        <p className="text-sm mt-6 text-center body-copy">
+          অ্যাকাউন্ট নেই?{" "}
           <Link to="/auth/sign-up" className="link hover:underline">
-            Sign Up
+            নিবন্ধন করুন
           </Link>
         </p>
       </form>
