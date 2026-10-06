@@ -25,17 +25,29 @@
      Brand / Primary
      ------------------------- */
 
-  --color-primary-50: #f0fdf4;
+  /* --color-primary-50: #f0fdf4;
   --color-primary-100: #dcfce7;
-  --color-primary-200: #bbf7d0;
+  --color-primary-200: #c5ddf2;
   --color-primary-300: #86efac;
   --color-primary-400: #4ade80;
-  --color-primary-500: #22c55e;
-  --color-primary-600: #16a34a;
+  --color-primary-500: #236aa6;
+  --color-primary-600: #236aa6;
   --color-primary-700: #15803d;
   --color-primary-800: #166534;
   --color-primary-900: #14532d;
-  --color-primary-950: #052e16;
+  --color-primary-950: #052e16; */
+
+  --color-primary-50: #f3f7fc;
+  --color-primary-100: #e5eff9;
+  --color-primary-200: #c5ddf2;
+  --color-primary-300: #92c1e7;
+  --color-primary-400: #58a1d8;
+  --color-primary-500: #3386c4;
+  --color-primary-600: #236aa6;
+  --color-primary-700: #1c507f;
+  --color-primary-800: #1c4970;
+  --color-primary-900: #1d3e5d;
+  --color-primary-950: #13283e;
 
   /* -------------------------
      Secondary / Neutral
@@ -71,7 +83,7 @@
      UI Colors
      ------------------------- */
 
-  --color-success: #16a34a;
+  --color-success: #236aa6;
   --color-warning: #d97706;
   --color-danger: #dc2626;
   --color-info: #2563eb;
@@ -597,7 +609,7 @@ img {
 
 .dark .badge-success {
   background-color: rgb(20 83 45 / 0.35);
-  color: #bbf7d0;
+  color: #c5ddf2;
 }
 
 .dark .badge-warning {

@@ -14,7 +14,7 @@ import { FiHome } from "react-icons/fi";
 import bkash_logo from "../../assets/gateway_logo/bkash.png";
 import nagad_logo from "../../assets/gateway_logo/nagad.png";
 
-import logo from "../../assets/logo/logo.jpeg";
+import logo from "../../assets/logo/logo.png";
 
 import { BiSupport } from "react-icons/bi";
 import { MdOutlineContactSupport } from "react-icons/md";

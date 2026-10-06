@@ -19,7 +19,7 @@ import useRole from "../../../hooks/useRole/useRole";
 import { CartContext } from "../../../providers/CartProvider/CartProvider";
 import usePlatform from "../../../hooks/usePlatform/usePlatform";
 
-import logo from "../../../assets/logo/logo.jpeg";
+import logo from "../../../assets/logo/logo.png";
 import useAxiosPublic from "../../../hooks/useAxiosPublic/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import { ThemeContext } from "../../../providers/ThemeProvider/ThemeProvider";
@@ -139,7 +139,7 @@ const Navbar = () => {
       >
         <style>{`body { padding-top: ${scrolled ? "72px" : "112px"}; }`}</style>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-18 gap-6">
             {/* Global Branding / Logo Part */}
             <Link
@@ -159,7 +159,7 @@ const Navbar = () => {
                   Supply<span className="text-primary-500">Points</span>
                 </h2>
                 <span className="text-[10px] uppercase tracking-widest text-text-secondary font-semibold mt-1">
-                  Global Hub
+                  Reselling platform
                 </span>
               </div>
             </Link>

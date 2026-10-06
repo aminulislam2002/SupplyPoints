@@ -14,7 +14,7 @@ import useStatus from "../../../../hooks/useStatus/useStatus";
 import usePlatform from "../../../../hooks/usePlatform/usePlatform";
 import NoticeModal from "../../../../components/NoticeModal/NoticeModal";
 
-import logo from "../../../../assets/logo/logo.jpeg";
+import logo from "../../../../assets/logo/logo.png";
 
 const SellerOverview = () => {
   const axiosSecure = useAxiosSecure();
@@ -186,10 +186,7 @@ const SellerOverview = () => {
               <FaShoppingBag className="text-primary-400" />
               Recent Orders
             </h2>
-            <Link
-              to="/dashboard/seller/my-orders"
-              className="link text-sm"
-            >
+            <Link to="/dashboard/seller/my-orders" className="link text-sm">
               View All
             </Link>
           </div>
@@ -261,7 +258,9 @@ const SellerOverview = () => {
                   size={44}
                   className="mx-auto text-primary-300 mb-3"
                 />
-                <p className="text-sm text-text-secondary mb-4">No orders yet</p>
+                <p className="text-sm text-text-secondary mb-4">
+                  No orders yet
+                </p>
                 <Link
                   to="/products"
                   className="btn btn-primary inline-flex h-10 px-4 items-center justify-center rounded-md text-sm font-medium transition-colors duration-300"

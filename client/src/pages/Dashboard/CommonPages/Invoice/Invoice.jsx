@@ -14,7 +14,7 @@ import Loader from "../../../../components/Loader/Loader";
 import useRole from "../../../../hooks/useRole/useRole";
 import usePlatform from "../../../../hooks/usePlatform/usePlatform";
 
-import logo from "../../../../assets/logo/logo.jpeg";
+import logo from "../../../../assets/logo/logo.png";
 
 const Invoice = () => {
   const { id } = useParams();
