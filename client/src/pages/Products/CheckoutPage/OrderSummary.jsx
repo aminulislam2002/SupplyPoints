@@ -67,9 +67,9 @@ const OrderSummary = ({
                 )}
 
                 {/* Profit */}
-                <div className="badge badge-success min-h-8 rounded-md">
+                {/* <div className="badge badge-success min-h-8 rounded-md">
                   Profit: ৳{product?.profit}
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -243,42 +243,53 @@ const OrderSummary = ({
 
                 <div className="flex flex-col lg:flex-row justify-center items-center gap-2.5">
                   {/* Balance */}
-                  <button
-                    type="button"
-                    onClick={() => setDeliveryPaymentMethod("Balance")}
-                    className={`w-full lg:w-1/2 flex items-center gap-2 rounded-lg border p-2.5 transition-none cursor-pointer ${
-                      deliveryPaymentMethod === "Balance"
-                        ? "border-success"
-                        : "border-border-color bg-card-bg"
-                    }`}
-                  >
-                    <div
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
-                        deliveryPaymentMethod === "Balance"
-                          ? "bg-success text-white"
-                          : "border border-border-color text-text-secondary"
-                      }`}
-                    >
-                      <RiWallet3Line size={18} />
-                    </div>
+                  {
+                    console.log(
+                      "User Balance:",
+                      user?.balance,
+                      "Advance Amount:",
+                      advanceAmount,
+                    ) // Debugging line
+                  }
 
-                    <p
-                      className={`text-xs lg:text-sm font-medium text-left ${
+                  {user?.balance && user?.balance >= advanceAmount ? (
+                    <button
+                      type="button"
+                      onClick={() => setDeliveryPaymentMethod("Balance")}
+                      className={`w-full lg:w-1/2 flex items-center gap-2 rounded-lg border p-2.5 transition-none cursor-pointer ${
                         deliveryPaymentMethod === "Balance"
-                          ? "text-primary-400"
-                          : "text-text-primary"
+                          ? "border-success"
+                          : "border-border-color bg-card-bg"
                       }`}
                     >
-                      ব্যালেন্স <br />{" "}
-                      <span className="text-text-secondary">
-                        (৳
-                        {user?.balance
-                          ? user?.balance?.toFixed(2)
-                          : "0.00"}{" "}
-                        available)
-                      </span>
-                    </p>
-                  </button>
+                      <div
+                        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
+                          deliveryPaymentMethod === "Balance"
+                            ? "bg-success text-white"
+                            : "border border-border-color text-text-secondary"
+                        }`}
+                      >
+                        <RiWallet3Line size={18} />
+                      </div>
+
+                      <p
+                        className={`text-xs lg:text-sm font-medium text-left ${
+                          deliveryPaymentMethod === "Balance"
+                            ? "text-primary-400"
+                            : "text-text-primary"
+                        }`}
+                      >
+                        ব্যালেন্স <br />{" "}
+                        <span className="text-text-secondary">
+                          (৳
+                          {user?.balance
+                            ? user?.balance?.toFixed(2)
+                            : "0.00"}{" "}
+                          ব্যবহারযোগ্য)
+                        </span>
+                      </p>
+                    </button>
+                  ) : null}
 
                   {/* Manual / MFS */}
                   <button
@@ -309,7 +320,7 @@ const OrderSummary = ({
                     >
                       MFS <br />{" "}
                       <span className="text-text-secondary">
-                        (BKash/Nagad/Rocket)
+                        (বিকাশ/নাগদ/রকেট)
                       </span>
                     </p>
                   </button>
@@ -320,16 +331,14 @@ const OrderSummary = ({
 
         {/* Selling Price */}
         <div className="flex justify-between items-center font-primary text-sm font-medium">
-          <span>Sale Price</span>
+          <span>আপনার বিক্রয়মূল্য</span>
           <span className="font-bold">৳{resellerPrice.toFixed(2)}</span>
         </div>
 
         {/* Delivery Charge */}
         <div className="flex justify-between items-center font-primary text-sm font-medium">
-          <span>Delivery Charge</span>
-          <span className="text-teal-500">
-            ৳ {deliveryInfo?.deliveryCharge.toFixed(2)}
-          </span>
+          <span>ডেলিভারি চার্জ</span>
+          <span>+ ৳{deliveryInfo?.deliveryCharge.toFixed(2)}</span>
         </div>
 
         {/* Packaging Charge */}
@@ -358,27 +367,27 @@ const OrderSummary = ({
         {/* Advance Payment */}
         {advanceAmount > 0 && (
           <div className="flex justify-between items-center font-primary text-sm font-medium">
-            <span className="text-green-500">Advance Payment</span>
-            <span className="text-green-500 font-semibold">
-              ৳{advanceAmount.toFixed(2)}
+            <span className="text-primary-600">অগ্রিম পেমেন্ট</span>
+            <span className="text-primary-600 font-semibold">
+              - ৳{advanceAmount.toFixed(2)}
             </span>
           </div>
         )}
 
-        {/* Final Total */}
-        <div className="flex items-center justify-between rounded-lg bg-primary-100 p-3 text-lg font-bold">
-          <span className="text-primary-800 ">
-            {advanceAmount > 0 ? "Due at Delivery" : "Customer Pays"}
-          </span>
-          <span className="text-primary-800 ">
-            ৳
-            {(
-              resellerPrice +
-              deliveryInfo.deliveryCharge -
-              advanceAmount
-            ).toFixed(2)}
-          </span>
-        </div>
+        {/* Due at Delivery - Customer Pays */}
+        {resellerPrice + deliveryInfo.deliveryCharge - advanceAmount > 0 && (
+          <div className="flex justify-between items-center font-primary text-sm font-medium">
+            <span>পণ্য হাতে পাওয়ার পর মূল্য পরিশোধ</span>
+            <span className="text-teal-600">
+              ৳
+              {(
+                resellerPrice +
+                deliveryInfo.deliveryCharge -
+                advanceAmount
+              ).toFixed(2)}
+            </span>
+          </div>
+        )}
 
         <button
           type="submit"
@@ -390,8 +399,8 @@ const OrderSummary = ({
             ? "Please Wait..."
             : deliveryInfo.paymentMethod === "Advanced Payment" &&
                 deliveryPaymentMethod === "Manual"
-              ? "Proceed to Payment"
-              : "Place Order"}
+              ? "পেমেন্ট"
+              : "অর্ডার"}
         </button>
       </div>
     </div>
