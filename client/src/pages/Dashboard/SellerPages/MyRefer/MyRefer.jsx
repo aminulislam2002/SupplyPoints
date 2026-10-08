@@ -129,7 +129,7 @@ const MyRefer = () => {
         {/* User Table */}
         <div className="overflow-x-auto">
           <table className="table table-xs">
-            <thead className="bg-primary-950 ">
+            <thead>
               <tr className="h-10 text-sm text-nowrap font-normal text-center">
                 <th>#</th>
                 <th className="text-left">Profile</th>

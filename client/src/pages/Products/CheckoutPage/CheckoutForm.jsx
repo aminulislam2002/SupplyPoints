@@ -19,6 +19,7 @@ const CheckoutForm = ({
 }) => {
   const addresses = useContext(AddressContext);
   const [thanaNames, setThanaNames] = useState([]);
+  const [selectedZilla, setSelectedZilla] = useState("");
 
   const {
     register,
@@ -29,7 +30,9 @@ const CheckoutForm = ({
   // Function to handle zilla change
   const handleZillaChange = (selectedZilla) => {
     const selectedThanaNames = addresses[selectedZilla] || [];
+    setSelectedZilla(selectedZilla);
     setThanaNames(selectedThanaNames);
+    handleDeliveryLocationChange(selectedZilla);
   };
 
   return (
@@ -82,43 +85,6 @@ const CheckoutForm = ({
           )}
         </div>
 
-        {/* Delivery Area */}
-        <div className="col-span-12">
-          <div className="flex justify-start items-center">
-            <div className="w-1/2 flex items-center gap-3">
-              <input
-                type="checkbox"
-                name="deliveryArea"
-                value={`Inside Dhaka`}
-                checked={deliveryInfo.deliveryArea === `Inside Dhaka`}
-                onChange={() => handleDeliveryLocationChange(`Inside Dhaka`)}
-                className="checkbox checkbox-neutral"
-              />
-              <label className="text-base font-medium font-secondary">
-                ঢাকা সিটির ভিতরে
-              </label>
-            </div>
-            <div className="w-1/2 flex items-center gap-3">
-              <input
-                type="checkbox"
-                name="deliveryArea"
-                value={`Outside Dhaka`}
-                checked={deliveryInfo.deliveryArea === `Outside Dhaka`}
-                onChange={() => handleDeliveryLocationChange(`Outside Dhaka`)}
-                className="checkbox checkbox-neutral"
-              />
-              <label className="text-base font-medium font-secondary">
-                ঢাকা সিটির বাহিরে
-              </label>
-            </div>
-          </div>
-          {showWarning && (
-            <p className="text-red-500 text-sm mt-2.5 block font-secondary">
-              ডেলিভারি এলাকা অবশ্যই নির্বাচন করুন
-            </p>
-          )}
-        </div>
-
         {/* Zilla Field */}
         <div className="col-span-12 lg:col-span-6">
           <label className="block mb-1.5 text-base font-semibold font-secondary">
@@ -132,7 +98,7 @@ const CheckoutForm = ({
           >
             <option value="">জেলা সিলেক্ট করুন</option>
             {Object.keys(addresses).map((zilla) => (
-              <option key={zilla} value={zilla} className="bg-primary-950 ">
+              <option key={zilla} value={zilla}>
                 {zilla}
               </option>
             ))}
@@ -151,12 +117,15 @@ const CheckoutForm = ({
           </label>
           <select
             {...register("thana", { required: "true" })}
+            onChange={(e) =>
+              handleDeliveryLocationChange(selectedZilla, e.target.value)
+            }
             className="control w-full font-secondary"
             aria-invalid={errors.thana ? "true" : "false"}
           >
             <option value="">থানা সিলেক্ট করুন</option>
             {thanaNames?.map((thana) => (
-              <option key={thana} value={thana} className="bg-primary-950 ">
+              <option key={thana} value={thana}>
                 {thana}
               </option>
             ))}
@@ -164,6 +133,11 @@ const CheckoutForm = ({
           {errors.thana?.type === "required" && (
             <span className="text-red-500 text-sm mt-1 block font-secondary">
               থানা দিতে হবে
+            </span>
+          )}
+          {showWarning && (
+            <span className="text-red-500 text-sm mt-1 block font-secondary">
+              জেলা ও থানা নির্বাচন করুন
             </span>
           )}
         </div>
@@ -211,8 +185,8 @@ const CheckoutForm = ({
               <div
                 className={`flex items-center gap-3 rounded-lg border p-3 ${
                   deliveryInfo.paymentMethod === "Cash On Delivery"
-                  ? "border-warning bg-amber-50"
-                  : "border-border-color bg-section-bg"
+                    ? "border-warning bg-amber-50"
+                    : "border-border-color bg-section-bg"
                 }`}
               >
                 <input
@@ -233,8 +207,8 @@ const CheckoutForm = ({
             <div
               className={`rounded-lg border p-3 ${
                 deliveryInfo.paymentMethod === "Advanced Payment"
-                ? "border-info bg-blue-50"
-                : "border-border-color bg-section-bg"
+                  ? "border-info bg-blue-50"
+                  : "border-border-color bg-section-bg"
               }`}
             >
               <div className="flex items-center gap-3">
@@ -363,10 +337,7 @@ const CheckoutForm = ({
 
         {/* Submit Button */}
         <div className="col-span-12">
-          <button
-            type="submit"
-            className="btn btn-primary w-full"
-          >
+          <button type="submit" className="btn btn-primary w-full">
             {isLoading
               ? "Please Wait..."
               : deliveryInfo.paymentMethod === "Advanced Payment" &&

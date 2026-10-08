@@ -68,19 +68,23 @@ const Checkout = () => {
   const [advanceAmount, setAdvanceAmount] = useState(0);
 
   // Function to handle delivery location change
-  const handleDeliveryLocationChange = (location) => {
-    let charge = 0;
+  const handleDeliveryLocationChange = (zilla, thana = "") => {
+    const dhakaSubAreas = [
+      "কেরাণীগঞ্জ",
+      "কেরাণীগঞ্জ মডেল",
+      "দোহার",
+      "ধামরাই",
+      "নবাবগঞ্জ",
+      "সাভার",
+    ];
 
-    if (location === `Inside Dhaka`) {
-      charge = Number(platform?.insideDeliveryCharge || 0);
-    } else if (location === `Outside Dhaka`) {
-      charge = Number(platform?.outsideDeliveryCharge || 0);
-    }
+    const charge =
+      zilla !== "ঢাকা" ? 120 : dhakaSubAreas.includes(thana) ? 90 : 60;
 
     setShowWarning(false);
     setDeliveryInfo((prevData) => ({
       ...prevData,
-      deliveryArea: location,
+      deliveryArea: zilla,
       deliveryCharge: charge,
     }));
 
@@ -320,11 +324,13 @@ const Checkout = () => {
         <CourierFraudCheck />
 
         <div className="mb-8">
-          <p className="caption mb-2 uppercase tracking-[0.18em] text-primary-600">Secure checkout</p>
-          <h1 className="page-title">
-          Checkout
-          </h1>
-          <p className="body-copy mt-2">Review your delivery details and place your order with confidence.</p>
+          <p className="caption mb-2 uppercase tracking-[0.18em] text-primary-600">
+            Secure checkout
+          </p>
+          <h1 className="page-title">Checkout</h1>
+          <p className="body-copy mt-2">
+            Review your delivery details and place your order with confidence.
+          </p>
         </div>
 
         <div className="grid grid-cols-12 gap-5 lg:gap-10">
