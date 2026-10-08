@@ -1,4 +1,5 @@
-import { RiCloseFill } from "react-icons/ri";
+import { RiCloseFill, RiWallet3Line, RiBankCardLine } from "react-icons/ri";
+import { FaMobileAlt, FaTruck } from "react-icons/fa";
 
 const OrderSummary = ({
   products,
@@ -75,7 +76,248 @@ const OrderSummary = ({
         ))}
 
       {/* Enhanced Reseller Price Breakdown */}
-      <div className="surface-muted relative w-full space-y-3 p-4">
+      <div className="relative w-full space-y-3">
+        {/* Payment Method Selection */}
+        <div className="mt-5">
+          <label className="mb-2 block text-base font-semibold ">
+            পেমেন্ট পদ্ধতি নির্বাচন করুন
+          </label>
+          <div className="flex flex-col lg:flex-row justify-center items-center gap-2.5">
+            {(user?.subscriptionType !== "Free" || totalOrders > 2) && (
+              <button
+                type="button"
+                onClick={() => handlePaymentMethodChange("Cash On Delivery")}
+                className={`w-full lg:w-1/2 flex justify-between items-center gap-2 rounded-lg border p-2.5 transition-none cursor-pointer ${
+                  deliveryInfo.paymentMethod === "Cash On Delivery"
+                    ? "border-success"
+                    : "border-border-color bg-card-bg"
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <div
+                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
+                      deliveryInfo.paymentMethod === "Cash On Delivery"
+                        ? "bg-success text-white"
+                        : "border border-border-color text-text-secondary"
+                    }`}
+                  >
+                    <FaTruck size={18} />
+                  </div>
+
+                  <p
+                    className={`text-xs lg:text-sm font-medium ${
+                      deliveryInfo.paymentMethod === "Cash On Delivery"
+                        ? "text-primary-400"
+                        : "text-text-primary"
+                    }`}
+                  >
+                    ক্যাশ অন ডেলিভারি
+                  </p>
+                </div>
+
+                <div
+                  className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${
+                    deliveryInfo.paymentMethod === "Cash On Delivery"
+                      ? "border-success bg-success"
+                      : "border-border-color bg-card-bg"
+                  }`}
+                >
+                  {deliveryInfo.paymentMethod === "Cash On Delivery" && (
+                    <span className="h-2 w-2 rounded-full bg-white" />
+                  )}
+                </div>
+              </button>
+            )}
+
+            {/* Advanced Payment */}
+            <button
+              type="button"
+              onClick={() => handlePaymentMethodChange("Advanced Payment")}
+              className={`w-full lg:w-1/2 flex items-center justify-between gap-2 rounded-lg border p-2.5 transition-none cursor-pointer ${
+                deliveryInfo.paymentMethod === "Advanced Payment"
+                  ? "border-success"
+                  : "border-border-color bg-card-bg"
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <div
+                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
+                    deliveryInfo.paymentMethod === "Advanced Payment"
+                      ? "bg-success text-white"
+                      : "border border-border-color text-text-secondary"
+                  }`}
+                >
+                  <RiBankCardLine size={18} />
+                </div>
+
+                <p
+                  className={`text-xs lg:text-sm font-medium ${
+                    deliveryInfo.paymentMethod === "Advanced Payment"
+                      ? "text-primary-400"
+                      : "text-text-primary"
+                  }`}
+                >
+                  অ্যাডভান্স পেমেন্ট
+                </p>
+              </div>
+
+              <div
+                className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${
+                  deliveryInfo.paymentMethod === "Advanced Payment"
+                    ? "border-success bg-success"
+                    : "border-border-color bg-card-bg"
+                }`}
+              >
+                {deliveryInfo.paymentMethod === "Advanced Payment" && (
+                  <span className="h-2 w-2 rounded-full bg-white" />
+                )}
+              </div>
+            </button>
+          </div>
+        </div>
+
+        {/* Payment Method for Advanced Payment */}
+        {deliveryInfo.paymentMethod === "Advanced Payment" &&
+          deliveryInfo.deliveryCharge > 0 && (
+            <div className="mt-4 space-y-4">
+              <div className="space-y-2.5">
+                <p className="text-sm font-medium  text-text-secondary">
+                  অ্যাডভান্স পরিমাণ (৳)
+                </p>
+
+                <input
+                  type="number"
+                  value={advanceAmount}
+                  onChange={(e) => setAdvanceAmount(Number(e.target.value))}
+                  onBlur={() => {
+                    const max = resellerPrice + deliveryInfo.deliveryCharge;
+
+                    if (advanceAmount < deliveryInfo.deliveryCharge) {
+                      setAdvanceAmount(deliveryInfo.deliveryCharge);
+                    } else if (advanceAmount > max) {
+                      setAdvanceAmount(max);
+                    }
+                  }}
+                  min={deliveryInfo.deliveryCharge}
+                  max={resellerPrice + deliveryInfo.deliveryCharge}
+                  className="control w-full px-4 text-text-secondary"
+                />
+
+                <div className="flex justify-between items-start gap-2">
+                  <p className="text-[10px] lg:text-xs font-normal  text-shadow-text-secondary">
+                    সর্বনিম্ন: ৳{deliveryInfo.deliveryCharge}
+                    {/* | সর্বোচ্চ: ৳ {resellerPrice + deliveryInfo.deliveryCharge} */}
+                  </p>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setAdvanceAmount(deliveryInfo.deliveryCharge)
+                      }
+                      className="btn btn-primary min-h-4 text-xs font-normal"
+                    >
+                      চার্জ (৳{deliveryInfo.deliveryCharge})
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setAdvanceAmount(
+                          resellerPrice + deliveryInfo.deliveryCharge,
+                        )
+                      }
+                      className="btn btn-secondary min-h-4 text-xs font-normal"
+                    >
+                      সম্পূর্ণ (৳
+                      {resellerPrice + deliveryInfo.deliveryCharge})
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2.5">
+                <label className="mb-2 block text-base font-semibold ">
+                  পেমেন্ট মাধ্যম
+                </label>
+
+                <div className="flex flex-col lg:flex-row justify-center items-center gap-2.5">
+                  {/* Balance */}
+                  <button
+                    type="button"
+                    onClick={() => setDeliveryPaymentMethod("Balance")}
+                    className={`w-full lg:w-1/2 flex items-center gap-2 rounded-lg border p-2.5 transition-none cursor-pointer ${
+                      deliveryPaymentMethod === "Balance"
+                        ? "border-success"
+                        : "border-border-color bg-card-bg"
+                    }`}
+                  >
+                    <div
+                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
+                        deliveryPaymentMethod === "Balance"
+                          ? "bg-success text-white"
+                          : "border border-border-color text-text-secondary"
+                      }`}
+                    >
+                      <RiWallet3Line size={18} />
+                    </div>
+
+                    <p
+                      className={`text-xs lg:text-sm font-medium text-left ${
+                        deliveryPaymentMethod === "Balance"
+                          ? "text-primary-400"
+                          : "text-text-primary"
+                      }`}
+                    >
+                      ব্যালেন্স <br />{" "}
+                      <span className="text-text-secondary">
+                        (৳
+                        {user?.balance
+                          ? user?.balance?.toFixed(2)
+                          : "0.00"}{" "}
+                        available)
+                      </span>
+                    </p>
+                  </button>
+
+                  {/* Manual / MFS */}
+                  <button
+                    type="button"
+                    onClick={() => setDeliveryPaymentMethod("Manual")}
+                    className={`w-full lg:w-1/2 flex items-center gap-2 rounded-lg border p-2.5 transition-none cursor-pointer ${
+                      deliveryPaymentMethod === "Manual"
+                        ? "border-success"
+                        : "border-border-color bg-card-bg"
+                    }`}
+                  >
+                    <div
+                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
+                        deliveryPaymentMethod === "Manual"
+                          ? "bg-success text-white"
+                          : "border border-border-color text-text-secondary"
+                      }`}
+                    >
+                      <FaMobileAlt size={18} />
+                    </div>
+
+                    <p
+                      className={`text-xs lg:text-sm font-medium text-left ${
+                        deliveryPaymentMethod === "Manual"
+                          ? "text-primary-400"
+                          : "text-text-primary"
+                      }`}
+                    >
+                      MFS <br />{" "}
+                      <span className="text-text-secondary">
+                        (BKash/Nagad/Rocket)
+                      </span>
+                    </p>
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
         {/* Selling Price */}
         <div className="flex justify-between items-center font-primary text-sm font-medium">
           <span>Sale Price</span>
@@ -89,6 +331,7 @@ const OrderSummary = ({
             ৳ {deliveryInfo?.deliveryCharge.toFixed(2)}
           </span>
         </div>
+
         {/* Packaging Charge */}
         {/* <div className="flex justify-between items-center font-primary text-sm font-medium">
           <span>Packaging Charge</span>
@@ -122,7 +365,6 @@ const OrderSummary = ({
           </div>
         )}
 
-        <hr className="border-border-color" />
         {/* Final Total */}
         <div className="flex items-center justify-between rounded-lg bg-primary-100 p-3 text-lg font-bold">
           <span className="text-primary-800 ">
@@ -137,159 +379,6 @@ const OrderSummary = ({
             ).toFixed(2)}
           </span>
         </div>
-
-        {/* Payment Method Selection */}
-        <div className="mt-5">
-          <label className="mb-2 block text-base font-semibold font-secondary">
-            পেমেন্ট পদ্ধতি নির্বাচন করুন
-          </label>
-          <div className="space-y-3">
-            {(user?.subscriptionType !== "Free" || totalOrders > 2) && (
-              <div
-                className={`flex items-center gap-3 rounded-lg border p-3 ${
-                  deliveryInfo.paymentMethod === "Cash On Delivery"
-                    ? "border-warning bg-amber-50"
-                    : "border-border-color bg-section-bg"
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="paymentMethod"
-                  value="Cash On Delivery"
-                  checked={deliveryInfo.paymentMethod === "Cash On Delivery"}
-                  onChange={() => handlePaymentMethodChange("Cash On Delivery")}
-                  className="radio radio-warning"
-                />
-                <label className="text-base font-medium font-secondary text-amber-800">
-                  ক্যাশ অন ডেলিভারি
-                </label>
-              </div>
-            )}
-
-            <div
-              className={`rounded-lg border p-3 ${
-                deliveryInfo.paymentMethod === "Advanced Payment"
-                  ? "border-info bg-blue-50"
-                  : "border-border-color bg-section-bg"
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <input
-                  type="radio"
-                  name="paymentMethod"
-                  value="Advanced Payment"
-                  checked={deliveryInfo.paymentMethod === "Advanced Payment"}
-                  onChange={() => handlePaymentMethodChange("Advanced Payment")}
-                  className="radio radio-primary"
-                />
-                <label className="text-base font-medium font-secondary text-blue-800">
-                  অ্যাডভান্স পেমেন্ট
-                </label>
-              </div>
-
-              {deliveryInfo.paymentMethod === "Advanced Payment" &&
-                deliveryInfo.deliveryCharge > 0 && (
-                  <div className="mt-3 space-y-3 pl-8">
-                    <div className="flex flex-wrap gap-2">
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setAdvanceAmount(deliveryInfo.deliveryCharge)
-                        }
-                        className="btn btn-secondary min-h-9 px-3 py-1.5 text-xs"
-                      >
-                        ডেলিভারি চার্জ (৳{deliveryInfo.deliveryCharge})
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setAdvanceAmount(
-                            resellerPrice + deliveryInfo.deliveryCharge,
-                          )
-                        }
-                        className="btn btn-outline min-h-9 px-3 py-1.5 text-xs"
-                      >
-                        সম্পূর্ণ পেমেন্ট (৳
-                        {resellerPrice + deliveryInfo.deliveryCharge})
-                      </button>
-                    </div>
-
-                    <div>
-                      <label className="mb-1 block text-sm font-medium font-secondary text-text-secondary">
-                        অ্যাডভান্স পরিমাণ (৳)
-                      </label>
-                      <input
-                        type="number"
-                        value={advanceAmount}
-                        onChange={(e) =>
-                          setAdvanceAmount(Number(e.target.value))
-                        }
-                        onBlur={() => {
-                          const max =
-                            resellerPrice + deliveryInfo.deliveryCharge;
-                          if (advanceAmount < deliveryInfo.deliveryCharge) {
-                            setAdvanceAmount(deliveryInfo.deliveryCharge);
-                          } else if (advanceAmount > max) {
-                            setAdvanceAmount(max);
-                          }
-                        }}
-                        min={deliveryInfo.deliveryCharge}
-                        max={resellerPrice + deliveryInfo.deliveryCharge}
-                        className="control w-full px-4 text-text-secondary"
-                      />
-                      <p className="mt-1 text-xs text-primary-600 font-secondary">
-                        সর্বনিম্ন: ৳{deliveryInfo.deliveryCharge} | সর্বোচ্চ: ৳
-                        {resellerPrice + deliveryInfo.deliveryCharge}
-                      </p>
-                    </div>
-                  </div>
-                )}
-            </div>
-          </div>
-        </div>
-
-        {/* Payment Method for Advanced Payment */}
-        {deliveryInfo.paymentMethod === "Advanced Payment" &&
-          deliveryInfo.deliveryCharge > 0 && (
-            <div className="mt-5">
-              <label className="mb-2 block text-base font-semibold font-secondary">
-                পেমেন্ট মাধ্যম
-              </label>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3 rounded-lg border border-primary-200 bg-primary-50 p-3">
-                  <input
-                    type="radio"
-                    name="deliveryPayment"
-                    value="Balance"
-                    checked={deliveryPaymentMethod === "Balance"}
-                    onChange={() => setDeliveryPaymentMethod("Balance")}
-                    className="radio radio-success"
-                  />
-                  <div className="flex-1">
-                    <label className="text-base font-medium text-green-800">
-                      ব্যালেন্স থেকে কাটুন (৳
-                      {user?.balance?.toFixed(2)} available)
-                    </label>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 rounded-lg border border-blue-200 bg-blue-50 p-3">
-                  <input
-                    type="radio"
-                    name="deliveryPayment"
-                    value="Manual"
-                    checked={deliveryPaymentMethod === "Manual"}
-                    onChange={() => setDeliveryPaymentMethod("Manual")}
-                    className="radio radio-primary"
-                  />
-                  <div className="flex-1">
-                    <label className="text-base font-medium text-blue-800">
-                      ম্যানুয়াল পেমেন্ট (BKash/Nagad/Rocket)
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
 
         <button
           type="submit"

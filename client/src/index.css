@@ -290,31 +290,32 @@ img {
       box-shadow 0.2s ease,
       transform 0.2s ease;
     cursor: pointer;
+    box-shadow: none !important;
   }
 
   .btn-primary {
-    background-color: var(--color-primary-600);
+    background-color: var(--color-primary-600) !important;
     color: #ffffff !important;
     box-shadow: 0 6px 14px rgb(22 163 74 / 0.18);
   }
 
   .btn-primary:hover {
-    background-color: var(--color-primary-700);
+    background-color: var(--color-primary-700) !important;
   }
 
   .btn-secondary {
-    background-color: var(--color-secondary-100);
+    background-color: var(--color-secondary-600) !important;
     color: #ffffff !important;
   }
 
   .btn-outline {
-    border-color: var(--color-border-color);
+    border-color: var(--color-border-color) !important;
     background-color: transparent;
-    color: var(--color-text-primary);
+    color: var(--color-text-primary) !important;
   }
 
   .btn-outline:hover {
-    border-color: var(--color-primary-500);
+    border-color: var(--color-primary-500) !important;
     color: var(--color-primary-700);
   }
 

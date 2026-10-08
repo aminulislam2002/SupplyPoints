@@ -349,6 +349,7 @@ const Checkout = () => {
             setDeliveryPaymentMethod={setDeliveryPaymentMethod}
             setAdvanceAmount={setAdvanceAmount}
             isLoading={isLoading}
+            netProfit={netProfit}
           />
         </div>
       </div>
