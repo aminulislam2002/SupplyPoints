@@ -339,16 +339,7 @@ const Checkout = () => {
             deliveryInfo={deliveryInfo}
             showWarning={showWarning}
             handleDeliveryLocationChange={handleDeliveryLocationChange}
-            handlePaymentMethodChange={handlePaymentMethodChange}
             onSubmit={onSubmit}
-            isLoading={isLoading}
-            user={user}
-            totalOrders={totalOrders}
-            deliveryPaymentMethod={deliveryPaymentMethod}
-            setDeliveryPaymentMethod={setDeliveryPaymentMethod}
-            advanceAmount={advanceAmount}
-            setAdvanceAmount={setAdvanceAmount}
-            resellerPrice={resellerPrice}
           />
 
           {/* Order Details */}
@@ -356,13 +347,18 @@ const Checkout = () => {
             products={products}
             deliveryInfo={deliveryInfo}
             resellerPrice={resellerPrice}
-            totalProfit={totalProfit}
-            platform={platform}
             advanceAmount={
               deliveryInfo.paymentMethod === "Advanced Payment"
                 ? advanceAmount
                 : 0
             }
+            handlePaymentMethodChange={handlePaymentMethodChange}
+            user={user}
+            totalOrders={totalOrders}
+            deliveryPaymentMethod={deliveryPaymentMethod}
+            setDeliveryPaymentMethod={setDeliveryPaymentMethod}
+            setAdvanceAmount={setAdvanceAmount}
+            isLoading={isLoading}
           />
         </div>
       </div>

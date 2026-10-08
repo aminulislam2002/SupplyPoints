@@ -4,24 +4,15 @@ const OrderSummary = ({
   products,
   deliveryInfo,
   resellerPrice,
-  totalProfit,
-  platform,
   advanceAmount,
+  handlePaymentMethodChange,
+  user,
+  totalOrders,
+  deliveryPaymentMethod,
+  setDeliveryPaymentMethod,
+  setAdvanceAmount,
+  isLoading,
 }) => {
-  const codChargePer = Number(platform?.codCharge || 1);
-
-  // Remaining Amount for COD calculation
-  const remainingAmountForCOD =
-    resellerPrice + deliveryInfo?.deliveryCharge - advanceAmount;
-  const codCharge =
-    remainingAmountForCOD > 0
-      ? (remainingAmountForCOD * codChargePer) / 100
-      : 0;
-
-  const packagingCharge = Number(platform?.packagingCharge || 10);
-
-  const netProfit = totalProfit - (packagingCharge + codCharge);
-
   return (
     <div className="surface col-span-12 p-5 sm:p-6 lg:col-span-5">
       {products.length > 0 &&
@@ -146,6 +137,173 @@ const OrderSummary = ({
             ).toFixed(2)}
           </span>
         </div>
+
+        {/* Payment Method Selection */}
+        <div className="mt-5">
+          <label className="mb-2 block text-base font-semibold font-secondary">
+            পেমেন্ট পদ্ধতি নির্বাচন করুন
+          </label>
+          <div className="space-y-3">
+            {(user?.subscriptionType !== "Free" || totalOrders > 2) && (
+              <div
+                className={`flex items-center gap-3 rounded-lg border p-3 ${
+                  deliveryInfo.paymentMethod === "Cash On Delivery"
+                    ? "border-warning bg-amber-50"
+                    : "border-border-color bg-section-bg"
+                }`}
+              >
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="Cash On Delivery"
+                  checked={deliveryInfo.paymentMethod === "Cash On Delivery"}
+                  onChange={() => handlePaymentMethodChange("Cash On Delivery")}
+                  className="radio radio-warning"
+                />
+                <label className="text-base font-medium font-secondary text-amber-800">
+                  ক্যাশ অন ডেলিভারি
+                </label>
+              </div>
+            )}
+
+            <div
+              className={`rounded-lg border p-3 ${
+                deliveryInfo.paymentMethod === "Advanced Payment"
+                  ? "border-info bg-blue-50"
+                  : "border-border-color bg-section-bg"
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="Advanced Payment"
+                  checked={deliveryInfo.paymentMethod === "Advanced Payment"}
+                  onChange={() => handlePaymentMethodChange("Advanced Payment")}
+                  className="radio radio-primary"
+                />
+                <label className="text-base font-medium font-secondary text-blue-800">
+                  অ্যাডভান্স পেমেন্ট
+                </label>
+              </div>
+
+              {deliveryInfo.paymentMethod === "Advanced Payment" &&
+                deliveryInfo.deliveryCharge > 0 && (
+                  <div className="mt-3 space-y-3 pl-8">
+                    <div className="flex flex-wrap gap-2">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setAdvanceAmount(deliveryInfo.deliveryCharge)
+                        }
+                        className="btn btn-secondary min-h-9 px-3 py-1.5 text-xs"
+                      >
+                        ডেলিভারি চার্জ (৳{deliveryInfo.deliveryCharge})
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setAdvanceAmount(
+                            resellerPrice + deliveryInfo.deliveryCharge,
+                          )
+                        }
+                        className="btn btn-outline min-h-9 px-3 py-1.5 text-xs"
+                      >
+                        সম্পূর্ণ পেমেন্ট (৳
+                        {resellerPrice + deliveryInfo.deliveryCharge})
+                      </button>
+                    </div>
+
+                    <div>
+                      <label className="mb-1 block text-sm font-medium font-secondary text-text-secondary">
+                        অ্যাডভান্স পরিমাণ (৳)
+                      </label>
+                      <input
+                        type="number"
+                        value={advanceAmount}
+                        onChange={(e) =>
+                          setAdvanceAmount(Number(e.target.value))
+                        }
+                        onBlur={() => {
+                          const max =
+                            resellerPrice + deliveryInfo.deliveryCharge;
+                          if (advanceAmount < deliveryInfo.deliveryCharge) {
+                            setAdvanceAmount(deliveryInfo.deliveryCharge);
+                          } else if (advanceAmount > max) {
+                            setAdvanceAmount(max);
+                          }
+                        }}
+                        min={deliveryInfo.deliveryCharge}
+                        max={resellerPrice + deliveryInfo.deliveryCharge}
+                        className="control w-full px-4 text-text-secondary"
+                      />
+                      <p className="mt-1 text-xs text-primary-600 font-secondary">
+                        সর্বনিম্ন: ৳{deliveryInfo.deliveryCharge} | সর্বোচ্চ: ৳
+                        {resellerPrice + deliveryInfo.deliveryCharge}
+                      </p>
+                    </div>
+                  </div>
+                )}
+            </div>
+          </div>
+        </div>
+
+        {/* Payment Method for Advanced Payment */}
+        {deliveryInfo.paymentMethod === "Advanced Payment" &&
+          deliveryInfo.deliveryCharge > 0 && (
+            <div className="mt-5">
+              <label className="mb-2 block text-base font-semibold font-secondary">
+                পেমেন্ট মাধ্যম
+              </label>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 rounded-lg border border-primary-200 bg-primary-50 p-3">
+                  <input
+                    type="radio"
+                    name="deliveryPayment"
+                    value="Balance"
+                    checked={deliveryPaymentMethod === "Balance"}
+                    onChange={() => setDeliveryPaymentMethod("Balance")}
+                    className="radio radio-success"
+                  />
+                  <div className="flex-1">
+                    <label className="text-base font-medium text-green-800">
+                      ব্যালেন্স থেকে কাটুন (৳
+                      {user?.balance?.toFixed(2)} available)
+                    </label>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 rounded-lg border border-blue-200 bg-blue-50 p-3">
+                  <input
+                    type="radio"
+                    name="deliveryPayment"
+                    value="Manual"
+                    checked={deliveryPaymentMethod === "Manual"}
+                    onChange={() => setDeliveryPaymentMethod("Manual")}
+                    className="radio radio-primary"
+                  />
+                  <div className="flex-1">
+                    <label className="text-base font-medium text-blue-800">
+                      ম্যানুয়াল পেমেন্ট (BKash/Nagad/Rocket)
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+        <button
+          type="submit"
+          form="checkout-form"
+          className="btn btn-primary mt-5 w-full"
+          disabled={isLoading}
+        >
+          {isLoading
+            ? "Please Wait..."
+            : deliveryInfo.paymentMethod === "Advanced Payment" &&
+                deliveryPaymentMethod === "Manual"
+              ? "Proceed to Payment"
+              : "Place Order"}
+        </button>
       </div>
     </div>
   );
