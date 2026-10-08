@@ -720,10 +720,7 @@ const UpdateProduct = () => {
             <MdClose size={18}></MdClose>
             Cancel
           </Link>
-          <button
-            type="submit"
-            className="relative h-10 px-3.5 rounded-md text-nowrap cursor-pointer flex justify-center items-center gap-1.5 bg-linear-to-r from-[#0088cc] via-[#0099e6] to-[#00bfff] transition-colors duration-300"
-          >
+          <button type="submit" className="btn btn-primary w-full sm:w-auto">
             <BsDatabaseFillAdd size={18}></BsDatabaseFillAdd>
             <span>{isLoading ? "Processing..." : "Update"}</span>
           </button>

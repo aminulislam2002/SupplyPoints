@@ -320,18 +320,8 @@ const Checkout = () => {
       {/* Breadcrumb */}
       <Breadcrumb items={breadcrumbItems} />
 
-      <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 py-5 lg:py-10 space-y-5 lg:space-y-10">
         <CourierFraudCheck />
-
-        <div className="mb-8">
-          <p className="caption mb-2 uppercase tracking-[0.18em] text-primary-600">
-            Secure checkout
-          </p>
-          <h1 className="page-title">Checkout</h1>
-          <p className="body-copy mt-2">
-            Review your delivery details and place your order with confidence.
-          </p>
-        </div>
 
         <div className="grid grid-cols-12 gap-5 lg:gap-10">
           {/* Checkout Form */}
