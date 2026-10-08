@@ -174,7 +174,7 @@ const AllMarketingPack = () => {
       </div>
 
       <dialog id="marketing_pack_add_update_modal" className="modal">
-        <div className="modal-surface relative max-h-[90vh] w-11/12 max-w-3xl overflow-y-auto p-4 sm:p-6">
+        <div className="modal-surface relative max-h-[90vh] w-11/12 max-w-2xl overflow-y-auto p-4 lg:p-5">
           <div>
             {isUpdatePack && (
               <UpdateMarketingPack

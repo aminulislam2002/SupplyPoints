@@ -270,7 +270,7 @@ const AllRule = () => {
 
       {/* Add & Update Rule Modal */}
       <dialog id="rule_add_update_modal" className="modal">
-        <div className="modal-surface relative w-11/12 max-w-2xl">
+        <div className="modal-surface relative max-h-[90vh] w-11/12 max-w-2xl overflow-y-auto p-4 lg:p-5">
           <div>
             {isUpdateRule && (
               <UpdateRule

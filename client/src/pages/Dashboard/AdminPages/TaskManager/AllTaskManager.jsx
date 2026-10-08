@@ -198,7 +198,7 @@ const AllTaskManager = () => {
       </div>
 
       <dialog id="task_manager_add_update_modal" className="modal">
-        <div className="modal-surface w-11/12 max-w-2xl relative">
+        <div className="modal-surface relative max-h-[90vh] w-11/12 max-w-2xl overflow-y-auto p-4 lg:p-5">
           <div>
             {isUpdateTask && (
               <UpdateTaskManager

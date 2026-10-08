@@ -203,7 +203,7 @@ const AllSlider = () => {
         id="slider_add_update_modal"
         className="modal modal-bottom sm:modal-middle"
       >
-        <div className="modal-surface relative max-h-[90vh] w-11/12 max-w-2xl overflow-y-auto p-4 sm:p-6">
+        <div className="modal-surface relative max-h-[90vh] w-11/12 max-w-2xl overflow-y-auto p-4 lg:p-5">
           <button
             onClick={() => {
               modal.close();
