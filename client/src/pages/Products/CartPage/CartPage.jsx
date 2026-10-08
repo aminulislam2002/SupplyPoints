@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { CartContext } from "../../../providers/CartProvider/CartProvider";
 import { RiCloseFill } from "react-icons/ri";
 import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb";
+import { BsBagX, BsCartX } from "react-icons/bs";
 
 const CartPage = () => {
   const { cartData, refetch, clearCart, removeProduct } =
@@ -23,19 +24,15 @@ const CartPage = () => {
     return (
       <div>
         <Breadcrumb items={breadcrumbItems} />
-        <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
-          <div className="surface flex flex-col items-center justify-center p-10 text-center">
-          <p className="caption mb-2 uppercase tracking-[0.18em]">Your bag</p>
-          <h1 className="section-title mb-4">
-            Cart is Empty
-          </h1>
+        <div className="container mx-auto px-4 py-5 lg:py-10">
+          <div className="flex flex-col items-center justify-center p-10 text-center space-y-4">
+            <BsBagX size={60} className="text-text-secondary opacity-50" />
 
-          <Link
-            to="/reselling"
-            className="btn btn-primary w-full max-w-xs"
-          >
-            Start Reselling
-          </Link>
+            <h1 className="section-title">কার্টটি খালি</h1>
+
+            <Link to="/reselling" className="btn btn-primary w-full max-w-xs">
+              পণ্যের পৃষ্ঠায় ফিরে যান
+            </Link>
           </div>
         </div>
       </div>
@@ -43,24 +40,24 @@ const CartPage = () => {
   }
 
   return (
-    <div className="relative w-full min-h-screen">
+    <div className="relative w-full h-full">
       {/* Breadcrumb */}
       <Breadcrumb items={breadcrumbItems} />
 
-      <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 py-5 lg:py-10">
         {/* Cart Desktop Version */}
         <div className="table-shell hidden lg:block">
-          <table>
-            <thead>
-              <tr className="text-center">
-                <td>Image</td>
-                <td>Product Title</td>
-                <td>Size</td>
-                <td>Color</td>
-                <td>Price</td>
-                <td>Total</td>
-                <td>Profit</td>
-                <td>Action</td>
+          <table className="table table-xs w-full table-fixed">
+            <thead thead className="bg-section-bg">
+              <tr className="h-10 text-sm text-nowrap font-normal text-center">
+                <td>ছবি</td>
+                <td>পণ্যের নাম</td>
+                <td>সাইজ</td>
+                <td>কালার</td>
+                <td>দাম</td>
+                <td>টোটাল</td>
+                <td>প্রফিট</td>
+                <td>ডিলিট</td>
               </tr>
             </thead>
 
@@ -108,12 +105,14 @@ const CartPage = () => {
                       ৳{product?.profit}
                     </td>
                     <td>
-                      <button
-                        onClick={() => removeProduct(index)}
-                        className="btn btn-danger min-h-8 px-3 text-xs"
-                      >
-                        Remove
-                      </button>
+                      <div className="w-full h-full flex justify-center items-center">
+                        <button
+                          onClick={() => removeProduct(index)}
+                          className="btn btn-secondary w-full sm:w-auto"
+                        >
+                          Remove
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 </tbody>
@@ -178,7 +177,7 @@ const CartPage = () => {
 
                   {/* Profit and Remove buttons */}
                   <div className="flex justify-between items-center gap-2.5 mt-2">
-                    <div                     className="badge badge-success min-h-8 w-1/2 justify-center rounded-md">
+                    <div className="badge badge-success min-h-8 w-1/2 justify-center rounded-md">
                       Profit: ৳{product?.profit}
                     </div>
 
@@ -195,23 +194,23 @@ const CartPage = () => {
             ))}
         </div>
 
-        <div className="flex flex-col items-stretch justify-end gap-3 border-t border-border-color pt-5 sm:flex-row sm:items-center">
+        <div className="w-full relative flex items-center justify-center gap-3 pt-5">
           {/* Clear Cart Button */}
           <button
             onClick={() => {
               clearCart();
             }}
-            className="btn btn-danger"
+            className="btn btn-secondary w-1/2 sm:w-auto"
           >
-            Clear Cart
+            কার্ট খালি করুন
           </button>
           {/* Checkout navigate link */}
           <Link
             to="/checkout"
             state={{ data: cartData }}
-            className="btn btn-primary"
+            className="btn btn-primary w-1/2 sm:w-auto"
           >
-            Checkout
+            চেক-আউট
           </Link>
         </div>
       </div>

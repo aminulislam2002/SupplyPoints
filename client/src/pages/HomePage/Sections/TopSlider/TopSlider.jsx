@@ -94,11 +94,11 @@ const TopSlider = () => {
                   className="w-full h-full"
                 >
                   <LazyLoadImage
-                    width={`100%`}
+                    width="100%"
                     src={import.meta.env.VITE_IMAGE_URL + slider?.image}
                     effect="blur"
                     alt={`Slider Image ${slider?._id}`}
-                    className="w-full h-full object-cover bg-center slider-image"
+                    className="slider-image"
                   />
                 </motion.div>
               </Link>
@@ -112,7 +112,7 @@ const TopSlider = () => {
           </div>
         )}
 
-        {loaded && instanceRef.current && (
+        {/* {loaded && instanceRef.current && (
           <>
             <Arrow
               left
@@ -132,7 +132,8 @@ const TopSlider = () => {
               }
             />
           </>
-        )}
+        )} */}
+
         {loaded && instanceRef.current && (
           <div className="dots">
             {[

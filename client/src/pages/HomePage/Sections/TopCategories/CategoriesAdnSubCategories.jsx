@@ -13,7 +13,7 @@ const CategoriesAdnSubCategories = () => {
   }
 
   return (
-    <section className="container mx-auto px-4 py-5 lg:py-10">
+    <div className="container mx-auto px-4 py-5 lg:py-10">
       {/* Main Section Header */}
       <div className="text-center mb-10">
         <div className="inline-flex items-center gap-2 bg-primary-50 dark:bg-primary-950/40 text-primary-600 dark:text-primary-400 px-4 py-1.5 rounded-full text-xs font-semibold mb-3 border border-primary-200 dark:border-primary-800">
@@ -42,7 +42,9 @@ const CategoriesAdnSubCategories = () => {
         </div>
       ) : (
         <div className="space-y-12">
-          {categories.map((category) => (
+          {categories
+            .filter((category) => category?.name?.trim() !== "নতুন পণ্য")
+            .map((category) => (
             <div key={category?._id} className="space-y-4">
               {/* Category Title Header */}
               <div className="relative flex items-center justify-between bg-linear-to-r from-primary-500/10 via-card-bg to-transparent border-l-4 border-primary-600 dark:border-primary-500 px-4 py-3 rounded-r-xl shadow-xs">
@@ -59,7 +61,7 @@ const CategoriesAdnSubCategories = () => {
           ))}
         </div>
       )}
-    </section>
+    </div>
   );
 };
 

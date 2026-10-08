@@ -44,7 +44,11 @@ const TopCategories = () => {
           {categories.map((category) => (
             <Link
               key={category?._id}
-              to={`/category/${category?._id}`}
+              to={
+                category?.name?.trim() === "নতুন পণ্য"
+                  ? "/category/new-product"
+                  : `/category/${category?._id}`
+              }
               className="group flex flex-col items-center rounded-xl border border-border-color bg-card-bg shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary-500 hover:shadow-lg"
             >
               <div className="aspect-square w-full overflow-hidden rounded-t-lg border-b border-border-color bg-primary-50/50 dark:bg-primary-950/20">

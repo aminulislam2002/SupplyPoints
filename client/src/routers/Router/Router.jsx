@@ -24,6 +24,7 @@ import AllRule from "../../pages/Dashboard/AdminPages/Rules/AllRule";
 import AllWithdrawals from "../../pages/Dashboard/AdminPages/AllWithdrawals/AllWithdrawals";
 import Shop from "../../pages/Shop/Shop";
 import ProductsByCategory from "../../pages/Products/ProductsByCategory/ProductsByCategory";
+import NewProduct from "../../pages/Products/NewProduct/NewProduct";
 import AllSlider from "../../pages/Dashboard/AdminPages/Sliders/AllSlider";
 import AddSlider from "../../pages/Dashboard/AdminPages/Sliders/AddSlider";
 import UpdateSlider from "../../pages/Dashboard/AdminPages/Sliders/UpdateSlider";
@@ -107,6 +108,10 @@ const router = createBrowserRouter([
       {
         path: "products",
         element: <Shop />,
+      },
+      {
+        path: "category/new-product",
+        element: <NewProduct />,
       },
       {
         path: "category/:category",

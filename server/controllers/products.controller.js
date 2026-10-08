@@ -362,6 +362,7 @@ const updateProduct = async (req, res) => {
       sizes,
       thumbnail: updatedThumbnail,
       photos: updatedPhotos,
+      createdAt: new Date(), // Update the createdAt field to the current date
     };
 
     // Update the product in the database
