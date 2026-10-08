@@ -319,14 +319,14 @@ const ContactUs = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to={`tel:${platform?.phoneNumber || "+880 1700 0000"}`}
-              className="btn btn-primary px-8 py-3"
+              className="btn primary-btn px-8 py-3"
             >
               <FaPhoneAlt />
               Call Now
             </Link>
             <Link
               to={`mailto:${platform?.emailAddress || "info@yourdomain.com"}`}
-              className="btn btn-outline px-8 py-3"
+              className="btn outline-btn px-8 py-3"
             >
               <FaEnvelope />
               Send Email

@@ -106,7 +106,7 @@ const AdminSettings = () => {
               type="button"
               onClick={() => setActiveTab(tab.id)}
               className={`btn flex items-center gap-2 px-4 py-2 text-sm transition-colors duration-300 ${
-                activeTab === tab.id ? "btn-primary" : "btn-outline"
+                activeTab === tab.id ? "primary-btn" : "outline-btn"
               }`}
             >
               <tab.icon size={16} />
@@ -722,14 +722,14 @@ const AdminSettings = () => {
           <button
             type="button"
             onClick={() => reset()}
-            className="btn btn-secondary w-full sm:w-auto"
+            className="btn secondary-btn w-full sm:w-auto"
           >
             Reset Changes
           </button>
           <button
             type="submit"
             disabled={isLoading}
-            className="btn btn-primary w-full sm:w-auto"
+            className="btn primary-btn w-full sm:w-auto"
           >
             <BsDatabaseFillAdd size={18} />
             {isLoading ? "Saving..." : "Save Settings"}

@@ -115,7 +115,9 @@ const CreateWithdrawal = () => {
           <p className="text-2xl font-semibold mt-1">৳{minLimit}</p>
         </div>
         <div className="card p-4 shadow-sm">
-          <p className="text-xs text-text-secondary">Withdrawable After Reserve</p>
+          <p className="text-xs text-text-secondary">
+            Withdrawable After Reserve
+          </p>
           <p className="text-2xl font-semibold mt-1">
             ৳{withdrawableAmount.toLocaleString()}
           </p>
@@ -181,7 +183,7 @@ const CreateWithdrawal = () => {
             <button
               type="submit"
               disabled={!isFormValid}
-              className="btn btn-primary inline-flex h-11 px-5 items-center justify-center gap-2 rounded-md text-white text-sm font-medium disabled:bg-primary-800 disabled:cursor-not-allowed transition-colors duration-300 cursor-pointer"
+              className="btn primary-btn inline-flex h-11 px-5 items-center justify-center gap-2 rounded-md text-white text-sm font-medium disabled:bg-primary-800 disabled:cursor-not-allowed transition-colors duration-300 cursor-pointer"
             >
               <MdSend size={16} />
               <span>{isLoading ? "Processing..." : "Submit Request"}</span>

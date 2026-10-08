@@ -27,7 +27,7 @@ const ReqFreeActivation = () => {
           {/* Seller Rules Button */}
           <Link
             to="/dashboard/seller/rules"
-            className="btn btn-primary mx-auto h-11 w-2/3 gap-2.5 text-xs font-semibold md:w-1/2 xl:w-1/3"
+            className="btn primary-btn mx-auto h-11 w-2/3 gap-2.5 text-xs font-semibold md:w-1/2 xl:w-1/3"
           >
             <IoReceiptOutline className="text-lg group-hover:scale-110 transition-transform" />
             <span>সেলার রুলস জানুন</span>
@@ -36,7 +36,7 @@ const ReqFreeActivation = () => {
           {/* Home Button */}
           <Link
             to="/"
-            className="btn btn-outline mx-auto h-11 w-2/3 gap-2 text-xs font-medium md:w-1/2 xl:w-1/3"
+            className="btn outline-btn mx-auto h-11 w-2/3 gap-2 text-xs font-medium md:w-1/2 xl:w-1/3"
           >
             <FaHome className="text-base text-slate-500" />
             <span>হোম পেজে ফিরে যান</span>

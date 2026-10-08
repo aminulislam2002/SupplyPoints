@@ -31,16 +31,13 @@ const NotFound = () => {
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Link
-            to="/"
-            className="btn btn-primary px-8 py-4"
-          >
+          <Link to="/" className="btn primary-btn px-8 py-4">
             <FaHome size={20} />
             Back to Home
           </Link>
           <button
             onClick={() => window.history.back()}
-            className="btn btn-outline px-8 py-4"
+            className="btn outline-btn px-8 py-4"
           >
             <MdArrowBack size={20} />
             Go Back

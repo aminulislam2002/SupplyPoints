@@ -122,10 +122,7 @@ const TrackOrder = () => {
                 Please check your Order ID and Phone Number and try again.
               </p>
 
-              <button
-                onClick={handleReset}
-                className="btn btn-secondary"
-              >
+              <button onClick={handleReset} className="btn secondary-btn">
                 <FaSearch size={16} />
                 Try Again
               </button>

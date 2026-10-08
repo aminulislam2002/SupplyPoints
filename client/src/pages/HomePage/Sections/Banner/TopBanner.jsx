@@ -31,10 +31,10 @@ const TopBanner = () => {
 
             {/* Action Buttons */}
             <div className="flex items-center justify-center lg:justify-start gap-2.5">
-              <Link to="/auth/sign-up" className="btn btn-primary">
+              <Link to="/auth/sign-up" className="btn primary-btn">
                 ব্যবসা শুরু করুন
               </Link>
-              <Link className="btn btn-secondary">ভিডিও দেখুন</Link>
+              <Link className="btn secondary-btn">ভিডিও দেখুন</Link>
             </div>
           </div>
 

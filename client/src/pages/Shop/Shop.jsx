@@ -119,7 +119,7 @@ const Shop = () => {
                   {(category || sortQuery) && (
                     <button
                       onClick={handleClearFilters}
-                      className="btn btn-danger text-sm cursor-pointer"
+                      className="btn danger-btn text-sm cursor-pointer"
                     >
                       Clear All
                     </button>
@@ -129,7 +129,7 @@ const Shop = () => {
                     <Link
                       to="/products"
                       onClick={() => setSearchQuery("")}
-                      className="btn btn-danger text-sm cursor-pointer"
+                      className="btn danger-btn text-sm cursor-pointer"
                     >
                       Clear Search
                     </Link>
@@ -373,7 +373,7 @@ const Shop = () => {
                   {(category || sortQuery) && (
                     <button
                       onClick={handleClearFilters}
-                      className="btn btn-danger text-sm cursor-pointer"
+                      className="btn danger-btn text-sm cursor-pointer"
                     >
                       Clear All Filters
                     </button>
@@ -382,7 +382,7 @@ const Shop = () => {
                     <Link
                       to="/products"
                       onClick={() => setSearchQuery("")}
-                      className="btn btn-danger text-sm cursor-pointer"
+                      className="btn danger-btn text-sm cursor-pointer"
                     >
                       Clear Search
                     </Link>

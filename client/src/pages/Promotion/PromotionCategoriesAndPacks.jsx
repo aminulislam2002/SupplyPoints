@@ -112,9 +112,7 @@ const PromotionCategoriesAndPacks = () => {
           <p className="metadata uppercase tracking-[0.2em] text-primary-600">
             Choose a channel
           </p>
-          <h2 className="page-title mt-2">
-          Promotion Categories
-          </h2>
+          <h2 className="page-title mt-2">Promotion Categories</h2>
         </div>
 
         {isPromotionCategoriesFetching ? (
@@ -158,10 +156,8 @@ const PromotionCategoriesAndPacks = () => {
 
       <div>
         <div className="mb-4 flex items-end justify-between gap-4">
-        <h2 className="page-title">
-          {selectedCategoryName}
-        </h2>
-        <span className="metadata hidden sm:block">Curated packages</span>
+          <h2 className="page-title">{selectedCategoryName}</h2>
+          <span className="metadata hidden sm:block">Curated packages</span>
         </div>
 
         {isPromotionPacksLoading || isPromotionPacksFetching ? (
@@ -191,9 +187,7 @@ const PromotionCategoriesAndPacks = () => {
                     <h3 className="text-lg font-bold line-clamp-1">
                       {pack?.title}
                     </h3>
-                    <p className="metadata">
-                      {pack?.name}
-                    </p>
+                    <p className="metadata">{pack?.name}</p>
                     <p className="body-copy line-clamp-3">
                       {pack?.description}
                     </p>
@@ -211,7 +205,7 @@ const PromotionCategoriesAndPacks = () => {
                       type="button"
                       onClick={() => handlePurchaseNow(pack)}
                       disabled={purchasePackId === pack?._id}
-                      className="btn btn-primary w-full"
+                      className="btn primary-btn w-full"
                     >
                       {purchasePackId === pack?._id
                         ? "Processing..."

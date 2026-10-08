@@ -69,7 +69,7 @@ const OrderDetails = () => {
         <h2 className="text-2xl font-bold mb-4">Order Not Found</h2>
         <button
           onClick={() => navigate(navigateTo)}
-          className="btn btn-primary"
+          className="btn primary-btn"
         >
           Back to Orders
         </button>
@@ -100,7 +100,7 @@ const OrderDetails = () => {
         </div>
         <Link
           to={`/invoice/order/${order?._id}`}
-          className="btn btn-outline invisible gap-2"
+          className="btn outline-btn invisible gap-2"
         >
           Invoice <FaArrowDown size={18} />
         </Link>

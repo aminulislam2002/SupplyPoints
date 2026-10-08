@@ -72,7 +72,7 @@ const SubscriptionPaymentModal = ({
               type="button"
               onClick={onProceedPayment}
               disabled={!selectedGateway || isLoading}
-              className="btn btn-primary h-11 px-5 disabled:cursor-not-allowed disabled:opacity-50"
+              className="btn primary-btn h-11 px-5 disabled:cursor-not-allowed disabled:opacity-50"
             >
               <MdOutlinePayment size={18} />
               <span>Proceed to Payment</span>

@@ -349,12 +349,12 @@ const AddMarketingPack = ({ refetch, setIsAddNewPack, modal }) => {
           <button
             onClick={handleCloseAddPack}
             type="button"
-            className="btn btn-secondary w-full sm:w-auto"
+            className="btn secondary-btn w-full sm:w-auto"
           >
             <MdClose size={18} />
             Cancel
           </button>
-          <button type="submit" className="btn btn-primary w-full sm:w-auto">
+          <button type="submit" className="btn primary-btn w-full sm:w-auto">
             <BsDatabaseFillAdd size={18} />
             <span>{isLoading ? "Processing..." : "Add New"}</span>
           </button>

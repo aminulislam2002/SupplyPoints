@@ -78,7 +78,7 @@ const DeliveryPaymentModal = ({
             <button
               onClick={() => handleUpdateStatus("Paid")}
               disabled={isLoading || order?.deliveryPaymentStatus === "Paid"}
-              className="btn btn-primary h-12 w-full gap-2"
+              className="btn primary-btn h-12 w-full gap-2"
             >
               {isLoading ? (
                 <>
@@ -96,7 +96,7 @@ const DeliveryPaymentModal = ({
             <button
               onClick={() => handleUpdateStatus("Unpaid")}
               disabled={isLoading || order?.deliveryPaymentStatus === "Unpaid"}
-              className="btn btn-danger h-12 w-full gap-2"
+              className="btn danger-btn h-12 w-full gap-2"
             >
               {isLoading ? (
                 <>

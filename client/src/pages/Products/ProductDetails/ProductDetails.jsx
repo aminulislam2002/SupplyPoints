@@ -160,7 +160,7 @@ const ProductDetails = () => {
                 </h1>
                 <button
                   onClick={handleCopyTitle}
-                  className="btn btn-outline min-h-10 px-2"
+                  className="btn outline-btn min-h-10 px-2"
                   title="Copy Title"
                 >
                   <TbCopy size={18} />
@@ -221,7 +221,7 @@ const ProductDetails = () => {
 
             {/* Select Color & Size */}
             {(product?.sizes?.length > 0 || product?.colors?.length > 0) && (
-              <div               className="surface-muted relative mb-6 flex h-12 w-full items-center justify-center overflow-hidden">
+              <div className="surface-muted relative mb-6 flex h-12 w-full items-center justify-center overflow-hidden">
                 {/* Color selected */}
                 {product?.colors?.length > 0 && (
                   <div className="relative flex h-full w-full items-center justify-center">
@@ -304,7 +304,7 @@ const ProductDetails = () => {
                 <button
                   onClick={user && isActive ? handleAddToCartClick : undefined}
                   disabled={product?.availability === "Out of Stock"}
-                  className="btn btn-primary h-12 w-full disabled:opacity-50"
+                  className="btn primary-btn h-12 w-full disabled:opacity-50"
                 >
                   <BsCartPlus
                     size={18}
@@ -357,7 +357,7 @@ const ProductDetails = () => {
             <button
               onClick={user && isActive ? handleOrderNowClick : undefined}
               disabled={product?.availability === "Out of Stock"}
-              className="btn btn-secondary mb-5 h-12 w-full disabled:opacity-50"
+              className="btn secondary-btn mb-5 h-12 w-full disabled:opacity-50"
             >
               {product?.availability === "Out of Stock" ? (
                 "Out of Stock"

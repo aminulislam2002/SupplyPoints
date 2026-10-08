@@ -87,7 +87,7 @@ const TrackingUpdateModal = ({
             <button
               type="submit"
               disabled={isLoading}
-              className="btn btn-primary h-12 w-full gap-2"
+              className="btn primary-btn h-12 w-full gap-2"
             >
               {isLoading ? (
                 <>

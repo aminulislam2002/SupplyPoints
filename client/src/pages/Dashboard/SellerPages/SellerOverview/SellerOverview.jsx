@@ -131,7 +131,7 @@ const SellerOverview = () => {
                 {platform?.paymentGateway === "Manual" ? (
                   <Link
                     to={`/payment/Account/${activationFee}`}
-                    className="btn btn-primary h-10 w-full px-4"
+                    className="btn primary-btn h-10 w-full px-4"
                   >
                     Get Started
                     <FaArrowRight className="ml-2" />
@@ -140,7 +140,7 @@ const SellerOverview = () => {
                   platform?.paymentGateway === "StarPay" ? (
                   <Link
                     to="/dashboard/seller/subscription"
-                    className="btn btn-primary h-10 w-full px-4"
+                    className="btn primary-btn h-10 w-full px-4"
                   >
                     Get Started
                     <FaArrowRight className="ml-2" />
@@ -263,7 +263,7 @@ const SellerOverview = () => {
                 </p>
                 <Link
                   to="/products"
-                  className="btn btn-primary inline-flex h-10 px-4 items-center justify-center rounded-md text-sm font-medium transition-colors duration-300"
+                  className="btn primary-btn inline-flex h-10 px-4 items-center justify-center rounded-md text-sm font-medium transition-colors duration-300"
                 >
                   Start Shopping
                 </Link>
@@ -324,7 +324,7 @@ const SellerOverview = () => {
 
             <Link
               to="/dashboard/seller/profile"
-              className="btn btn-primary inline-flex h-10 px-4 items-center justify-center rounded-md text-white text-sm font-medium transition-colors duration-300"
+              className="btn primary-btn inline-flex h-10 px-4 items-center justify-center rounded-md text-white text-sm font-medium transition-colors duration-300"
             >
               Complete Profile
             </Link>

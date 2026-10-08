@@ -101,7 +101,7 @@ const PricingModal = ({
           {/* Close Button */}
           <button
             onClick={handleClose}
-            className="btn btn-danger absolute right-4 top-4 min-h-8 rounded-full p-1"
+            className="btn danger-btn absolute right-4 top-4 min-h-8 rounded-full p-1"
           >
             <IoClose size={24} />
           </button>
@@ -149,11 +149,7 @@ const PricingModal = ({
               className="control w-full"
             />
 
-            {error && (
-              <p className="alert alert-danger my-4 p-2.5">
-                {error}
-              </p>
-            )}
+            {error && <p className="alert alert-danger my-4 p-2.5">{error}</p>}
           </div>
 
           {/* Profit Display */}
@@ -173,7 +169,7 @@ const PricingModal = ({
               <button
                 onClick={handleAddToCart}
                 disabled={isProceedDisabled()}
-                className="btn btn-primary h-12 w-full"
+                className="btn primary-btn h-12 w-full"
               >
                 <BsCartPlus size={16} />
                 Add to Cart
@@ -182,7 +178,7 @@ const PricingModal = ({
               <button
                 onClick={handleOrderNow}
                 disabled={isProceedDisabled()}
-                className="btn btn-primary h-12 w-full"
+                className="btn primary-btn h-12 w-full"
               >
                 <FaTruckArrowRight size={16} />
                 Order Now

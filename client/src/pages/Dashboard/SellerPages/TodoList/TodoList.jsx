@@ -37,7 +37,7 @@ const TodoList = () => {
             </div>
             <Link
               to="/marketing"
-              className="btn btn-primary inline-flex w-1/2 text-nowrap justify-center h-10 items-center gap-2 px-4 rounded-md text-white text-sm font-medium transition-colors duration-300"
+              className="btn primary-btn inline-flex w-1/2 text-nowrap justify-center h-10 items-center gap-2 px-4 rounded-md text-white text-sm font-medium transition-colors duration-300"
             >
               মাইক্রো জব
             </Link>
@@ -55,10 +55,7 @@ const TodoList = () => {
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {todoList?.map((task) => (
-            <div
-              key={task?._id}
-              className="card p-5 shadow-sm space-y-4"
-            >
+            <div key={task?._id} className="card p-5 shadow-sm space-y-4">
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <h3 className="text-lg font-semibold">{task?.packName}</h3>
@@ -101,7 +98,7 @@ const TodoList = () => {
                 ) : (
                   <Link
                     to={`/dashboard/seller/todo-submit/${task?._id}`}
-                    className="btn btn-primary inline-flex h-10 items-center gap-2 px-4 rounded-md text-white text-sm font-medium transition-colors duration-300"
+                    className="btn primary-btn inline-flex h-10 items-center gap-2 px-4 rounded-md text-white text-sm font-medium transition-colors duration-300"
                   >
                     <MdOutlineTaskAlt size={16} />
                     Mark As Complete

@@ -30,7 +30,7 @@ const CartPage = () => {
 
             <h1 className="section-title">কার্টটি খালি</h1>
 
-            <Link to="/reselling" className="btn btn-primary w-full max-w-xs">
+            <Link to="/reselling" className="btn primary-btn w-full max-w-xs">
               পণ্যের পৃষ্ঠায় ফিরে যান
             </Link>
           </div>
@@ -108,7 +108,7 @@ const CartPage = () => {
                       <div className="w-full h-full flex justify-center items-center">
                         <button
                           onClick={() => removeProduct(index)}
-                          className="btn btn-secondary w-full sm:w-auto"
+                          className="btn secondary-btn w-full sm:w-auto"
                         >
                           Remove
                         </button>
@@ -184,7 +184,7 @@ const CartPage = () => {
                     <button
                       title="Delete"
                       onClick={() => removeProduct(index)}
-                      className="btn btn-danger min-h-8 w-1/2 px-2 text-xs"
+                      className="btn danger-btn min-h-8 w-1/2 px-2 text-xs"
                     >
                       Remove
                     </button>
@@ -200,7 +200,7 @@ const CartPage = () => {
             onClick={() => {
               clearCart();
             }}
-            className="btn btn-secondary w-1/2 sm:w-auto"
+            className="btn secondary-btn w-1/2 sm:w-auto"
           >
             কার্ট খালি করুন
           </button>
@@ -208,7 +208,7 @@ const CartPage = () => {
           <Link
             to="/checkout"
             state={{ data: cartData }}
-            className="btn btn-primary w-1/2 sm:w-auto"
+            className="btn primary-btn w-1/2 sm:w-auto"
           >
             চেক-আউট
           </Link>

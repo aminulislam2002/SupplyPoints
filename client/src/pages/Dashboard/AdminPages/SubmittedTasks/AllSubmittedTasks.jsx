@@ -187,10 +187,7 @@ const AllSubmittedTasks = () => {
             </select>
           </div>
 
-          <button
-            onClick={handleResetAllQuery}
-            className="btn-icon h-10 w-10"
-          >
+          <button onClick={handleResetAllQuery} className="btn-icon h-10 w-10">
             <TfiReload
               size={15}
               className={isResetQueryLoading ? "animate-spin" : ""}
@@ -255,7 +252,7 @@ const AllSubmittedTasks = () => {
                         onClick={() =>
                           handleOpenProofModal(submittedTask?.images || [])
                         }
-                        className="btn btn-outline h-8 px-3"
+                        className="btn outline-btn h-8 px-3"
                       >
                         View ({submittedTask?.images?.length || 0})
                       </button>
@@ -352,7 +349,7 @@ const AllSubmittedTasks = () => {
               <h4 className="text-lg font-semibold">Proof Images</h4>
               <button
                 onClick={handleCloseProofModal}
-                className="btn btn-danger h-8 px-3"
+                className="btn danger-btn h-8 px-3"
               >
                 Close
               </button>

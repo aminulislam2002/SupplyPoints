@@ -170,7 +170,7 @@ const Wishlist = () => {
             {selectedItems.length > 0 && (
               <button
                 onClick={handleRemoveSelected}
-                className="btn btn-danger flex items-center gap-2 px-4 py-2 text-sm"
+                className="btn danger-btn flex items-center gap-2 px-4 py-2 text-sm"
               >
                 <FaTrash size={14} />
                 Remove Selected
@@ -188,7 +188,10 @@ const Wishlist = () => {
           <p className="text-primary-700  mb-6">
             Save items you love to buy them later
           </p>
-          <Link to="/products" className="btn btn-primary inline-block px-6 py-3">
+          <Link
+            to="/products"
+            className="btn primary-btn inline-block px-6 py-3"
+          >
             Start Shopping
           </Link>
         </div>

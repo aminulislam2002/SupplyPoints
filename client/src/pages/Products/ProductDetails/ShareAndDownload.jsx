@@ -141,10 +141,7 @@ const ShareAndDownload = ({ product, isActive, user }) => {
 
         {/* Download Image Button */}
         {user && isActive && (
-          <button
-            onClick={handleOpenModal}
-            className="btn btn-outline"
-          >
+          <button onClick={handleOpenModal} className="btn outline-btn">
             <LuImageDown size={20} /> Image
           </button>
         )}
@@ -154,7 +151,10 @@ const ShareAndDownload = ({ product, isActive, user }) => {
         <div className="modal-surface relative max-w-4xl p-5 shadow-xl lg:p-6">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
-            <button className="btn-icon absolute right-4 top-4 border-danger/30 bg-red-50 text-danger hover:bg-red-100" aria-label="Close image download dialog">
+            <button
+              className="btn-icon absolute right-4 top-4 border-danger/30 bg-red-50 text-danger hover:bg-red-100"
+              aria-label="Close image download dialog"
+            >
               <IoClose size={24} />
             </button>
           </form>

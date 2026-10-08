@@ -89,7 +89,9 @@ const SellerSettings = () => {
         <div className="card p-4 shadow-sm">
           <p className="text-xs text-text-secondary">Security Score</p>
           <p className="text-2xl font-semibold mt-1">80%</p>
-          <p className="text-xs text-text-secondary mt-1">Good protection status</p>
+          <p className="text-xs text-text-secondary mt-1">
+            Good protection status
+          </p>
         </div>
         <div className="card p-4 shadow-sm">
           <p className="text-xs text-text-secondary">Password</p>
@@ -110,12 +112,14 @@ const SellerSettings = () => {
               </div>
               <div>
                 <p className="font-semibold">Password</p>
-                <p className="text-sm text-text-secondary">Keep your password strong and unique.</p>
+                <p className="text-sm text-text-secondary">
+                  Keep your password strong and unique.
+                </p>
               </div>
             </div>
             <button
               onClick={() => setShowPasswordModal(true)}
-              className="btn btn-primary inline-flex h-10 px-4 items-center justify-center rounded-md text-white text-sm font-medium transition-colors duration-300 cursor-pointer"
+              className="btn primary-btn inline-flex h-10 px-4 items-center justify-center rounded-md text-white text-sm font-medium transition-colors duration-300 cursor-pointer"
             >
               Change Password
             </button>
@@ -130,10 +134,12 @@ const SellerSettings = () => {
               </div>
               <div>
                 <p className="font-semibold">Two-Factor Authentication</p>
-                <p className="text-sm text-text-secondary">Add one more layer of account protection.</p>
+                <p className="text-sm text-text-secondary">
+                  Add one more layer of account protection.
+                </p>
               </div>
             </div>
-            <button className="btn btn-primary inline-flex h-10 px-4 items-center justify-center text-sm font-medium">
+            <button className="btn primary-btn inline-flex h-10 px-4 items-center justify-center text-sm font-medium">
               Enable
             </button>
           </div>
@@ -147,10 +153,12 @@ const SellerSettings = () => {
               </div>
               <div>
                 <p className="font-semibold">Delete Account</p>
-                <p className="text-sm text-text-secondary">This action is permanent and cannot be undone.</p>
+                <p className="text-sm text-text-secondary">
+                  This action is permanent and cannot be undone.
+                </p>
               </div>
             </div>
-            <button className="btn btn-danger inline-flex h-10 px-4 items-center justify-center text-sm font-medium">
+            <button className="btn danger-btn inline-flex h-10 px-4 items-center justify-center text-sm font-medium">
               Delete Account
             </button>
           </div>
@@ -293,7 +301,7 @@ const SellerSettings = () => {
                     !passwordData.newPassword ||
                     passwordData.newPassword !== passwordData.confirmPassword
                   }
-                  className="btn btn-primary flex-1 px-6 py-3 text-white rounded-md transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
+                  className="btn primary-btn flex-1 px-6 py-3 text-white rounded-md transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
                 >
                   Update Password
                 </button>

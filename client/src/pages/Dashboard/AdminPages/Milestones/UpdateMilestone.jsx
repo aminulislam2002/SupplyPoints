@@ -133,7 +133,7 @@ const UpdateMilestone = ({
           <button
             onClick={handleCloseUpdateMilestone}
             type="button"
-            className="btn btn-danger h-10"
+            className="btn danger-btn h-10"
           >
             <MdClose size={18}></MdClose>
             Cancel
@@ -142,7 +142,7 @@ const UpdateMilestone = ({
           <button
             type="submit"
             disabled={isLoading}
-            className="btn btn-primary h-10 disabled:cursor-not-allowed disabled:opacity-50"
+            className="btn primary-btn h-10 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <BsDatabaseFillAdd size={18}></BsDatabaseFillAdd>
             <span>{isLoading ? "Processing..." : "Update"}</span>

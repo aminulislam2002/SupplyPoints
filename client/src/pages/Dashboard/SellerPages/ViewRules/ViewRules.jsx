@@ -57,13 +57,10 @@ const ViewRules = () => {
           </div>
         ) : (
           allRules.map((rule, index) => (
-            <div
-              key={rule?._id}
-              className="card p-5 shadow-sm"
-            >
+            <div key={rule?._id} className="card p-5 shadow-sm">
               <div className="flex gap-4">
                 <div className="shrink-0">
-                  <div className="btn btn-primary w-9 h-9 rounded-full text-white flex items-center justify-center text-sm font-semibold">
+                  <div className="btn primary-btn w-9 h-9 rounded-full text-white flex items-center justify-center text-sm font-semibold">
                     {index + 1}
                   </div>
                 </div>

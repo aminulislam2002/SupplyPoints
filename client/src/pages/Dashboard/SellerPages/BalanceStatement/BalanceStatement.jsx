@@ -144,7 +144,7 @@ const BalanceStatement = () => {
 
           <button
             onClick={handleResetAllQuery}
-            className="btn btn-primary w-10 h-10 text-white transition-colors duration-300 flex justify-center items-center rounded-md cursor-pointer"
+            className="btn primary-btn w-10 h-10 text-white transition-colors duration-300 flex justify-center items-center rounded-md cursor-pointer"
             title="Reset filters"
           >
             <TfiReload

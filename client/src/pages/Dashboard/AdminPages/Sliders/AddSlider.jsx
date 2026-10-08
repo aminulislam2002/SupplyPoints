@@ -162,7 +162,7 @@ const AddSlider = ({ refetch, setIsAddNewSlider, modal }) => {
             onClick={handleCloseAddSlider}
             type="button"
             disabled={isLoading}
-            className="btn btn-danger h-10 disabled:cursor-not-allowed disabled:opacity-50"
+            className="btn danger-btn h-10 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <span className="text-base font-medium">Cancel</span>
           </button>
@@ -170,7 +170,7 @@ const AddSlider = ({ refetch, setIsAddNewSlider, modal }) => {
           <button
             type="submit"
             disabled={isLoading}
-            className="btn btn-primary h-10 disabled:cursor-not-allowed disabled:opacity-50"
+            className="btn primary-btn h-10 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <BsDatabaseFillAdd size={16} />
             <span className="text-base font-medium">

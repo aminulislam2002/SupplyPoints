@@ -118,7 +118,7 @@ const CourierFraudCheck = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="btn btn-primary"
+                className="btn primary-btn"
               >
                 {isLoading ? (
                   <RiLoader4Line className="animate-spin h-4 w-4" />

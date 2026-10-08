@@ -146,7 +146,9 @@ const SignUp = () => {
         />
 
         {phoneError?.isInvalid ? (
-          <p className="text-xs text-danger -mt-2 mb-2 font-medium">{phoneError.message}</p>
+          <p className="text-xs text-danger -mt-2 mb-2 font-medium">
+            {phoneError.message}
+          </p>
         ) : null}
 
         <InputField
@@ -172,7 +174,9 @@ const SignUp = () => {
         />
 
         {passwordError?.isMismatched ? (
-          <p className="text-xs text-danger -mt-2 mb-2 font-medium">{passwordError.message}</p>
+          <p className="text-xs text-danger -mt-2 mb-2 font-medium">
+            {passwordError.message}
+          </p>
         ) : null}
 
         <InputField
@@ -187,7 +191,8 @@ const SignUp = () => {
         />
 
         <p className="metadata mb-4 rounded-lg bg-secondary-100 dark:bg-secondary-800 p-3">
-          <span className="font-semibold text-text-primary">নোট:</span> অ্যাকাউন্ট পুনরুদ্ধারের জন্য নিরাপত্তা প্রশ্নটি আবশ্যক।
+          <span className="font-semibold text-text-primary">নোট:</span>{" "}
+          অ্যাকাউন্ট পুনরুদ্ধারের জন্য নিরাপত্তা প্রশ্নটি আবশ্যক।
         </p>
 
         {visibleMessage && (
@@ -204,13 +209,14 @@ const SignUp = () => {
           />
         )}
 
-        <button type="submit" disabled={isLoading} className="btn btn-primary w-full mt-2">
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="btn primary-btn w-full mt-2"
+        >
           {isLoading ? (
             <div className="flex items-center justify-center gap-2">
-              <TbLoader3
-                className="animate-spin text-white"
-                size={18}
-              />
+              <TbLoader3 className="animate-spin text-white" size={18} />
               প্রক্রিয়াকরণ হচ্ছে...
             </div>
           ) : (

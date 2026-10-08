@@ -127,7 +127,7 @@ const SellerProfile = () => {
           {!isEditing && (
             <button
               onClick={() => setIsEditing(true)}
-              className="btn btn-primary inline-flex items-center gap-2 h-11 px-4 rounded-md text-white text-sm font-medium transition-colors duration-300 cursor-pointer"
+              className="btn primary-btn inline-flex items-center gap-2 h-11 px-4 rounded-md text-white text-sm font-medium transition-colors duration-300 cursor-pointer"
             >
               <FaEdit size={14} />
               Edit Profile
@@ -141,7 +141,7 @@ const SellerProfile = () => {
           <div className="card p-6 shadow-sm">
             <div className="text-center">
               <div className="relative inline-block mb-4">
-                <div className="btn btn-primary control w-28 h-28 rounded-full border flex items-center justify-center text-3xl font-semibold overflow-hidden">
+                <div className="btn primary-btn control w-28 h-28 rounded-full border flex items-center justify-center text-3xl font-semibold overflow-hidden">
                   {selectedImage ? (
                     <img
                       src={URL.createObjectURL(selectedImage)}
@@ -162,7 +162,7 @@ const SellerProfile = () => {
                 {isEditing && (
                   <label
                     htmlFor="image"
-                    className="btn btn-primary absolute -bottom-1 -right-1 p-2.5 rounded-full cursor-pointer shadow"
+                    className="btn primary-btn absolute -bottom-1 -right-1 p-2.5 rounded-full cursor-pointer shadow"
                     title="Change profile photo"
                   >
                     <FaCamera size={14} />
@@ -191,7 +191,9 @@ const SellerProfile = () => {
 
             <div className="mt-6 pt-5 border-t border-border-color space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-text-secondary">Member Since</span>
+                <span className="text-sm text-text-secondary">
+                  Member Since
+                </span>
                 <span className="font-medium text-sm">
                   {getPreviousMonthYear(user?.createdAt)}
                 </span>
@@ -199,8 +201,8 @@ const SellerProfile = () => {
 
               {isFetching && isPlaceholderData ? (
                 <div className="animate-pulse space-y-2 pt-1">
-                  <div className="btn btn-primary h-4 rounded w-full"></div>
-                  <div className="btn btn-primary h-4 rounded w-4/5"></div>
+                  <div className="btn primary-btn h-4 rounded w-full"></div>
+                  <div className="btn primary-btn h-4 rounded w-4/5"></div>
                 </div>
               ) : (
                 <>
@@ -294,7 +296,7 @@ const SellerProfile = () => {
                   <button
                     type="submit"
                     disabled={isUpdating}
-                    className="btn btn-primary inline-flex items-center justify-center gap-2 h-11 px-5 rounded-md text-white text-sm font-medium transition-colors duration-300 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+                    className="btn primary-btn inline-flex items-center justify-center gap-2 h-11 px-5 rounded-md text-white text-sm font-medium transition-colors duration-300 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
                   >
                     <FaSave size={14} />
                     {isUpdating ? "Saving..." : "Save Changes"}

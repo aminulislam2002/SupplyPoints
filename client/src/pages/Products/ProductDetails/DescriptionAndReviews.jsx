@@ -34,10 +34,7 @@ const DescriptionAndReviews = ({ product }) => {
     return (
       <div className="space-y-4">
         {descriptions?.split("\nn").map((paragraph, index) => (
-          <div
-            key={index}
-            className="surface-muted p-4"
-          >
+          <div key={index} className="surface-muted p-4">
             <p className="body-copy whitespace-pre-wrap text-base leading-relaxed">
               {paragraph.length > 100 && !showFullDescription
                 ? `${paragraph.substring(0, 100)}... `
@@ -53,7 +50,7 @@ const DescriptionAndReviews = ({ product }) => {
               </button>
               <button
                 onClick={handleCopyDescription}
-                className="btn btn-outline min-h-8 p-1.5"
+                className="btn outline-btn min-h-8 p-1.5"
                 title="Copy Title"
               >
                 <TbCopy size={18} />

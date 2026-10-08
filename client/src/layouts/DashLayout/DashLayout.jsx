@@ -89,7 +89,7 @@ const DashLayout = () => {
         {user?.isImpersonated && (
           <button
             onClick={handleExitImpersonated}
-            className="btn btn-danger fixed bottom-5 right-5 z-50 rounded-full px-5 shadow-lg"
+            className="btn danger-btn fixed bottom-5 right-5 z-50 rounded-full px-5 shadow-lg"
           >
             <PiSignOutFill size={16} />
             Exit {user?.role}

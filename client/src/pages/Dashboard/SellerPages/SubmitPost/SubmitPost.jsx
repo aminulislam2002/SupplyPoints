@@ -138,7 +138,7 @@ const SubmitPost = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="btn btn-primary w-full sm:w-auto px-6 py-2.5 rounded-md text-white font-medium transition-colors disabled:opacity-50"
+              className="btn primary-btn w-full sm:w-auto px-6 py-2.5 rounded-md text-white font-medium transition-colors disabled:opacity-50"
             >
               {isLoading ? "Submitting..." : "Submit for Review"}
             </button>

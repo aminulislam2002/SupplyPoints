@@ -348,7 +348,7 @@ const AllUsers = () => {
             <button
               onClick={() => setReqFreeActivation(true)}
               disabled={reqFreeActivation}
-              className="btn btn-primary w-full sm:w-auto"
+              className="btn primary-btn w-full sm:w-auto"
             >
               Activation Request
             </button>
@@ -449,7 +449,7 @@ const AllUsers = () => {
                   <td>
                     {user?.referredBy && (
                       <button
-                        className="btn btn-primary w-full sm:w-auto"
+                        className="btn primary-btn w-full sm:w-auto"
                         onClick={() =>
                           searchQuery !== user?.referredBy &&
                           setSearchQuery(user?.referredBy)
@@ -723,7 +723,7 @@ const AllUsers = () => {
                     });
                   }}
                   disabled={isPasswordUpdating}
-                  className="btn btn-secondary w-full sm:w-auto"
+                  className="btn secondary-btn w-full sm:w-auto"
                 >
                   Cancel
                 </button>
@@ -738,7 +738,7 @@ const AllUsers = () => {
                     passwordData.newPassword.length < 8 ||
                     passwordData.newPassword !== passwordData.confirmPassword
                   }
-                  className="btn btn-primary w-full sm:w-auto"
+                  className="btn primary-btn w-full sm:w-auto"
                 >
                   {isPasswordUpdating ? "Updating..." : "Update Password"}
                 </button>

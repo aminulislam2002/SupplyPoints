@@ -50,9 +50,7 @@ const Forgot = () => {
       }
     } catch (error) {
       if (!error.response?.data?.isValid) {
-        setInvalidMessage(
-          error.response?.data?.message ||           "কিছু ভুল হয়েছে।",
-        );
+        setInvalidMessage(error.response?.data?.message || "কিছু ভুল হয়েছে।");
         setVisibleMessage("error");
         reset();
         setTimeout(() => {
@@ -77,7 +75,9 @@ const Forgot = () => {
         <p className="caption uppercase tracking-[0.2em] text-primary-600">
           পাসওয়ার্ড পুনরুদ্ধার
         </p>
-        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">অ্যাকাউন্ট পুনরুদ্ধার</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
+          অ্যাকাউন্ট পুনরুদ্ধার
+        </h2>
         <p className="body-copy text-sm">
           পাসওয়ার্ড পুনরায় সেট করতে আপনার অ্যাকাউন্টের তথ্য যাচাই করুন।
         </p>
@@ -96,7 +96,9 @@ const Forgot = () => {
         />
 
         {phoneError?.isInvalid ? (
-          <p className="text-xs text-danger -mt-2 mb-2 font-medium">{phoneError.message}</p>
+          <p className="text-xs text-danger -mt-2 mb-2 font-medium">
+            {phoneError.message}
+          </p>
         ) : null}
 
         <InputField
@@ -127,14 +129,11 @@ const Forgot = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className="btn btn-primary w-full mt-2"
+          className="btn primary-btn w-full mt-2"
         >
           {isLoading ? (
             <div className="flex items-center justify-center gap-2">
-              <TbLoader3
-                className="animate-spin text-primary-50"
-                size={18}
-              />
+              <TbLoader3 className="animate-spin text-primary-50" size={18} />
               প্রক্রিয়াকরণ হচ্ছে...
             </div>
           ) : (
@@ -144,10 +143,7 @@ const Forgot = () => {
 
         <p className="text-sm mt-6 text-center body-copy">
           পাসওয়ার্ড মনে পড়েছে?{" "}
-          <Link
-            to="/auth/sign-in"
-            className="link hover:underline"
-          >
+          <Link to="/auth/sign-in" className="link hover:underline">
             লগইন করুন
           </Link>
         </p>

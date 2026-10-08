@@ -315,7 +315,7 @@ const MyOrders = () => {
           <div className="xl:col-span-2 flex justify-end">
             <button
               onClick={handleResetAllQuery}
-              className="btn btn-primary inline-flex w-10 h-10 items-center justify-center rounded-md text-white transition-colors duration-300"
+              className="btn primary-btn inline-flex w-10 h-10 items-center justify-center rounded-md text-white transition-colors duration-300"
               title="Reset filters"
             >
               <TfiReload
@@ -338,10 +338,7 @@ const MyOrders = () => {
           </div>
         ) : myOrders?.length > 0 ? (
           myOrders.map((order) => (
-            <div
-              key={order?.id}
-              className="card shadow-sm overflow-hidden"
-            >
+            <div key={order?.id} className="card shadow-sm overflow-hidden">
               <div className="control p-4 sm:p-5 border-b">
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                   <div className="flex items-center gap-3">
@@ -377,10 +374,7 @@ const MyOrders = () => {
 
               <div className="p-4 sm:p-5 space-y-3">
                 {order?.products?.map((product, index) => (
-                  <div
-                    key={index}
-                    className="control border p-3"
-                  >
+                  <div key={index} className="control border p-3">
                     <div className="flex gap-3">
                       <div className="control w-20 h-16 shrink-0 overflow-hidden border">
                         {product?.thumbnail ? (
@@ -472,7 +466,7 @@ const MyOrders = () => {
 
                   <Link
                     to={`/dashboard/order-details/${order?._id}`}
-                    className="btn btn-primary inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-white text-xs font-medium transition-colors duration-300"
+                    className="btn primary-btn inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-white text-xs font-medium transition-colors duration-300"
                   >
                     <FaEye size={12} />
                     Details
@@ -482,7 +476,7 @@ const MyOrders = () => {
                     <Link
                       to={order?.deliveryInfo?.courierTracking}
                       target="_blank"
-                      className="btn btn-outline px-3 py-1.5 text-xs font-medium"
+                      className="btn outline-btn px-3 py-1.5 text-xs font-medium"
                     >
                       Tracking
                     </Link>
@@ -510,7 +504,7 @@ const MyOrders = () => {
             {!isFiltering && (
               <Link
                 to="/products"
-                className="btn btn-primary inline-flex h-10 px-5 items-center justify-center rounded-md text-white text-sm font-medium transition-colors duration-300"
+                className="btn primary-btn inline-flex h-10 px-5 items-center justify-center rounded-md text-white text-sm font-medium transition-colors duration-300"
               >
                 Start Shopping
               </Link>

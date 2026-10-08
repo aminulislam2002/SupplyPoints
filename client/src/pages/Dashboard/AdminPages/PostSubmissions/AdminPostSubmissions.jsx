@@ -228,13 +228,13 @@ const AdminPostSubmissions = () => {
                           <>
                             <button
                               onClick={() => handleApprove(s._id)}
-                              className="btn btn-primary h-8 px-3 text-xs"
+                              className="btn primary-btn h-8 px-3 text-xs"
                             >
                               Approve
                             </button>
                             <button
                               onClick={() => handleReject(s._id)}
-                              className="btn btn-danger h-8 px-3 text-xs"
+                              className="btn danger-btn h-8 px-3 text-xs"
                             >
                               Reject
                             </button>

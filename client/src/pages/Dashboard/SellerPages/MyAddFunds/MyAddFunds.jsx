@@ -124,7 +124,7 @@ const MyAddFunds = () => {
 
           <button
             onClick={handleResetAllQuery}
-            className="btn btn-primary w-10 h-10 rounded-md text-white transition-colors duration-300 flex justify-center items-center cursor-pointer"
+            className="btn primary-btn w-10 h-10 rounded-md text-white transition-colors duration-300 flex justify-center items-center cursor-pointer"
             title="Reset filters"
           >
             <TfiReload

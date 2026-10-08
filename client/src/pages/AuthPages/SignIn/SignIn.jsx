@@ -57,9 +57,7 @@ const SignIn = () => {
       }
     } catch (error) {
       if (!error.response?.data?.isValid) {
-        setInvalidMessage(
-          error.response?.data?.message ||           "কিছু ভুল হয়েছে।",
-        );
+        setInvalidMessage(error.response?.data?.message || "কিছু ভুল হয়েছে।");
         setVisibleMessage("error");
         reset();
         setTimeout(() => {
@@ -84,7 +82,9 @@ const SignIn = () => {
         <p className="caption uppercase tracking-[0.2em] text-primary-600">
           নিরাপদ প্রবেশ
         </p>
-        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">আবারও স্বাগতম</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
+          আবারও স্বাগতম
+        </h2>
         <p className="body-copy text-sm">
           অ্যাকাউন্ট পরিচালনা চালিয়ে যেতে লগইন করুন।
         </p>
@@ -103,7 +103,9 @@ const SignIn = () => {
         />
 
         {phoneError?.isInvalid ? (
-          <p className="text-xs text-danger -mt-2 mb-2 font-medium">{phoneError.message}</p>
+          <p className="text-xs text-danger -mt-2 mb-2 font-medium">
+            {phoneError.message}
+          </p>
         ) : null}
 
         <InputField
@@ -118,10 +120,7 @@ const SignIn = () => {
         />
 
         <div className="flex items-center justify-end pb-1">
-          <Link
-            to="/auth/forgot-pass"
-            className="link text-sm hover:underline"
-          >
+          <Link to="/auth/forgot-pass" className="link text-sm hover:underline">
             পাসওয়ার্ড ভুলে গেছেন?
           </Link>
         </div>
@@ -143,14 +142,11 @@ const SignIn = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className="btn btn-primary w-full mt-2"
+          className="btn primary-btn w-full mt-2"
         >
           {isLoading ? (
             <div className="flex items-center justify-center gap-2">
-              <TbLoader3
-                className="animate-spin text-white"
-                size={18}
-              />
+              <TbLoader3 className="animate-spin text-white" size={18} />
               প্রক্রিয়াকরণ হচ্ছে...
             </div>
           ) : (

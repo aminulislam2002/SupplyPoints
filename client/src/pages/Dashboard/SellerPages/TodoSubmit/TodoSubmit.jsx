@@ -122,7 +122,7 @@ const TodoSubmit = () => {
           href={task?.taskUrl}
           target="_blank"
           rel="noreferrer"
-          className="btn btn-primary inline-flex h-10 items-center px-4 rounded-md text-white text-sm font-medium transition-colors duration-300"
+          className="btn primary-btn inline-flex h-10 items-center px-4 rounded-md text-white text-sm font-medium transition-colors duration-300"
         >
           Open Task Link
         </a>
@@ -184,7 +184,7 @@ const TodoSubmit = () => {
               <button
                 type="button"
                 onClick={() => navigate("/dashboard/seller/todo-list")}
-                className="btn btn-danger h-10 px-3.5"
+                className="btn danger-btn h-10 px-3.5"
               >
                 <MdClose size={18} />
                 Cancel
@@ -192,7 +192,7 @@ const TodoSubmit = () => {
 
               <button
                 type="submit"
-                className="btn btn-primary h-10 px-3.5 rounded-md cursor-pointer flex justify-center items-center gap-1.5 text-white transition-colors duration-300 disabled:bg-primary-800 disabled:cursor-not-allowed"
+                className="btn primary-btn h-10 px-3.5 rounded-md cursor-pointer flex justify-center items-center gap-1.5 text-white transition-colors duration-300 disabled:bg-primary-800 disabled:cursor-not-allowed"
                 disabled={isLoading || !selectedImages?.length}
               >
                 <BsDatabaseFillAdd size={18} />

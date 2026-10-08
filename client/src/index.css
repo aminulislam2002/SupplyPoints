@@ -293,39 +293,46 @@ img {
     box-shadow: none !important;
   }
 
-  .btn-primary {
+  .primary-btn {
     background-color: var(--color-primary-600) !important;
     color: #ffffff !important;
+    border-color: var(--color-primary-600) !important;
     box-shadow: 0 6px 14px rgb(22 163 74 / 0.18);
   }
 
-  .btn-primary:hover {
+  .primary-btn:hover {
     background-color: var(--color-primary-700) !important;
   }
 
-  .btn-secondary {
+  .secondary-btn {
     background-color: var(--color-secondary-600) !important;
     color: #ffffff !important;
+    border-color: var(--color-secondary-600) !important;
   }
 
-  .btn-outline {
+  .secondary-btn:hover {
+    background-color: var(--color-secondary-700) !important;
+  }
+
+  .outline-btn {
+    background-color: transparent !important;
     border-color: var(--color-border-color) !important;
-    background-color: transparent;
     color: var(--color-text-primary) !important;
   }
 
-  .btn-outline:hover {
+  .outline-btn:hover {
     border-color: var(--color-primary-500) !important;
-    color: var(--color-primary-700);
+    color: var(--color-primary-700) !important;
   }
 
-  .btn-danger {
-    background-color: var(--color-danger);
-    color: #ffffff;
+  .danger-btn {
+    background-color: var(--color-danger) !important;
+    color: #ffffff !important;
+    border-color: var(--color-danger) !important;
   }
 
-  .btn-danger:hover {
-    background-color: #b91c1c;
+  .danger-btn:hover {
+    opacity: 0.9;
   }
 
   .btn:disabled,

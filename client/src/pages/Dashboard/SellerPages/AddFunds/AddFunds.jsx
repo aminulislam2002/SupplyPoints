@@ -98,7 +98,7 @@ const AddFunds = () => {
             </div>
             <Link
               to="/dashboard/seller/my-add-funds"
-              className="btn btn-outline inline-flex h-10 items-center px-4 text-sm font-medium"
+              className="btn outline-btn inline-flex h-10 items-center px-4 text-sm font-medium"
             >
               Funds History
             </Link>
@@ -183,7 +183,9 @@ const AddFunds = () => {
           <div className="control border bg-section-bg/30 p-4 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <FaCoins className="text-yellow-400" size={18} />
-              <p className="text-sm text-text-secondary">You are going to add</p>
+              <p className="text-sm text-text-secondary">
+                You are going to add
+              </p>
             </div>
             <p className="text-xl font-bold text-green-400">
               ৳{Number(finalAmount || 0).toLocaleString()}
@@ -193,7 +195,7 @@ const AddFunds = () => {
           {activeGateway === "Manual" ? (
             <Link
               to={`/payment/Deposit/${finalAmount}`}
-              className="btn btn-primary inline-flex h-11 px-5 items-center justify-center gap-2 rounded-md text-white text-sm font-medium disabled:bg-primary-800 disabled:cursor-not-allowed transition-colors duration-300 cursor-pointer"
+              className="btn primary-btn inline-flex h-11 px-5 items-center justify-center gap-2 rounded-md text-white text-sm font-medium disabled:bg-primary-800 disabled:cursor-not-allowed transition-colors duration-300 cursor-pointer"
             >
               Proceed to Payment
               <MdOutlinePayment className="ml-2" />
@@ -203,7 +205,7 @@ const AddFunds = () => {
               type="button"
               onClick={handleProceedPayment}
               disabled={!finalAmount || finalAmount < minDepositLimit}
-              className="btn btn-primary inline-flex h-11 px-5 items-center justify-center gap-2 rounded-md text-white text-sm font-medium disabled:bg-primary-800 disabled:cursor-not-allowed transition-colors duration-300 cursor-pointer"
+              className="btn primary-btn inline-flex h-11 px-5 items-center justify-center gap-2 rounded-md text-white text-sm font-medium disabled:bg-primary-800 disabled:cursor-not-allowed transition-colors duration-300 cursor-pointer"
             >
               <MdOutlinePayment size={18} />
               <span>Proceed to Payment</span>

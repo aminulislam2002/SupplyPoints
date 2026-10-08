@@ -141,7 +141,7 @@ const AddProduct = () => {
         <div>
           <Link
             to="/dashboard/admin/products"
-            className="btn btn-outline relative h-10 w-auto gap-1.5 px-2.5 text-nowrap"
+            className="btn outline-btn relative h-10 w-auto gap-1.5 px-2.5 text-nowrap"
           >
             <span className="text-base font-medium">View All</span>
           </Link>
@@ -498,8 +498,8 @@ const AddProduct = () => {
                 onClick={() => setIsActiveTab(tab)}
                 className={
                   isActiveTab === tab
-                    ? "btn btn-primary h-10 w-full border border-primary-600 px-2 text-xs sm:text-sm"
-                    : "btn btn-outline h-10 w-full border-border-color px-2 text-xs sm:text-sm"
+                    ? "btn primary-btn h-10 w-full border border-primary-600 px-2 text-xs sm:text-sm"
+                    : "btn outline-btn h-10 w-full border-border-color px-2 text-xs sm:text-sm"
                 }
               >
                 {tab}
@@ -628,12 +628,12 @@ const AddProduct = () => {
         <div className="relative w-full h-full col-span-12 flex justify-end gap-2.5 mb-5">
           <Link
             to="/dashboard/admin/products"
-            className="btn btn-secondary w-full sm:w-auto"
+            className="btn secondary-btn w-full sm:w-auto"
           >
             <MdClose size={18}></MdClose>
             Cancel
           </Link>
-          <button type="submit" className="btn btn-primary w-full sm:w-auto">
+          <button type="submit" className="btn primary-btn w-full sm:w-auto">
             <BsDatabaseFillAdd size={18}></BsDatabaseFillAdd>
             <span>{isLoading ? "Processing..." : "Add New"}</span>
           </button>

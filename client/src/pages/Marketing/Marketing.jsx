@@ -193,7 +193,7 @@ const MarketingPackages = () => {
                     {!user ? (
                       <Link
                         to="/auth/sign-in"
-                        className="btn btn-outline w-full"
+                        className="btn outline-btn w-full"
                       >
                         লগইন আবশ্যক
                       </Link>
@@ -202,13 +202,13 @@ const MarketingPackages = () => {
                         {platform?.paymentGateway === "Manual" ? (
                           <Link
                             to={`/payment/Account/${platform?.accountActivationFee}`}
-                            className="btn btn-primary w-full"
+                            className="btn primary-btn w-full"
                           >
                             Become a Seller
                           </Link>
                         ) : platform?.paymentGateway === "ClickPay" ||
                           platform?.paymentGateway === "StarPay" ? (
-                          <SubscriptionPaymentTrigger className="btn btn-primary w-full">
+                          <SubscriptionPaymentTrigger className="btn primary-btn w-full">
                             Become a Seller
                           </SubscriptionPaymentTrigger>
                         ) : null}
@@ -223,7 +223,7 @@ const MarketingPackages = () => {
                           !user ||
                           ownedSelectedPacks.includes(pack?._id)
                         }
-                        className="btn btn-primary w-full disabled:cursor-not-allowed disabled:opacity-60"
+                        className="btn primary-btn w-full disabled:cursor-not-allowed disabled:opacity-60"
                       >
                         {ownedSelectedPacks.includes(pack?._id)
                           ? "ইতোমধ্যে কেনা হয়েছে"

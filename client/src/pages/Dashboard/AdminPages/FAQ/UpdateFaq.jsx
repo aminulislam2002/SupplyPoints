@@ -128,15 +128,12 @@ const UpdateFaq = ({ faqId, setFaqId, setIsUpdateFaq, refetch, modal }) => {
           <button
             onClick={handleCloseAddFaq}
             type="button"
-            className="btn btn-danger h-10"
+            className="btn danger-btn h-10"
           >
             <MdClose size={18}></MdClose>
             Cancel
           </button>
-          <button
-            type="submit"
-            className="btn btn-primary h-10"
-          >
+          <button type="submit" className="btn primary-btn h-10">
             <BsDatabaseFillAdd size={18}></BsDatabaseFillAdd>
             <span>{isLoading ? "Processing..." : "Update"}</span>
           </button>

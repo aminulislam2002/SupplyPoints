@@ -215,7 +215,7 @@ const OrderSummary = ({
                       onClick={() =>
                         setAdvanceAmount(deliveryInfo.deliveryCharge)
                       }
-                      className="btn btn-primary min-h-4 text-xs font-normal"
+                      className="btn primary-btn min-h-4 text-xs font-normal"
                     >
                       চার্জ (৳{deliveryInfo.deliveryCharge})
                     </button>
@@ -227,7 +227,7 @@ const OrderSummary = ({
                           resellerPrice + deliveryInfo.deliveryCharge,
                         )
                       }
-                      className="btn btn-secondary min-h-4 text-xs font-normal"
+                      className="btn outline-btn min-h-4 text-xs font-normal"
                     >
                       সম্পূর্ণ (৳
                       {resellerPrice + deliveryInfo.deliveryCharge})
@@ -383,7 +383,7 @@ const OrderSummary = ({
         <button
           type="submit"
           form="checkout-form"
-          className="btn btn-primary mt-5 w-full"
+          className="btn primary-btn mt-5 w-full"
           disabled={isLoading}
         >
           {isLoading

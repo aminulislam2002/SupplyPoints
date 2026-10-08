@@ -98,7 +98,7 @@ const AllCategory = () => {
 
           <button
             onClick={() => handleCategoryAddUpdateModal("New")}
-            className="btn btn-primary h-10 gap-1.5 text-nowrap"
+            className="btn primary-btn h-10 gap-1.5 text-nowrap"
           >
             <FaPlus size={12}></FaPlus>
             <span className="text-base font-medium">Add New</span>

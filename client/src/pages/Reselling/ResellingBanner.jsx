@@ -39,7 +39,7 @@ const ResellingBanner = () => {
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
               <Link
                 to="/auth/sign-up"
-                className="btn btn-primary w-full sm:w-auto"
+                className="btn primary-btn w-full sm:w-auto"
               >
                 <span className="relative z-10 flex items-center justify-center gap-2">
                   এখনই শুরু করুন
@@ -61,7 +61,7 @@ const ResellingBanner = () => {
 
               <Link
                 to="/dashboard/seller/rules"
-                className="btn btn-outline w-full sm:w-auto"
+                className="btn outline-btn w-full sm:w-auto"
               >
                 <span className="text-green-600 text-xl group-hover:scale-110 transition-transform">
                   💬

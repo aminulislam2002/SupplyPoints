@@ -284,11 +284,11 @@ const Invoice = () => {
                   ? "/support"
                   : "/"
           }
-          className="btn btn-outline text-base"
+          className="btn outline-btn text-base"
         >
           <FaArrowLeft size={20}></FaArrowLeft> Back
         </Link>
-        <button onClick={reactToPrintFn} className="btn btn-primary text-sm">
+        <button onClick={reactToPrintFn} className="btn primary-btn text-sm">
           <LuPrinter size={20}></LuPrinter> Print
         </button>
       </div>

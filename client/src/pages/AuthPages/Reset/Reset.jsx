@@ -52,9 +52,7 @@ const Reset = () => {
       }
     } catch (error) {
       if (!error.response?.data?.isValid) {
-        setInvalidMessage(
-          error.response?.data?.message ||           "কিছু ভুল হয়েছে।",
-        );
+        setInvalidMessage(error.response?.data?.message || "কিছু ভুল হয়েছে।");
         setVisibleMessage("error");
         reset();
         setTimeout(() => {
@@ -112,7 +110,9 @@ const Reset = () => {
         />
 
         {passwordError?.isMismatched ? (
-          <p className="text-xs text-danger -mt-2 mb-2 font-medium">{passwordError.message}</p>
+          <p className="text-xs text-danger -mt-2 mb-2 font-medium">
+            {passwordError.message}
+          </p>
         ) : null}
 
         {visibleMessage && (
@@ -129,7 +129,11 @@ const Reset = () => {
           />
         )}
 
-        <button type="submit" disabled={isLoading} className="btn btn-primary w-full mt-2">
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="btn primary-btn w-full mt-2"
+        >
           {isLoading ? (
             <div className="flex items-center justify-center gap-2">
               <TbLoader3 className="animate-spin text-primary-50" size={18} />

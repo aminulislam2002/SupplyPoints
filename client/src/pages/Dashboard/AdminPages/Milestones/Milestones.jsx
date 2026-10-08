@@ -130,7 +130,7 @@ const Milestones = () => {
 
           <button
             onClick={() => handleAddMilestoneAndUpdateMilestoneModal("New")}
-            className="btn btn-primary w-full sm:w-auto"
+            className="btn primary-btn w-full sm:w-auto"
           >
             <FaPlus size={12}></FaPlus>
             <span className="text-base font-medium">Add New</span>

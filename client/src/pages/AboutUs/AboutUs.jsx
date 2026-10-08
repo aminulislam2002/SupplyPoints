@@ -275,10 +275,10 @@ const AboutUs = () => {
             Experience the future of online shopping with Supply Points today!
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link to="/" className="btn btn-primary px-8 py-3">
+            <Link to="/" className="btn primary-btn px-8 py-3">
               Start Shopping
             </Link>
-            <Link to="/contact" className="btn btn-outline px-8 py-3">
+            <Link to="/contact" className="btn outline-btn px-8 py-3">
               Contact Us
             </Link>
           </div>

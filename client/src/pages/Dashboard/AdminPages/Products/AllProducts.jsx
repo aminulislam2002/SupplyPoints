@@ -264,7 +264,7 @@ const AllProducts = () => {
           <div className="relative">
             <Link
               to="/dashboard/admin/products/add-new"
-              className="btn btn-primary h-10 w-full px-4"
+              className="btn primary-btn h-10 w-full px-4"
             >
               Add Product
             </Link>

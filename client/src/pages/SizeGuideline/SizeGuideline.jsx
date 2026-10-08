@@ -331,10 +331,7 @@ const SizeGuideline = () => {
             Our customer service team is here to help you find the perfect fit.
             Contact us for personalized sizing assistance.
           </p>
-          <Link
-            to="/contact"
-            className="btn btn-primary px-8 py-3"
-          >
+          <Link to="/contact" className="btn primary-btn px-8 py-3">
             Contact Customer Service
           </Link>
         </div>

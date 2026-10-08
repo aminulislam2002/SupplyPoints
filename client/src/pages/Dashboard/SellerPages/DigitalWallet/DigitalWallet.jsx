@@ -97,7 +97,7 @@ const DigitalWallet = () => {
 
             <Link
               to="/dashboard/seller/add-funds"
-              className="btn btn-primary flex h-10 w-1/2 text-nowrap items-center justify-center rounded-md text-white text-sm font-medium transition-colors duration-300"
+              className="btn primary-btn flex h-10 w-1/2 text-nowrap items-center justify-center rounded-md text-white text-sm font-medium transition-colors duration-300"
             >
               Add Funds
             </Link>
@@ -110,10 +110,7 @@ const DigitalWallet = () => {
           const Icon = card.icon;
 
           return (
-            <div
-              key={index}
-              className="card p-4 shadow-sm"
-            >
+            <div key={index} className="card p-4 shadow-sm">
               <div className="flex items-center justify-between mb-3">
                 <p className="text-xs text-text-secondary">{card.title}</p>
                 <span className={`p-2 rounded-md ${card.iconBg}`}>
@@ -151,13 +148,13 @@ const DigitalWallet = () => {
           <p className="text-xs text-text-secondary mb-2">Quick Action</p>
           <Link
             to="/dashboard/seller/create-withdrawal"
-            className="btn btn-primary inline-flex h-10 w-full items-center justify-center rounded-md text-white text-sm font-medium transition-colors duration-300"
+            className="btn primary-btn inline-flex h-10 w-full items-center justify-center rounded-md text-white text-sm font-medium transition-colors duration-300"
           >
             Withdraw Now
           </Link>
           <Link
             to="/dashboard/seller/my-withdrawals"
-            className="btn btn-primary inline-flex h-10 w-full items-center justify-center rounded-md text-white text-sm font-medium transition-colors duration-300"
+            className="btn primary-btn inline-flex h-10 w-full items-center justify-center rounded-md text-white text-sm font-medium transition-colors duration-300"
           >
             My Withdrawals
           </Link>
@@ -284,13 +281,13 @@ const DigitalWallet = () => {
             </p>
             <Link
               to="/dashboard/seller/profit-statement"
-              className="btn btn-primary inline-flex h-10 w-full items-center justify-center rounded-md text-white text-sm font-medium transition-colors duration-300"
+              className="btn primary-btn inline-flex h-10 w-full items-center justify-center rounded-md text-white text-sm font-medium transition-colors duration-300"
             >
               Profit Statement
             </Link>
             <Link
               to="/dashboard/seller/balance-statement"
-              className="btn btn-primary inline-flex h-10 w-full items-center justify-center rounded-md text-white text-sm font-medium transition-colors duration-300"
+              className="btn primary-btn inline-flex h-10 w-full items-center justify-center rounded-md text-white text-sm font-medium transition-colors duration-300"
             >
               Balance Statement
             </Link>

@@ -124,7 +124,7 @@ const AllTaskManager = () => {
 
             <button
               onClick={() => handleTaskAddUpdateModal("New")}
-              className="btn btn-primary w-full sm:w-auto"
+              className="btn primary-btn w-full sm:w-auto"
             >
               <FaPlus size={12} />
               <span className="text-base font-medium">Add New</span>

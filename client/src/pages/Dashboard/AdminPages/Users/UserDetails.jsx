@@ -142,7 +142,7 @@ const UserDetails = () => {
 
             <button
               onClick={() => handleSignInByAdmin(user.identifier)}
-              className="btn btn-primary mt-4 w-full gap-2"
+              className="btn primary-btn mt-4 w-full gap-2"
             >
               <FaRegCircleUser className="text-lg" />
               Sign In
@@ -198,10 +198,7 @@ const UserDetails = () => {
                     placeholder="Enter amount to add"
                     className="control h-10 flex-1"
                   />
-                  <button
-                    type="submit"
-                    className="btn btn-primary"
-                  >
+                  <button type="submit" className="btn primary-btn">
                     Add Balance
                   </button>
                 </form>
@@ -244,10 +241,7 @@ const UserDetails = () => {
                     placeholder="Enter amount to cut"
                     className="control h-10 flex-1"
                   />
-                  <button
-                    type="submit"
-                    className="btn btn-danger"
-                  >
+                  <button type="submit" className="btn danger-btn">
                     Cut Balance
                   </button>
                 </form>

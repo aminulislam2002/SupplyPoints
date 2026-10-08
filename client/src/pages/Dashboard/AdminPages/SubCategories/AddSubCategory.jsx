@@ -225,12 +225,12 @@ const AddSubCategory = ({ setIsAddNewCategory, refetch, modal }) => {
           <button
             onClick={handleCloseAddCategory}
             type="button"
-            className="btn btn-secondary w-full sm:w-auto"
+            className="btn secondary-btn w-full sm:w-auto"
           >
             <MdClose size={18}></MdClose>
             Cancel
           </button>
-          <button type="submit" className="btn btn-primary w-full sm:w-auto">
+          <button type="submit" className="btn primary-btn w-full sm:w-auto">
             <BsDatabaseFillAdd size={18}></BsDatabaseFillAdd>
             <span>{isLoading ? "Processing..." : "Add New"}</span>
           </button>
