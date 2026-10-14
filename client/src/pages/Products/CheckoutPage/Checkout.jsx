@@ -330,21 +330,22 @@ const Checkout = () => {
             showWarning={showWarning}
             handleDeliveryLocationChange={handleDeliveryLocationChange}
             onSubmit={onSubmit}
+            handlePaymentMethodChange={handlePaymentMethodChange}
+            user={user}
+            totalOrders={totalOrders}
           />
 
           {/* Order Details */}
           <OrderSummary
             products={products}
             deliveryInfo={deliveryInfo}
+            user={user}
             resellerPrice={resellerPrice}
             advanceAmount={
               deliveryInfo.paymentMethod === "Advanced Payment"
                 ? advanceAmount
                 : 0
             }
-            handlePaymentMethodChange={handlePaymentMethodChange}
-            user={user}
-            totalOrders={totalOrders}
             deliveryPaymentMethod={deliveryPaymentMethod}
             setDeliveryPaymentMethod={setDeliveryPaymentMethod}
             setAdvanceAmount={setAdvanceAmount}

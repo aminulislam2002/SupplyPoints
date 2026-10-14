@@ -1,11 +1,17 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AddressContext } from "../../../providers/AddressProvider/AddressProvider";
+import { RiBankCardLine } from "react-icons/ri";
+import { FaTruck } from "react-icons/fa";
 
 const CheckoutForm = ({
   showWarning,
   handleDeliveryLocationChange,
   onSubmit,
+  deliveryInfo,
+  handlePaymentMethodChange,
+  user,
+  totalOrders,
 }) => {
   const addresses = useContext(AddressContext);
   const [thanaNames, setThanaNames] = useState([]);
@@ -163,6 +169,100 @@ const CheckoutForm = ({
             className="control w-full resize-none font-secondary"
             aria-invalid={errors.message ? "true" : "false"}
           />
+        </div>
+
+        {/* Payment Method Selection */}
+        <div className="col-span-12">
+          <label className="mb-2 block text-base font-semibold font-secondary">
+            পেমেন্ট পদ্ধতি নির্বাচন করুন
+          </label>
+          <div className="flex flex-col justify-center items-center gap-2.5 lg:flex-row">
+            {(user?.subscriptionType !== "Free" || totalOrders > 2) && (
+              <button
+                type="button"
+                onClick={() => handlePaymentMethodChange("Cash On Delivery")}
+                className={`w-full lg:w-1/2 flex justify-between items-center gap-2 rounded-lg border p-2.5 transition-none cursor-pointer ${
+                  deliveryInfo.paymentMethod === "Cash On Delivery"
+                    ? "border-success"
+                    : "border-border-color bg-card-bg"
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <div
+                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
+                      deliveryInfo.paymentMethod === "Cash On Delivery"
+                        ? "bg-success text-white"
+                        : "border border-border-color text-text-secondary"
+                    }`}
+                  >
+                    <FaTruck size={18} />
+                  </div>
+                  <p
+                    className={`text-xs font-medium lg:text-sm ${
+                      deliveryInfo.paymentMethod === "Cash On Delivery"
+                        ? "text-primary-400"
+                        : "text-text-primary"
+                    }`}
+                  >
+                    ক্যাশ অন ডেলিভারি
+                  </p>
+                </div>
+                <div
+                  className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${
+                    deliveryInfo.paymentMethod === "Cash On Delivery"
+                      ? "border-success bg-success"
+                      : "border-border-color bg-card-bg"
+                  }`}
+                >
+                  {deliveryInfo.paymentMethod === "Cash On Delivery" && (
+                    <span className="h-2 w-2 rounded-full bg-white" />
+                  )}
+                </div>
+              </button>
+            )}
+
+            <button
+              type="button"
+              onClick={() => handlePaymentMethodChange("Advanced Payment")}
+              className={`w-full lg:w-1/2 flex items-center justify-between gap-2 rounded-lg border p-2.5 transition-none cursor-pointer ${
+                deliveryInfo.paymentMethod === "Advanced Payment"
+                  ? "border-success"
+                  : "border-border-color bg-card-bg"
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <div
+                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
+                    deliveryInfo.paymentMethod === "Advanced Payment"
+                      ? "bg-success text-white"
+                      : "border border-border-color text-text-secondary"
+                  }`}
+                >
+                  <RiBankCardLine size={18} />
+                </div>
+                <p
+                  className={`text-xs font-medium lg:text-sm ${
+                    deliveryInfo.paymentMethod === "Advanced Payment"
+                      ? "text-primary-400"
+                      : "text-text-primary"
+                  }`}
+                >
+                  অ্যাডভান্স পেমেন্ট
+                </p>
+              </div>
+              <div
+                className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${
+                  deliveryInfo.paymentMethod === "Advanced Payment"
+                    ? "border-success bg-success"
+                    : "border-border-color bg-card-bg"
+                }`}
+              >
+                {deliveryInfo.paymentMethod === "Advanced Payment" && (
+                  <span className="h-2 w-2 rounded-full bg-white" />
+                )}
+              </div>
+            </button>
+          </div>
         </div>
       </form>
     </div>
