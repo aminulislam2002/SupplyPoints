@@ -4,15 +4,16 @@ import Loader from "../../components/Loader/Loader";
 import useRole from "../../hooks/useRole/useRole";
 
 const AdminRoute = ({ children }) => {
-  const { user, isUserPending } = useAuth();
-  const { isRolePending, isAdmin } = useRole();
+  const { user, loggedOut, isUserPending } = useAuth();
+  const { isRoleLoading, isAdmin } = useRole();
   const location = useLocation();
 
-  if (isUserPending || isRolePending) {
+  if (isUserPending || isRoleLoading) {
     return <Loader />;
   }
 
   if (user && !isAdmin) {
+    loggedOut();
     return <Navigate to="/auth/sign-in" state={location?.pathname} replace />;
   }
 
@@ -20,4 +21,3 @@ const AdminRoute = ({ children }) => {
 };
 
 export default AdminRoute;
-

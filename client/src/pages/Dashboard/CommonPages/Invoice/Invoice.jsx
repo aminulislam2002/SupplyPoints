@@ -22,7 +22,7 @@ const Invoice = () => {
   const contentRef = useRef(null);
   const reactToPrintFn = useReactToPrint({ contentRef });
 
-  const { isAdmin, isSeller, isBlocked, isRolePending } = useRole();
+  const { isAdmin, isSeller, isBlocked, isRoleLoading } = useRole();
   const { platform, isPlatformPending } = usePlatform();
 
   // Fetch a specific order
@@ -40,7 +40,7 @@ const Invoice = () => {
     return discountAmount;
   };
 
-  if (isOrderLoading || isRolePending || isPlatformPending) {
+  if (isOrderLoading || isRoleLoading || isPlatformPending) {
     return <Loader></Loader>;
   }
 

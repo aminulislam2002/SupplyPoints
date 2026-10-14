@@ -9,6 +9,7 @@ import Reset from "../../pages/AuthPages/Reset/Reset";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import AdminOverview from "../../pages/Dashboard/AdminPages/AdminOverview/AdminOverview";
 import AllUsers from "../../pages/Dashboard/AdminPages/Users/AllUsers";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import AdminRoute from "../AdminRoute/AdminRoute";
 import UserDetails from "../../pages/Dashboard/AdminPages/Users/UserDetails";
 import AllCategory from "../../pages/Dashboard/AdminPages/Categories/AllCategory";
@@ -244,17 +245,17 @@ const router = createBrowserRouter([
       {
         path: "admin/overview",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <AdminOverview />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: "admin/all-users",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <AllUsers />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
       {
@@ -270,9 +271,9 @@ const router = createBrowserRouter([
       {
         path: "admin/categories",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <AllCategory />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
 
@@ -280,25 +281,25 @@ const router = createBrowserRouter([
       {
         path: "admin/products",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <AllProducts />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: "admin/products/add-new",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <AddProduct />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: "admin/products/update/:id",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <UpdateProduct />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
 
@@ -306,9 +307,9 @@ const router = createBrowserRouter([
       {
         path: "admin/sub-categories",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <AllSubCategory />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
 
@@ -316,61 +317,61 @@ const router = createBrowserRouter([
       {
         path: "admin/promotion-categories",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <AllPromotionCategory />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: "admin/promotion-packs",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <AllPromotionPack />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: "admin/marketing-packs",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <AllMarketingPack />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: "admin/task-manager",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <AllTaskManager />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: "admin/submitted-tasks",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <AllSubmittedTasks />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: "admin/promotion-purchases",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <AllPromotionPurchases />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: "admin/marketing-purchases",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <AllMarketingPurchases />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
       {
-        path: "admin/add-funds",
+        path: "admin/all-payments",
         element: (
           <AdminRoute>
             <AllAddFunds />
@@ -382,9 +383,9 @@ const router = createBrowserRouter([
       {
         path: "admin/orders",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <AllOrders />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
 
@@ -407,25 +408,25 @@ const router = createBrowserRouter([
       {
         path: "admin/all-sliders",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <AllSlider />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: "admin/all-sliders/add-new",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <AddSlider />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
       {
         path: "admin/all-sliders/update/:id",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <UpdateSlider />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
 
@@ -433,27 +434,27 @@ const router = createBrowserRouter([
       {
         path: "admin/faq-management",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <AllFaq />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
       // Rules Management Routes
       {
         path: "admin/rules-management",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <AllRule />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
       // Withdrawals Management Routes
       {
         path: "admin/withdrawals",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <AllWithdrawals />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
 
@@ -461,9 +462,9 @@ const router = createBrowserRouter([
       {
         path: "admin/milestones",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <OurJourney />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
 
@@ -479,9 +480,9 @@ const router = createBrowserRouter([
       {
         path: "admin/post-submissions",
         element: (
-          <AdminRoute>
+          <ProtectedRoute>
             <AdminPostSubmissions />
-          </AdminRoute>
+          </ProtectedRoute>
         ),
       },
 

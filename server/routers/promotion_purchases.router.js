@@ -8,14 +8,14 @@ const {
   deletePurchase,
 } = require("../controllers/promotion_purchases.controller");
 
-const { verifyToken, verifyAdmin } = require("../middlewares/auth.middleware");
+const { verifyToken, verifyAdminOrEmployee } = require("../middlewares/auth.middleware");
 
-router.get("/", verifyToken, verifyAdmin, getAllPurchases);
+router.get("/", verifyToken, verifyAdminOrEmployee, getAllPurchases);
 
 router.get("/my-purchases", verifyToken, getMyPurchases);
 
 router.post("/", verifyToken, createPurchase);
 
-router.delete("/:id", verifyToken, verifyAdmin, deletePurchase);
+router.delete("/:id", verifyToken, verifyAdminOrEmployee, deletePurchase);
 
 module.exports = router;

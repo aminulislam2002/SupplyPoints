@@ -22,7 +22,7 @@ const OrderDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
-  const { isRolePending, isUser, isAdmin, isSeller } = useRole();
+  const { isRoleLoading, isUser, isAdmin, isSeller } = useRole();
   const [copiedField, setCopiedField] = useState(null);
 
   // Copy to clipboard handler
@@ -53,7 +53,7 @@ const OrderDetails = () => {
     refetch();
   }, [refetch, id]);
 
-  if (isPending || isRolePending) {
+  if (isPending || isRoleLoading) {
     return <Loader />;
   }
 

@@ -11,6 +11,7 @@ import { RiDeleteBin5Line, RiShieldUserLine } from "react-icons/ri";
 import { FaUser } from "react-icons/fa6";
 import { TbHandClick, TbPlaystationTriangle } from "react-icons/tb";
 import { FcApproval } from "react-icons/fc";
+import useRole from "../../../../hooks/useRole/useRole";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -23,6 +24,7 @@ const AllUsers = () => {
   const [reqFreeActivation, setReqFreeActivation] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const { isAdmin, isRoleLoading } = useRole();
 
   const [passwordData, setPasswordData] = useState({
     newPassword: "",
@@ -274,7 +276,7 @@ const AllUsers = () => {
     }
   };
 
-  if (isPending && allUser?.length === 0) {
+  if ((isPending && allUser?.length === 0) || isRoleLoading) {
     return <Loader></Loader>;
   }
 
@@ -336,11 +338,13 @@ const AllUsers = () => {
               className="control h-10"
             >
               <option value="">All Users</option>
-              {["User", "Seller", "Admin", "Blocked"]?.map((option, index) => (
-                <option key={index} value={option}>
-                  {option}
-                </option>
-              ))}
+              {["User", "Seller", "Admin", "Employee", "Blocked"]?.map(
+                (option, index) => (
+                  <option key={index} value={option}>
+                    {option}
+                  </option>
+                ),
+              )}
             </select>
           </div>
 
@@ -437,9 +441,11 @@ const AllUsers = () => {
                           ? "text-yellow-500"
                           : user?.role === "Seller"
                             ? "text-primary-500"
-                            : user?.role === "Blocked"
-                              ? "text-red-500"
-                              : ""
+                            : user?.role === "Employee"
+                              ? "text-purple-500"
+                              : user?.role === "Blocked"
+                                ? "text-red-500"
+                                : ""
                       }
                     >
                       {user?.role}
@@ -500,16 +506,6 @@ const AllUsers = () => {
                       </button>
 
                       <button
-                        title="Sign In as User"
-                        onClick={() => handleSignInByAdmin(user?.identifier)}
-                      >
-                        <RiShieldUserLine
-                          size={18}
-                          className="text-blue-500 cursor-pointer"
-                        />
-                      </button>
-
-                      <button
                         type="button"
                         title="Change Password"
                         onClick={() => {
@@ -529,22 +525,38 @@ const AllUsers = () => {
                         />
                       </button>
 
-                      <button
-                        title="Delete User"
-                        onClick={() => handleDeleteUser(user?._id)}
-                      >
-                        <RiDeleteBin5Line
-                          size={18}
-                          className="text-red-500 cursor-pointer"
-                        />
-                      </button>
+                      {isAdmin && (
+                        <>
+                          <button
+                            title="Sign In as User"
+                            onClick={() =>
+                              handleSignInByAdmin(user?.identifier)
+                            }
+                          >
+                            <RiShieldUserLine
+                              size={18}
+                              className="text-blue-500 cursor-pointer"
+                            />
+                          </button>
 
-                      <Link
-                        to={`/dashboard/admin/all-users/user-details/${user?._id}`}
-                        state={{ user }}
-                      >
-                        <LuEye size={20} className="text-blue-500" />
-                      </Link>
+                          <Link
+                            to={`/dashboard/admin/all-users/user-details/${user?._id}`}
+                            state={{ user }}
+                          >
+                            <LuEye size={20} className="text-blue-500" />
+                          </Link>
+
+                          <button
+                            title="Delete User"
+                            onClick={() => handleDeleteUser(user?._id)}
+                          >
+                            <RiDeleteBin5Line
+                              size={18}
+                              className="text-red-500 cursor-pointer"
+                            />
+                          </button>
+                        </>
+                      )}
                     </div>
                   </td>
                 </tr>

@@ -10,7 +10,7 @@ const {
 } = require("../controllers/promotion_categories.controller");
 
 const upload = require("../middlewares/multer.middleware");
-const { verifyToken, verifyAdmin } = require("../middlewares/auth.middleware");
+const { verifyToken, verifyAdminOrEmployee } = require("../middlewares/auth.middleware");
 
 router.get("/", allPromotionCategories);
 
@@ -20,7 +20,7 @@ router.post(
   "/add-category",
   upload.single("image"),
   verifyToken,
-  verifyAdmin,
+  verifyAdminOrEmployee,
   addPromotionCategory,
 );
 
@@ -28,10 +28,10 @@ router.put(
   "/update-category/:id",
   upload.single("image"),
   verifyToken,
-  verifyAdmin,
+  verifyAdminOrEmployee,
   updatePromotionCategory,
 );
 
-router.delete("/:id", verifyToken, verifyAdmin, deletePromotionCategory);
+router.delete("/:id", verifyToken, verifyAdminOrEmployee, deletePromotionCategory);
 
 module.exports = router;

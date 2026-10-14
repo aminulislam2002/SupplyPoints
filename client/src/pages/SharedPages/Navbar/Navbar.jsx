@@ -32,7 +32,8 @@ const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const { user, loggedOut, isUserPending } = useAuth();
-  const { isUser, isAdmin, isSeller, isBlocked, isRolePending } = useRole();
+  const { isUser, isAdmin, isEmployee, isSeller, isBlocked, isRoleLoading } =
+    useRole();
   const { cartData } = useContext(CartContext);
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { platform, isPlatformPending } = usePlatform();
@@ -78,7 +79,7 @@ const Navbar = () => {
     setSearchQuery("");
   };
 
-  if (isUserPending || isRolePending || isPlatformPending) {
+  if (isUserPending || isRoleLoading || isPlatformPending) {
     return <Loader />;
   }
 
@@ -258,7 +259,7 @@ const Navbar = () => {
                       <div className="py-1">
                         <Link
                           to={
-                            isAdmin
+                            isAdmin || isEmployee
                               ? "/dashboard/admin/overview"
                               : isSeller || isUser
                                 ? "/dashboard/seller/overview"
@@ -453,7 +454,7 @@ const Navbar = () => {
                     </div>
                     <Link
                       to={
-                        isAdmin
+                        isAdmin || isEmployee
                           ? "/dashboard/admin/overview"
                           : isSeller || isUser
                             ? "/dashboard/seller/overview"

@@ -30,7 +30,20 @@ const verifyAdmin = (req, res, next) => {
   next();
 };
 
+const verifyAdminOrEmployee = (req, res, next) => {
+  if (!req.user) {
+    return res.status(401).json({ message: "Unauthorized Access!" });
+  }
+
+  if (!["Admin", "Employee"].includes(req.user.role)) {
+    return res.status(403).json({ message: "Forbidden Access!" });
+  }
+
+  next();
+};
+
 module.exports = {
   verifyToken,
   verifyAdmin,
+  verifyAdminOrEmployee,
 };

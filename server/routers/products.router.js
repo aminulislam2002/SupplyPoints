@@ -12,7 +12,7 @@ const {
 } = require("../controllers/products.controller");
 
 const upload = require("../middlewares/multer.middleware");
-const { verifyToken, verifyAdmin } = require("../middlewares/auth.middleware");
+const { verifyToken, verifyAdminOrEmployee } = require("../middlewares/auth.middleware");
 
 router.get("/", getProductsOnDashboard);
 
@@ -31,7 +31,7 @@ router.post(
   "/add-product",
   upload.fields(productFields),
   verifyToken,
-  verifyAdmin,
+  verifyAdminOrEmployee,
   addProduct,
 );
 
@@ -39,10 +39,10 @@ router.put(
   "/update-product/:id",
   upload.fields(productFields),
   verifyToken,
-  verifyAdmin,
+  verifyAdminOrEmployee,
   updateProduct,
 );
 
-router.delete("/:id", verifyToken, verifyAdmin, deleteProduct);
+router.delete("/:id", verifyToken, verifyAdminOrEmployee, deleteProduct);
 
 module.exports = router;

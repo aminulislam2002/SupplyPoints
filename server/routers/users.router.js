@@ -1,7 +1,11 @@
 const router = require("express").Router();
 
 const upload = require("../middlewares/multer.middleware");
-const { verifyToken, verifyAdmin } = require("../middlewares/auth.middleware");
+const {
+  verifyToken,
+  verifyAdmin,
+  verifyAdminOrEmployee,
+} = require("../middlewares/auth.middleware");
 
 const {
   loggedIn,
@@ -32,7 +36,7 @@ const {
 } = require("../controllers/users.controller");
 
 // Users routes
-router.get("/all", verifyToken, verifyAdmin, allUsers);
+router.get("/all", verifyToken, verifyAdminOrEmployee, allUsers);
 
 router.get("/id/:id", verifyToken, verifyAdmin, getUserById);
 

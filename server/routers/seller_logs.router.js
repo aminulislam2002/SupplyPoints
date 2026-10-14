@@ -5,10 +5,10 @@ const {
   getMyLogs,
   deleteALog,
 } = require("../controllers/seller_logs.controller");
-const { verifyToken, verifyAdmin } = require("../middlewares/auth.middleware");
+const { verifyToken, verifyAdminOrEmployee } = require("../middlewares/auth.middleware");
 
 router.get("/", verifyToken, getMyLogs);
 
-router.delete("/:id", verifyToken, verifyAdmin, deleteALog);
+router.delete("/:id", verifyToken, verifyAdminOrEmployee, deleteALog);
 
 module.exports = router;

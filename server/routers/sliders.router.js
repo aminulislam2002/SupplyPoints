@@ -9,22 +9,22 @@ const {
 } = require("../controllers/sliders.controller");
 
 const upload = require("../middlewares/multer.middleware");
-const { verifyToken, verifyAdmin } = require("../middlewares/auth.middleware");
+const { verifyToken, verifyAdminOrEmployee } = require("../middlewares/auth.middleware");
 
 router.get("/", getAllSlider);
 
 router.get("/:id", getSliderById);
 
-router.post("/add-slider", upload.single("image"), verifyToken, verifyAdmin, addSlider);
+router.post("/add-slider", upload.single("image"), verifyToken, verifyAdminOrEmployee, addSlider);
 
 router.put(
   "/update-slider/:id",
   upload.single("image"),
   verifyToken,
-  verifyAdmin,
+  verifyAdminOrEmployee,
   updateSlider
 );
 
-router.delete("/:id", verifyToken, verifyAdmin, deleteSlider);
+router.delete("/:id", verifyToken, verifyAdminOrEmployee, deleteSlider);
 
 module.exports = router;

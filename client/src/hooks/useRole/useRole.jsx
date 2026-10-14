@@ -4,7 +4,7 @@ import useAxiosSecure from "../useAxiosSecure/useAxiosSecure";
 const useRole = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { isPending: isRolePending, data } = useQuery({
+  const { isLoading: isRoleLoading, data } = useQuery({
     queryKey: ["role"],
     queryFn: async () => {
       try {
@@ -17,16 +17,16 @@ const useRole = () => {
   });
 
   return {
-    isRolePending,
+    isRoleLoading,
     role: data?.role,
     isUser: data?.isUser,
     isAdmin: data?.isAdmin,
+    isEmployee: data?.isEmployee,
     isSeller: data?.isSeller,
     isBlocked: data?.isBlocked,
   };
 };
 
-// const {isRolePending, role, isUser, isAdmin, isSeller, isBlocked} = useRole();
+// const {isRoleLoading, role, isUser, isAdmin, isSeller, isBlocked} = useRole();
 
 export default useRole;
-

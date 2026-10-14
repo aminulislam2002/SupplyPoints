@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 // Import Middlewares
-const { verifyToken, verifyAdmin } = require("../middlewares/auth.middleware");
+const { verifyToken, verifyAdminOrEmployee } = require("../middlewares/auth.middleware");
 
 const {
   getAllOrders,
@@ -16,7 +16,7 @@ const {
   deleteAnOrder,
 } = require("../controllers/orders.controller");
 
-router.get("/", verifyToken, verifyAdmin, getAllOrders);
+router.get("/", verifyToken, verifyAdminOrEmployee, getAllOrders);
 
 router.get("/statistics", orderStatistic);
 
@@ -33,12 +33,12 @@ router.put("/delivery-status/:id", verifyToken, updateDeliveryStatus);
 router.put(
   "/delivery-payment-status/:id",
   verifyToken,
-  verifyAdmin,
+  verifyAdminOrEmployee,
   updateDeliveryPaymentStatus,
 );
 
-router.patch("/courier-info/:id", verifyToken, verifyAdmin, updateCourierInfo);
+router.patch("/courier-info/:id", verifyToken, verifyAdminOrEmployee, updateCourierInfo);
 
-router.delete("/:id", verifyToken, verifyAdmin, deleteAnOrder);
+router.delete("/:id", verifyToken, verifyAdminOrEmployee, deleteAnOrder);
 
 module.exports = router;

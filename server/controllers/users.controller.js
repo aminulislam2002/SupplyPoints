@@ -109,6 +109,7 @@ const getUserRole = async (req, res) => {
       role,
       isUser: role === "User",
       isAdmin: role === "Admin",
+      isEmployee: role === "Employee",
       isSeller: role === "Seller",
       isBlocked: role === "Blocked",
     });
@@ -228,6 +229,11 @@ const updateBalance = async (req, res) => {
 const updateRole = async (req, res) => {
   const { id } = req.params;
   const { role } = req?.body;
+  const allowedRoles = ["User", "Seller", "Admin", "Employee", "Blocked"];
+
+  if (!allowedRoles.includes(role)) {
+    return res.status(400).json({ message: "Invalid role!" });
+  }
 
   try {
     const user = await users.findById(id).lean();

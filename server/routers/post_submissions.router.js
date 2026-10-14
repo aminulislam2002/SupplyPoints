@@ -9,12 +9,12 @@ const {
   rejectSubmission,
 } = require("../controllers/post_submissions.controller");
 
-const { verifyToken, verifyAdmin } = require("../middlewares/auth.middleware");
+const { verifyToken, verifyAdminOrEmployee } = require("../middlewares/auth.middleware");
 
-router.get("/", verifyToken, verifyAdmin, getAllSubmissions);
+router.get("/", verifyToken, verifyAdminOrEmployee, getAllSubmissions);
 router.get("/my-submissions", verifyToken, getMySubmissions);
 router.post("/", verifyToken, createSubmission);
-router.put("/approve/:id", verifyToken, verifyAdmin, approveSubmission);
-router.put("/reject/:id", verifyToken, verifyAdmin, rejectSubmission);
+router.put("/approve/:id", verifyToken, verifyAdminOrEmployee, approveSubmission);
+router.put("/reject/:id", verifyToken, verifyAdminOrEmployee, rejectSubmission);
 
 module.exports = router;

@@ -8,16 +8,16 @@ const {
   deleteRule,
 } = require("../controllers/rules.controller");
 
-const { verifyToken, verifyAdmin } = require("../middlewares/auth.middleware");
+const { verifyToken, verifyAdminOrEmployee } = require("../middlewares/auth.middleware");
 
 router.get("/", getAllRules);
 
 router.get("/:id", getRuleById);
 
-router.post("/", verifyToken, verifyAdmin, addRule);
+router.post("/", verifyToken, verifyAdminOrEmployee, addRule);
 
-router.put("/:id", verifyToken, verifyAdmin, updateRule);
+router.put("/:id", verifyToken, verifyAdminOrEmployee, updateRule);
 
-router.delete("/:id", verifyToken, verifyAdmin, deleteRule);
+router.delete("/:id", verifyToken, verifyAdminOrEmployee, deleteRule);
 
 module.exports = router;

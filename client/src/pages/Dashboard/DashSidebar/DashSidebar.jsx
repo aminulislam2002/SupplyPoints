@@ -36,7 +36,7 @@ import Loader from "../../../components/Loader/Loader";
 const DashSidebar = () => {
   const { toggleSidebar } = useContext(SidebarContext);
   const { user, loggedOut, isUserPending } = useAuth();
-  const { isRolePending, isAdmin, isSeller, isUser } = useRole();
+  const { isRoleLoading, isAdmin, isEmployee, isSeller, isUser } = useRole();
 
   const adminLinks = [
     {
@@ -105,7 +105,7 @@ const DashSidebar = () => {
       label: "Marketing Purchases",
     },
     {
-      to: "/dashboard/admin/add-funds",
+      to: "/dashboard/admin/all-payments",
       icon: MdOutlinePayment,
       label: "All Payments",
     },
@@ -210,9 +210,17 @@ const DashSidebar = () => {
     },
   ];
 
-  const links = isAdmin ? adminLinks : isSeller || isUser ? customerLinks : [];
+  const links = isAdmin
+    ? adminLinks
+    : isEmployee
+      ? adminLinks.filter(
+          ({ label }) => !["Platform Profit", "All Payments"].includes(label),
+        )
+      : isSeller || isUser
+        ? customerLinks
+        : [];
 
-  if (isRolePending || isUserPending) {
+  if (isRoleLoading || isUserPending) {
     return <Loader />;
   }
 
@@ -223,9 +231,9 @@ const DashSidebar = () => {
         {/* Mobile & Tablet Devices */}
         <Link
           to={
-            isAdmin
+            isAdmin || isEmployee
               ? "/dashboard/admin/overview"
-              : isSeller || isUser
+              : isSeller || isEmployee || isUser
                 ? "/dashboard/seller/overview"
                 : "/"
           }
@@ -238,9 +246,9 @@ const DashSidebar = () => {
         {/* Large Screen Devices */}
         <Link
           to={
-            isAdmin
+            isAdmin || isEmployee
               ? "/dashboard/admin/overview"
-              : isSeller || isUser
+              : isSeller || isEmployee || isUser
                 ? "/dashboard/seller/overview"
                 : "/"
           }
@@ -275,9 +283,9 @@ const DashSidebar = () => {
           {/* Mobile & Tablet Devices */}
           <NavLink
             to={
-              isAdmin
+              isAdmin || isEmployee
                 ? "/dashboard/admin/profile"
-                : isSeller
+                : isSeller || isEmployee
                   ? "/dashboard/seller/profile"
                   : "/"
             }
@@ -295,7 +303,7 @@ const DashSidebar = () => {
             to={
               isAdmin
                 ? "/dashboard/admin/settings"
-                : isSeller
+                : isSeller || isEmployee
                   ? "/dashboard/seller/settings"
                   : "/"
             }
@@ -313,9 +321,9 @@ const DashSidebar = () => {
           {/* Desktop Devices */}
           <NavLink
             to={
-              isAdmin
+              isAdmin || isEmployee
                 ? "/dashboard/seller/settings"
-                : isSeller
+                : isSeller || isEmployee
                   ? "/dashboard/seller/profile"
                   : "/"
             }
@@ -329,23 +337,25 @@ const DashSidebar = () => {
             <FaRegCircleUser size={18} />
           </NavLink>
 
-          <NavLink
-            to={
-              isAdmin
-                ? "/dashboard/admin/settings"
-                : isSeller
-                  ? "/dashboard/seller/settings"
-                  : "/"
-            }
-            className={({ isActive }) =>
-              "btn-icon hidden lg:flex" +
-              (isActive
-                ? " border-primary-500 bg-primary-50 text-primary-700 dark:bg-primary-950 dark:text-primary-300"
-                : "")
-            }
-          >
-            <IoSettingsOutline size={18} />
-          </NavLink>
+          {isAdmin && (
+            <NavLink
+              to={
+                isAdmin
+                  ? "/dashboard/admin/settings"
+                  : isSeller
+                    ? "/dashboard/seller/settings"
+                    : "/"
+              }
+              className={({ isActive }) =>
+                "btn-icon hidden lg:flex" +
+                (isActive
+                  ? " border-primary-500 bg-primary-50 text-primary-700 dark:bg-primary-950 dark:text-primary-300"
+                  : "")
+              }
+            >
+              <IoSettingsOutline size={18} />
+            </NavLink>
+          )}
 
           {/* Logout Button */}
           <button

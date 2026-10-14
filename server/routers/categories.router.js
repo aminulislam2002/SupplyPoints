@@ -9,7 +9,7 @@ const {
 } = require("../controllers/categories.controller");
 
 const upload = require("../middlewares/multer.middleware");
-const { verifyToken, verifyAdmin } = require("../middlewares/auth.middleware");
+const { verifyToken, verifyAdminOrEmployee } = require("../middlewares/auth.middleware");
 
 router.get("/", allCategories);
 
@@ -19,7 +19,7 @@ router.post(
   "/add-category",
   upload.single("image"),
   verifyToken,
-  verifyAdmin,
+  verifyAdminOrEmployee,
   addCategory,
 );
 
@@ -27,10 +27,10 @@ router.put(
   "/update-category/:id",
   upload.single("image"),
   verifyToken,
-  verifyAdmin,
+  verifyAdminOrEmployee,
   updateCategory,
 );
 
-router.delete("/:id", verifyToken, verifyAdmin, deleteCategory);
+router.delete("/:id", verifyToken, verifyAdminOrEmployee, deleteCategory);
 
 module.exports = router;

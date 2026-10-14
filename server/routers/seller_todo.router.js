@@ -11,7 +11,7 @@ const {
 
 const upload = require("../middlewares/multer.middleware");
 
-const { verifyToken, verifyAdmin } = require("../middlewares/auth.middleware");
+const { verifyToken, verifyAdminOrEmployee } = require("../middlewares/auth.middleware");
 
 router.get("/my-tasks", verifyToken, getMyTodoList);
 
@@ -24,12 +24,12 @@ router.post(
   submitTodoTask,
 );
 
-router.get("/submitted-tasks", verifyToken, verifyAdmin, getAllSubmittedTasks);
+router.get("/submitted-tasks", verifyToken, verifyAdminOrEmployee, getAllSubmittedTasks);
 
 router.put(
   "/submitted-tasks/:id",
   verifyToken,
-  verifyAdmin,
+  verifyAdminOrEmployee,
   updateSubmittedTaskStatus,
 );
 

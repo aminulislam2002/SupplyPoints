@@ -8,16 +8,16 @@ const {
   deleteMilestone,
 } = require("../controllers/milestones.controller");
 
-const { verifyToken, verifyAdmin } = require("../middlewares/auth.middleware");
+const { verifyToken, verifyAdminOrEmployee } = require("../middlewares/auth.middleware");
 
 router.get("/", getAllMilestone);
 
 router.get("/:id", getMilestoneById);
 
-router.post("/", verifyToken, verifyAdmin, addMilestone);
+router.post("/", verifyToken, verifyAdminOrEmployee, addMilestone);
 
-router.put("/:id", verifyToken, verifyAdmin, updateMilestone);
+router.put("/:id", verifyToken, verifyAdminOrEmployee, updateMilestone);
 
-router.delete("/:id", verifyToken, verifyAdmin, deleteMilestone);
+router.delete("/:id", verifyToken, verifyAdminOrEmployee, deleteMilestone);
 
 module.exports = router;

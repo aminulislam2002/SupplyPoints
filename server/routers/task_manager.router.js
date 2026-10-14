@@ -9,16 +9,16 @@ const {
   deleteTask,
 } = require("../controllers/task_manager.controller");
 
-const { verifyToken, verifyAdmin } = require("../middlewares/auth.middleware");
+const { verifyToken, verifyAdminOrEmployee } = require("../middlewares/auth.middleware");
 
 router.get("/", getAllTasks);
 
 router.get("/:id", getTaskById);
 
-router.post("/", verifyToken, verifyAdmin, addTask);
+router.post("/", verifyToken, verifyAdminOrEmployee, addTask);
 
-router.put("/:id", verifyToken, verifyAdmin, updateTask);
+router.put("/:id", verifyToken, verifyAdminOrEmployee, updateTask);
 
-router.delete("/:id", verifyToken, verifyAdmin, deleteTask);
+router.delete("/:id", verifyToken, verifyAdminOrEmployee, deleteTask);
 
 module.exports = router;

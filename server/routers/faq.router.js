@@ -8,16 +8,16 @@ const {
   deleteFaq,
 } = require("../controllers/faq.controller");
 
-const { verifyToken, verifyAdmin } = require("../middlewares/auth.middleware");
+const { verifyToken, verifyAdminOrEmployee } = require("../middlewares/auth.middleware");
 
 router.get("/", getAllFaq);
 
 router.get("/:id", getFaqById);
 
-router.post("/", verifyToken, verifyAdmin, addFaq);
+router.post("/", verifyToken, verifyAdminOrEmployee, addFaq);
 
-router.put("/:id", verifyToken, verifyAdmin, updateFaq);
+router.put("/:id", verifyToken, verifyAdminOrEmployee, updateFaq);
 
-router.delete("/:id", verifyToken, verifyAdmin, deleteFaq);
+router.delete("/:id", verifyToken, verifyAdminOrEmployee, deleteFaq);
 
 module.exports = router;
