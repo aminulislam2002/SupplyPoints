@@ -138,11 +138,11 @@ const ProductDetails = () => {
   ];
 
   return (
-    <div className="relative min-h-screen w-full">
+    <div className="relative w-full">
       {/* Breadcrumb */}
       <Breadcrumb items={breadcrumbItems} />
 
-      <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 py-5 lg:py-10">
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-10">
           <div className="surface relative order-2 w-full overflow-hidden p-2 lg:order-1 lg:p-3">
             {/* Product Images */}
@@ -150,11 +150,11 @@ const ProductDetails = () => {
           </div>
 
           {/* Desktop Product Details */}
-          <div className="surface relative order-3 w-full p-5 lg:order-2 lg:p-6">
+          <div className="surface relative order-3 w-full p-5 lg:order-2">
             {/* Product Title, Regular & Discounted Price, In Stock & Out of Stock */}
             <div>
               {/* Product Title */}
-              <div className="mb-4 flex items-start justify-between gap-3 border-b border-border-color/70 pb-4 md:mb-5 lg:mb-6">
+              <div className="flex items-start justify-between gap-3 mb-5">
                 <h1 className="flex-1 text-xl font-semibold leading-snug lg:text-2xl">
                   {product?.title}
                 </h1>
@@ -184,7 +184,7 @@ const ProductDetails = () => {
                     to="/auth/sign-in"
                     className="text-base text-blue-500 font-medium block hover:underline"
                   >
-                    লগইন আবশ্যক
+                    লগইন করুন
                   </Link>
                 ) : !isActive ? (
                   <>
@@ -193,7 +193,7 @@ const ProductDetails = () => {
                         to={`/payment/Account/${platform?.accountActivationFee}`}
                         className="text-xs text-red-500 font-medium hover:underline"
                       >
-                        Become a Seller
+                        বিক্রেতা হোন
                       </Link>
                     ) : platform?.paymentGateway === "ClickPay" ||
                       platform?.paymentGateway === "StarPay" ? (
@@ -201,7 +201,7 @@ const ProductDetails = () => {
                         as="span"
                         className="text-xs text-red-500 font-medium hover:underline"
                       >
-                        Become a Seller
+                        বিক্রেতা হোন
                       </SubscriptionPaymentTrigger>
                     ) : null}
                   </>
@@ -274,86 +274,79 @@ const ProductDetails = () => {
 
             {/* Select Product Quantity */}
             {product?.availability !== "Out of Stock" && (
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 mb-6 lg:mb-0">
-                <div className="surface-muted relative mb-2 flex h-12 w-full items-center justify-between overflow-hidden md:mb-5">
-                  <button
-                    onClick={() => setSelectedQuantity(selectedQuantity - 1)}
-                    disabled={selectedQuantity === 1}
-                    className="absolute bottom-0 left-0 top-0 flex h-full w-12 cursor-not-allowed items-center justify-center border-r border-border-color transition-colors duration-300 hover:cursor-pointer disabled:opacity-40"
-                  >
-                    <ImMinus size={15}></ImMinus>
-                  </button>
+              <div className="surface-muted relative flex h-12 w-full items-center justify-between overflow-hidden mb-5">
+                <button
+                  onClick={() => setSelectedQuantity(selectedQuantity - 1)}
+                  disabled={selectedQuantity === 1}
+                  className="absolute bottom-0 left-0 top-0 flex h-full w-12 cursor-not-allowed items-center justify-center border-r border-border-color transition-colors duration-300 hover:cursor-pointer disabled:opacity-40"
+                >
+                  <ImMinus size={15}></ImMinus>
+                </button>
 
-                  <span className="absolute left-1/2 -translate-x-1/2 text-lg font-medium">
-                    {selectedQuantity}
-                  </span>
-
-                  <button
-                    onClick={() => setSelectedQuantity(selectedQuantity + 1)}
-                    disabled={
-                      selectedQuantity === product?.maxOrderLimit ||
-                      selectedQuantity === product?.quantity ||
-                      product?.quantity === 0
-                    }
-                    className="absolute bottom-0 right-0 top-0 flex h-full w-12 cursor-not-allowed items-center justify-center border-l border-border-color transition-colors duration-300 hover:cursor-pointer disabled:opacity-40"
-                  >
-                    <ImPlus size={15}></ImPlus>
-                  </button>
-                </div>
+                <span className="absolute left-1/2 -translate-x-1/2 text-lg font-medium">
+                  {selectedQuantity}
+                </span>
 
                 <button
-                  onClick={user && isActive ? handleAddToCartClick : undefined}
-                  disabled={product?.availability === "Out of Stock"}
-                  className="btn primary-btn h-12 w-full disabled:opacity-50"
+                  onClick={() => setSelectedQuantity(selectedQuantity + 1)}
+                  disabled={
+                    selectedQuantity === product?.maxOrderLimit ||
+                    selectedQuantity === product?.quantity ||
+                    product?.quantity === 0
+                  }
+                  className="absolute bottom-0 right-0 top-0 flex h-full w-12 cursor-not-allowed items-center justify-center border-l border-border-color transition-colors duration-300 hover:cursor-pointer disabled:opacity-40"
                 >
-                  <BsCartPlus
-                    size={18}
-                    className={
-                      product?.availability === "Out of Stock" ||
-                      !user ||
-                      !isActive
-                        ? "hidden"
-                        : ""
-                    }
-                  ></BsCartPlus>
-                  <span>
-                    {product?.availability === "Out of Stock" ? (
-                      "Out of Stock"
-                    ) : !user ? (
-                      <Link
-                        to="/auth/sign-in"
-                        className="text-blue-200 underline"
-                      >
-                        লগইন আবশ্যক
-                      </Link>
-                    ) : !isActive ? (
-                      <>
-                        {platform?.paymentGateway === "Manual" ? (
-                          <Link
-                            to={`/payment/Account/${platform?.accountActivationFee}`}
-                            className="text-xs text-red-500 font-medium hover:underline"
-                          >
-                            Become a Seller
-                          </Link>
-                        ) : platform?.paymentGateway === "ClickPay" ||
-                          platform?.paymentGateway === "StarPay" ? (
-                          <SubscriptionPaymentTrigger
-                            as="span"
-                            className="text-xs text-red-500 font-medium hover:underline"
-                          >
-                            Become a Seller
-                          </SubscriptionPaymentTrigger>
-                        ) : null}
-                      </>
-                    ) : (
-                      "Add to Cart"
-                    )}
-                  </span>
+                  <ImPlus size={15}></ImPlus>
                 </button>
               </div>
             )}
 
             {/* Order Now Link */}
+            <button
+              onClick={user && isActive ? handleAddToCartClick : undefined}
+              disabled={product?.availability === "Out of Stock"}
+              className="btn primary-btn mb-5 h-12 w-full disabled:opacity-50"
+            >
+              <BsCartPlus
+                size={18}
+                className={
+                  product?.availability === "Out of Stock" || !user || !isActive
+                    ? "hidden"
+                    : ""
+                }
+              ></BsCartPlus>
+              <span>
+                {product?.availability === "Out of Stock" ? (
+                  "Out of Stock"
+                ) : !user ? (
+                  <Link to="/auth/sign-in" className="text-blue-200 underline">
+                    লগইন করুন
+                  </Link>
+                ) : !isActive ? (
+                  <>
+                    {platform?.paymentGateway === "Manual" ? (
+                      <Link
+                        to={`/payment/Account/${platform?.accountActivationFee}`}
+                        className="text-xs text-red-500 font-medium hover:underline"
+                      >
+                        বিক্রেতা হোন
+                      </Link>
+                    ) : platform?.paymentGateway === "ClickPay" ||
+                      platform?.paymentGateway === "StarPay" ? (
+                      <SubscriptionPaymentTrigger
+                        as="span"
+                        className="text-xs text-red-500 font-medium hover:underline"
+                      >
+                        বিক্রেতা হোন
+                      </SubscriptionPaymentTrigger>
+                    ) : null}
+                  </>
+                ) : (
+                  "কার্টে যোগ করুন"
+                )}
+              </span>
+            </button>
+
             <button
               onClick={user && isActive ? handleOrderNowClick : undefined}
               disabled={product?.availability === "Out of Stock"}
@@ -363,7 +356,7 @@ const ProductDetails = () => {
                 "Out of Stock"
               ) : !user ? (
                 <Link to="/auth/sign-in" className="text-blue-200 underline">
-                  Login Required
+                  লগইন করুন
                 </Link>
               ) : !isActive ? (
                 <>
@@ -372,20 +365,20 @@ const ProductDetails = () => {
                       to={`/payment/Account/${platform?.accountActivationFee}`}
                       className="text-xs text-red-500 font-medium hover:underline"
                     >
-                      Become a Seller
+                      বিক্রেতা হোন
                     </Link>
-                  ) : platform?.paymentGateway === "ClickPay" ||
+                  ) : platform?.paymentGateway === "লগইন করুন" ||
                     platform?.paymentGateway === "StarPay" ? (
                     <SubscriptionPaymentTrigger
                       as="span"
                       className="text-xs text-red-500 font-medium hover:underline"
                     >
-                      Become a Seller
+                      বিক্রেতা হোন
                     </SubscriptionPaymentTrigger>
                   ) : null}
                 </>
               ) : (
-                "Order Now"
+                "অর্ডার করুন"
               )}
             </button>
 
@@ -396,13 +389,11 @@ const ProductDetails = () => {
             )}
 
             {/* Share social media & Download Image CTA */}
-            <div className="surface-muted p-3 lg:p-4">
-              <ShareAndDownload
-                product={product}
-                isActive={isActive}
-                user={user}
-              />
-            </div>
+            <ShareAndDownload
+              product={product}
+              isActive={isActive}
+              user={user}
+            />
           </div>
         </div>
       </div>

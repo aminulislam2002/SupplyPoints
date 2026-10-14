@@ -79,10 +79,11 @@ const ShareAndDownload = ({ product, isActive, user }) => {
 
   return (
     <div className="space-y-4">
-      <div className="alert border-warning/30 bg-amber-50 text-sm text-amber-900 dark:bg-amber-950/30 dark:text-amber-100">
+      <div className="border-warning/30 bg-amber-50 text-sm text-amber-900 dark:bg-amber-950/30 dark:text-amber-100">
         <p className="mb-2 font-semibold text-warning">
           ডেলিভারি ও অর্ডার নির্দেশনা
         </p>
+
         <ul className="list-disc space-y-1 pl-5 font-normal">
           <li>ঢাকার ভিতরে ডেলিভারি চার্জ: ৭০ টাকা (২ থেকে ৪ দিন সময়)</li>
           <li>ঢাকার বাহিরে ডেলিভারি চার্জ: ১২০ টাকা (২ থেকে ৫ দিন সময়)</li>

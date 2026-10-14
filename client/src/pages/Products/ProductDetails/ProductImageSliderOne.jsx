@@ -77,26 +77,19 @@ const ProductImageSliderOne = ({ product }) => {
           </p>
         )}
 
-        <div>
-          <button
-            onClick={() => slider1.current?.prev()}
-            className="absolute left-0 top-[48%] flex h-10 w-9 items-center justify-center rounded-r-lg bg-secondary-900/70 text-white opacity-80 transition-colors hover:bg-primary-700"
-          >
-            <MdOutlineArrowBackIosNew size={20} />
-          </button>
+        <button
+          onClick={() => slider1.current?.prev()}
+          className="absolute left-0 top-[48%] flex h-10 w-9 items-center justify-center rounded-r-lg bg-secondary-900/70 text-white opacity-80 transition-colors hover:bg-primary-700"
+        >
+          <MdOutlineArrowBackIosNew size={20} />
+        </button>
 
-          <button
-            onClick={() => slider1.current?.next()}
-            className="absolute right-0 top-[48%] flex h-10 w-9 items-center justify-center rounded-l-lg bg-secondary-900/70 text-white opacity-80 transition-colors hover:bg-primary-700"
-          >
-            <MdArrowForwardIos size={20} />
-          </button>
-        </div>
-
-        {/* Product Code */}
-        <div className="absolute left-3 top-3 z-20 rounded-md bg-secondary-900/80 px-2 py-1 text-xs font-semibold text-white">
-          Code: {product?.productCode}
-        </div>
+        <button
+          onClick={() => slider1.current?.next()}
+          className="absolute right-0 top-[48%] flex h-10 w-9 items-center justify-center rounded-l-lg bg-secondary-900/70 text-white opacity-80 transition-colors hover:bg-primary-700"
+        >
+          <MdArrowForwardIos size={20} />
+        </button>
       </div>
 
       <div className="relative mt-[5px] lg:mt-2.5">
@@ -112,7 +105,7 @@ const ProductImageSliderOne = ({ product }) => {
                   className={
                     currentIndex === index
                       ? "aspect-square w-full cursor-pointer rounded-md border-2 border-primary-500 object-cover"
-                      : "aspect-square w-full cursor-pointer rounded-md border-2 border-transparent object-cover"
+                      : "aspect-square w-full cursor-pointer rounded-md border-2 border-border-color object-cover"
                   }
                   onClick={() => handleImageSelect(index)}
                 />
