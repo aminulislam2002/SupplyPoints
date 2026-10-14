@@ -96,18 +96,61 @@ const PricingModal = ({
   };
 
   return (
-    <div className="w-full relative mb-5">
+    <div className="w-full relative mb-5 space-y-2.5">
       {/* Selling Price Input */}
-      <input
-        type="number"
-        min={minimumPrice}
-        value={sellingPrice}
-        onChange={(e) => handleSellingPriceChange(e.target.value)}
-        placeholder={`সর্বনিম্ন বিক্রয় মূল্য ৳${minimumPrice}`}
-        className="w-full h-12 bg-transparent text-primary-600 border border-border-color rounded-xl focus:outline-none px-2.5 text-sm font-medium"
-      />
+      <div className="flex justify-between items-center gap-5">
+        <input
+          type="number"
+          min={minimumPrice}
+          value={sellingPrice}
+          onChange={(e) => handleSellingPriceChange(e.target.value)}
+          placeholder={`সর্বনিম্ন বিক্রয় মূল্য ৳${minimumPrice}`}
+          className="w-full h-12 bg-transparent text-primary-600 border border-border-color focus:outline-none px-2.5 text-sm font-medium"
+        />
 
-      <div className="flex justify-between items-center pt-2.5">
+        {/* Action Button */}
+        <div className="flex justify-center items-center">
+          {modalAction === "addToCart" ? (
+            <button
+              onClick={handleAddToCart}
+              disabled={isProceedDisabled()}
+              className="w-12 h-12 bg-primary-600 text-white flex justify-center items-center cursor-pointer"
+            >
+              {sellingPrice && !error ? (
+                <FaArrowRight size={20} />
+              ) : (
+                <BsCartPlus size={20} />
+              )}
+
+              {/* Add to Cart */}
+            </button>
+          ) : (
+            <button
+              onClick={handleOrderNow}
+              disabled={isProceedDisabled()}
+              className="w-12 h-12 bg-primary-600 text-white flex justify-center items-center cursor-pointer"
+            >
+              {sellingPrice && !error ? (
+                <FaArrowRight size={20} />
+              ) : (
+                <FaTruckArrowRight size={20} />
+              )}
+
+              {/* Order Now */}
+            </button>
+          )}
+
+          {/* Close Button */}
+          <button
+            onClick={handleClose}
+            className="w-12 h-12 bg-danger text-white flex justify-center items-center cursor-pointer"
+          >
+            <IoClose size={24} />
+          </button>
+        </div>
+      </div>
+
+      <div className="flex justify-between items-center">
         {error && (
           <p className="text-xs font-medium text-warning">
             সর্বনিম্ন বিক্রয় মূল্য: {error}
@@ -120,47 +163,6 @@ const PricingModal = ({
             লাভ: ৳{calculateProfit().toFixed(2)}
           </p>
         )}
-      </div>
-
-      {/* Action Button */}
-      <div className="absolute top-0 right-0 flex justify-center">
-        {modalAction === "addToCart" ? (
-          <button
-            onClick={handleAddToCart}
-            disabled={isProceedDisabled()}
-            className="w-12 h-12 bg-primary-600 text-white flex justify-center items-center cursor-pointer"
-          >
-            {sellingPrice && !error ? (
-              <FaArrowRight size={20} />
-            ) : (
-              <BsCartPlus size={20} />
-            )}
-
-            {/* Add to Cart */}
-          </button>
-        ) : (
-          <button
-            onClick={handleOrderNow}
-            disabled={isProceedDisabled()}
-            className="w-12 h-12 bg-primary-600 text-white flex justify-center items-center cursor-pointer"
-          >
-            {sellingPrice && !error ? (
-              <FaArrowRight size={20} />
-            ) : (
-              <FaTruckArrowRight size={20} />
-            )}
-
-            {/* Order Now */}
-          </button>
-        )}
-
-        {/* Close Button */}
-        <button
-          onClick={handleClose}
-          className="w-12 h-12 bg-danger text-white flex justify-center items-center rounded-r-xl cursor-pointer"
-        >
-          <IoClose size={24} />
-        </button>
       </div>
     </div>
   );

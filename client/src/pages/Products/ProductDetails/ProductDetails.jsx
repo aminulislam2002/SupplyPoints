@@ -20,6 +20,8 @@ import ShareAndDownload from "./ShareAndDownload";
 import SubscriptionPaymentTrigger from "../../../components/SubscriptionPaymentModal/SubscriptionPaymentTrigger";
 import usePlatform from "../../../hooks/usePlatform/usePlatform";
 import { FaTruckArrowRight } from "react-icons/fa6";
+import { FaArrowRight } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -30,8 +32,8 @@ const ProductDetails = () => {
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
-  const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState(""); // 'addToCart' or 'orderNow'
+  const [purchaseStep, setPurchaseStep] = useState(0);
   const { handleAddToCart } = useContext(CartContext);
   const { platform } = usePlatform();
 
@@ -72,13 +74,13 @@ const ProductDetails = () => {
   // Handle Add to Cart with Reseller Modal
   const handleAddToCartClick = () => {
     setModalAction("addToCart");
-    setIsPricingModalOpen(true);
+    setPurchaseStep(1);
   };
 
   // Handle Order Now with Reseller Modal
   const handleOrderNowClick = () => {
     setModalAction("orderNow");
-    setIsPricingModalOpen(true);
+    setPurchaseStep(1);
   };
 
   // Handle Reseller Add to Cart
@@ -273,63 +275,141 @@ const ProductDetails = () => {
               </div>
             )}
 
-            {/* Select Product Quantity */}
-            {product?.availability !== "Out of Stock" && (
-              <div className="surface-muted relative flex h-12 w-full items-center justify-between overflow-hidden mb-5">
+            {purchaseStep === 0 ? (
+              <>
+                {/* Add to Cart Button */}
                 <button
-                  onClick={() => setSelectedQuantity(selectedQuantity - 1)}
-                  disabled={selectedQuantity === 1}
-                  className="absolute bottom-0 left-0 top-0 flex h-full w-12 cursor-not-allowed items-center justify-center border-r border-border-color transition-colors duration-300 hover:cursor-pointer disabled:opacity-40"
+                  onClick={user && isActive ? handleAddToCartClick : undefined}
+                  disabled={product?.availability === "Out of Stock"}
+                  className="btn primary-btn mb-5 h-12 w-full disabled:opacity-50"
                 >
-                  <ImMinus size={15}></ImMinus>
+                  <BsCartPlus
+                    size={18}
+                    className={
+                      product?.availability === "Out of Stock" ||
+                      !user ||
+                      !isActive
+                        ? "hidden"
+                        : ""
+                    }
+                  ></BsCartPlus>
+                  <span>
+                    {product?.availability === "Out of Stock" ? (
+                      "Out of Stock"
+                    ) : !user ? (
+                      <Link
+                        to="/auth/sign-in"
+                        className="text-blue-200 underline"
+                      >
+                        লগইন করুন
+                      </Link>
+                    ) : !isActive ? (
+                      <>
+                        {platform?.paymentGateway === "Manual" ? (
+                          <Link
+                            to={`/payment/Account/${platform?.accountActivationFee}`}
+                            className="text-xs text-danger font-medium hover:underline"
+                          >
+                            বিক্রেতা হোন
+                          </Link>
+                        ) : platform?.paymentGateway === "ClickPay" ||
+                          platform?.paymentGateway === "StarPay" ? (
+                          <SubscriptionPaymentTrigger
+                            as="span"
+                            className="text-xs text-danger font-medium hover:underline"
+                          >
+                            বিক্রেতা হোন
+                          </SubscriptionPaymentTrigger>
+                        ) : null}
+                      </>
+                    ) : (
+                      "কার্ট করুন"
+                    )}
+                  </span>
                 </button>
+              </>
+            ) : purchaseStep === 1 && modalAction === "addToCart" ? (
+              <>
+                {/* Quantity selector */}
+                <div className="relative w-full h-12 mb-5 flex justify-center items-center gap-5">
+                  <div className="surface-muted relative flex h-full w-full items-center justify-between overflow-hidden">
+                    <button
+                      onClick={() => setSelectedQuantity(selectedQuantity - 1)}
+                      disabled={selectedQuantity === 1}
+                      className="absolute bottom-0 left-0 top-0 flex h-full w-12 cursor-not-allowed items-center justify-center border-r border-border-color transition-colors duration-300 hover:cursor-pointer disabled:opacity-40"
+                    >
+                      <ImMinus size={15}></ImMinus>
+                    </button>
 
-                <span className="absolute left-1/2 -translate-x-1/2 text-lg font-medium">
-                  {selectedQuantity}
-                </span>
+                    <span className="absolute left-1/2 -translate-x-1/2 text-lg font-medium">
+                      {selectedQuantity}
+                    </span>
 
+                    <button
+                      onClick={() => setSelectedQuantity(selectedQuantity + 1)}
+                      disabled={
+                        selectedQuantity === product?.maxOrderLimit ||
+                        selectedQuantity === product?.quantity ||
+                        product?.quantity === 0
+                      }
+                      className="absolute bottom-0 right-0 top-0 flex h-full w-12 cursor-not-allowed items-center justify-center border-l border-border-color transition-colors duration-300 hover:cursor-pointer disabled:opacity-40"
+                    >
+                      <ImPlus size={15}></ImPlus>
+                    </button>
+                  </div>
+
+                  <div className="flex justify-center items-center rounded-lg">
+                    <button
+                      onClick={() => setPurchaseStep(2)}
+                      disabled={product?.availability === "Out of Stock"}
+                      className="relative shrink-0 w-12 h-12 bg-primary-600 text-white flex justify-center items-center cursor-pointer"
+                    >
+                      {selectedProduct && <FaArrowRight size={20} />}
+                    </button>
+
+                    <button
+                      onClick={() => setPurchaseStep(0)}
+                      disabled={product?.availability === "Out of Stock"}
+                      className="relative shrink-0 w-12 h-12 bg-danger text-white flex justify-center items-center cursor-pointer"
+                    >
+                      {selectedProduct && <IoClose size={20} />}
+                    </button>
+                  </div>
+                </div>
+              </>
+            ) : purchaseStep === 2 && modalAction === "addToCart" ? (
+              <>
+                {/* Pricing Modal */}
+                <PricingModal
+                  isOpen={true}
+                  onClose={() => setPurchaseStep(1)}
+                  product={product}
+                  selectedProduct={selectedProduct}
+                  onAddToCart={handleResellerAddToCart}
+                  onOrderNow={handleResellerOrderNow}
+                  modalAction={modalAction}
+                />
+              </>
+            ) : null}
+
+            {purchaseStep === 0 ? (
+              <>
+                {/* Order Now Button */}
                 <button
-                  onClick={() => setSelectedQuantity(selectedQuantity + 1)}
-                  disabled={
-                    selectedQuantity === product?.maxOrderLimit ||
-                    selectedQuantity === product?.quantity ||
-                    product?.quantity === 0
-                  }
-                  className="absolute bottom-0 right-0 top-0 flex h-full w-12 cursor-not-allowed items-center justify-center border-l border-border-color transition-colors duration-300 hover:cursor-pointer disabled:opacity-40"
+                  onClick={user && isActive ? handleOrderNowClick : undefined}
+                  disabled={product?.availability === "Out of Stock"}
+                  className="btn primary-btn mb-5 h-12 w-full disabled:opacity-50"
                 >
-                  <ImPlus size={15}></ImPlus>
-                </button>
-              </div>
-            )}
-
-            {/* Add to Cart */}
-            {isPricingModalOpen && modalAction === "addToCart" ? (
-              <PricingModal
-                isOpen={isPricingModalOpen}
-                onClose={() => setIsPricingModalOpen(false)}
-                product={product}
-                selectedProduct={selectedProduct}
-                onAddToCart={handleResellerAddToCart}
-                onOrderNow={handleResellerOrderNow}
-                modalAction={modalAction}
-              />
-            ) : (
-              <button
-                onClick={user && isActive ? handleAddToCartClick : undefined}
-                disabled={product?.availability === "Out of Stock"}
-                className="btn primary-btn mb-5 h-12 w-full disabled:opacity-50"
-              >
-                <BsCartPlus
-                  size={18}
-                  className={
-                    product?.availability === "Out of Stock" ||
-                    !user ||
-                    !isActive
-                      ? "hidden"
-                      : ""
-                  }
-                ></BsCartPlus>
-                <span>
+                  <FaTruckArrowRight
+                    size={18}
+                    className={
+                      product?.availability === "Out of Stock" ||
+                      !user ||
+                      !isActive
+                        ? "hidden"
+                        : ""
+                    }
+                  ></FaTruckArrowRight>
                   {product?.availability === "Out of Stock" ? (
                     "Out of Stock"
                   ) : !user ? (
@@ -348,7 +428,7 @@ const ProductDetails = () => {
                         >
                           বিক্রেতা হোন
                         </Link>
-                      ) : platform?.paymentGateway === "ClickPay" ||
+                      ) : platform?.paymentGateway === "লগইন করুন" ||
                         platform?.paymentGateway === "StarPay" ? (
                         <SubscriptionPaymentTrigger
                           as="span"
@@ -359,69 +439,74 @@ const ProductDetails = () => {
                       ) : null}
                     </>
                   ) : (
-                    "কার্ট করুন"
+                    "অর্ডার করুন"
                   )}
-                </span>
-              </button>
-            )}
+                </button>
+              </>
+            ) : purchaseStep === 1 && modalAction === "orderNow" ? (
+              <>
+                {" "}
+                {/* Quantity selector */}
+                <div className="relative w-full h-12 mb-5 flex justify-center items-center gap-5">
+                  <div className="surface-muted relative flex h-full w-full items-center justify-between overflow-hidden">
+                    <button
+                      onClick={() => setSelectedQuantity(selectedQuantity - 1)}
+                      disabled={selectedQuantity === 1}
+                      className="absolute bottom-0 left-0 top-0 flex h-full w-12 cursor-not-allowed items-center justify-center border-r border-border-color transition-colors duration-300 hover:cursor-pointer disabled:opacity-40"
+                    >
+                      <ImMinus size={15}></ImMinus>
+                    </button>
 
-            {/* Order Now */}
-            {isPricingModalOpen && modalAction === "orderNow" ? (
-              <PricingModal
-                isOpen={isPricingModalOpen}
-                onClose={() => setIsPricingModalOpen(false)}
-                product={product}
-                selectedProduct={selectedProduct}
-                onAddToCart={handleResellerAddToCart}
-                onOrderNow={handleResellerOrderNow}
-                modalAction={modalAction}
-              />
-            ) : (
-              <button
-                onClick={user && isActive ? handleOrderNowClick : undefined}
-                disabled={product?.availability === "Out of Stock"}
-                className="btn primary-btn mb-5 h-12 w-full disabled:opacity-50"
-              >
-                <FaTruckArrowRight
-                  size={18}
-                  className={
-                    product?.availability === "Out of Stock" ||
-                    !user ||
-                    !isActive
-                      ? "hidden"
-                      : ""
-                  }
-                ></FaTruckArrowRight>
-                {product?.availability === "Out of Stock" ? (
-                  "Out of Stock"
-                ) : !user ? (
-                  <Link to="/auth/sign-in" className="text-blue-200 underline">
-                    লগইন করুন
-                  </Link>
-                ) : !isActive ? (
-                  <>
-                    {platform?.paymentGateway === "Manual" ? (
-                      <Link
-                        to={`/payment/Account/${platform?.accountActivationFee}`}
-                        className="text-xs text-danger font-medium hover:underline"
-                      >
-                        বিক্রেতা হোন
-                      </Link>
-                    ) : platform?.paymentGateway === "লগইন করুন" ||
-                      platform?.paymentGateway === "StarPay" ? (
-                      <SubscriptionPaymentTrigger
-                        as="span"
-                        className="text-xs text-danger font-medium hover:underline"
-                      >
-                        বিক্রেতা হোন
-                      </SubscriptionPaymentTrigger>
-                    ) : null}
-                  </>
-                ) : (
-                  "অর্ডার করুন"
-                )}
-              </button>
-            )}
+                    <span className="absolute left-1/2 -translate-x-1/2 text-lg font-medium">
+                      {selectedQuantity}
+                    </span>
+
+                    <button
+                      onClick={() => setSelectedQuantity(selectedQuantity + 1)}
+                      disabled={
+                        selectedQuantity === product?.maxOrderLimit ||
+                        selectedQuantity === product?.quantity ||
+                        product?.quantity === 0
+                      }
+                      className="absolute bottom-0 right-0 top-0 flex h-full w-12 cursor-not-allowed items-center justify-center border-l border-border-color transition-colors duration-300 hover:cursor-pointer disabled:opacity-40"
+                    >
+                      <ImPlus size={15}></ImPlus>
+                    </button>
+                  </div>
+
+                  <div className="flex justify-center items-center rounded-lg">
+                    <button
+                      onClick={() => setPurchaseStep(2)}
+                      disabled={product?.availability === "Out of Stock"}
+                      className="relative shrink-0 w-12 h-12 bg-primary-600 text-white flex justify-center items-center cursor-pointer"
+                    >
+                      {selectedProduct && <FaArrowRight size={20} />}
+                    </button>
+
+                    <button
+                      onClick={() => setPurchaseStep(0)}
+                      disabled={product?.availability === "Out of Stock"}
+                      className="relative shrink-0 w-12 h-12 bg-danger text-white flex justify-center items-center cursor-pointer"
+                    >
+                      {selectedProduct && <IoClose size={20} />}
+                    </button>
+                  </div>
+                </div>
+              </>
+            ) : purchaseStep === 2 && modalAction === "orderNow" ? (
+              <>
+                {/* Pricing Modal */}
+                <PricingModal
+                  isOpen={true}
+                  onClose={() => setPurchaseStep(1)}
+                  product={product}
+                  selectedProduct={selectedProduct}
+                  onAddToCart={handleResellerAddToCart}
+                  onOrderNow={handleResellerOrderNow}
+                  modalAction={modalAction}
+                />
+              </>
+            ) : null}
 
             {product?.notes && (
               <div className="alert alert-info mb-5 p-3 text-sm font-medium md:text-base">
