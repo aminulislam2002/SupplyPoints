@@ -24,6 +24,7 @@ const platformSchema = new Schema({
   nagadNumber: { type: String },
   rocketNumber: { type: String },
   insideDeliveryCharge: { type: Number, default: 0 },
+  subAreaDeliveryCharge: { type: Number, default: 0 },
   outsideDeliveryCharge: { type: Number, default: 0 },
   referralReward: { type: Number, default: 0 },
   minWithdrawalLimit: { type: Number, default: 0 },

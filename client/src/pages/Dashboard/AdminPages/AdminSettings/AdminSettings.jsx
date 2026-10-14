@@ -262,6 +262,17 @@ const AdminSettings = () => {
                   required={true}
                 />
                 <Input
+                  label="Sub-Ara Delivery Charge"
+                  type="number"
+                  placeholder="100"
+                  step="1"
+                  min="0"
+                  register={register}
+                  errors={errors}
+                  name="subAreaDeliveryCharge"
+                  required={true}
+                />
+                <Input
                   label="Outside Delivery Charge"
                   type="number"
                   placeholder="100"

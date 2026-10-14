@@ -79,7 +79,11 @@ const Checkout = () => {
     ];
 
     const charge =
-      zilla !== "ঢাকা" ? 120 : dhakaSubAreas.includes(thana) ? 90 : 60;
+      zilla !== "ঢাকা"
+        ? platform?.outsideDeliveryCharge || 120
+        : dhakaSubAreas.includes(thana)
+          ? platform?.subAreaDeliveryCharge || 90
+          : platform?.insideDeliveryCharge || 60;
 
     setShowWarning(false);
     setDeliveryInfo((prevData) => ({
