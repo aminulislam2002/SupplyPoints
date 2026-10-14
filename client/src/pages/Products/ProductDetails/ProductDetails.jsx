@@ -19,6 +19,7 @@ import useAuth from "../../../hooks/useAuth/useAuth";
 import ShareAndDownload from "./ShareAndDownload";
 import SubscriptionPaymentTrigger from "../../../components/SubscriptionPaymentModal/SubscriptionPaymentTrigger";
 import usePlatform from "../../../hooks/usePlatform/usePlatform";
+import { FaTruckArrowRight } from "react-icons/fa6";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -191,7 +192,7 @@ const ProductDetails = () => {
                     {platform?.paymentGateway === "Manual" ? (
                       <Link
                         to={`/payment/Account/${platform?.accountActivationFee}`}
-                        className="text-xs text-red-500 font-medium hover:underline"
+                        className="text-xs text-danger font-medium hover:underline"
                       >
                         বিক্রেতা হোন
                       </Link>
@@ -199,7 +200,7 @@ const ProductDetails = () => {
                       platform?.paymentGateway === "StarPay" ? (
                       <SubscriptionPaymentTrigger
                         as="span"
-                        className="text-xs text-red-500 font-medium hover:underline"
+                        className="text-xs text-danger font-medium hover:underline"
                       >
                         বিক্রেতা হোন
                       </SubscriptionPaymentTrigger>
@@ -301,21 +302,96 @@ const ProductDetails = () => {
               </div>
             )}
 
-            {/* Order Now Link */}
-            <button
-              onClick={user && isActive ? handleAddToCartClick : undefined}
-              disabled={product?.availability === "Out of Stock"}
-              className="btn primary-btn mb-5 h-12 w-full disabled:opacity-50"
-            >
-              <BsCartPlus
-                size={18}
-                className={
-                  product?.availability === "Out of Stock" || !user || !isActive
-                    ? "hidden"
-                    : ""
-                }
-              ></BsCartPlus>
-              <span>
+            {/* Add to Cart */}
+            {isPricingModalOpen && modalAction === "addToCart" ? (
+              <PricingModal
+                isOpen={isPricingModalOpen}
+                onClose={() => setIsPricingModalOpen(false)}
+                product={product}
+                selectedProduct={selectedProduct}
+                onAddToCart={handleResellerAddToCart}
+                onOrderNow={handleResellerOrderNow}
+                modalAction={modalAction}
+              />
+            ) : (
+              <button
+                onClick={user && isActive ? handleAddToCartClick : undefined}
+                disabled={product?.availability === "Out of Stock"}
+                className="btn primary-btn mb-5 h-12 w-full disabled:opacity-50"
+              >
+                <BsCartPlus
+                  size={18}
+                  className={
+                    product?.availability === "Out of Stock" ||
+                    !user ||
+                    !isActive
+                      ? "hidden"
+                      : ""
+                  }
+                ></BsCartPlus>
+                <span>
+                  {product?.availability === "Out of Stock" ? (
+                    "Out of Stock"
+                  ) : !user ? (
+                    <Link
+                      to="/auth/sign-in"
+                      className="text-blue-200 underline"
+                    >
+                      লগইন করুন
+                    </Link>
+                  ) : !isActive ? (
+                    <>
+                      {platform?.paymentGateway === "Manual" ? (
+                        <Link
+                          to={`/payment/Account/${platform?.accountActivationFee}`}
+                          className="text-xs text-danger font-medium hover:underline"
+                        >
+                          বিক্রেতা হোন
+                        </Link>
+                      ) : platform?.paymentGateway === "ClickPay" ||
+                        platform?.paymentGateway === "StarPay" ? (
+                        <SubscriptionPaymentTrigger
+                          as="span"
+                          className="text-xs text-danger font-medium hover:underline"
+                        >
+                          বিক্রেতা হোন
+                        </SubscriptionPaymentTrigger>
+                      ) : null}
+                    </>
+                  ) : (
+                    "কার্ট করুন"
+                  )}
+                </span>
+              </button>
+            )}
+
+            {/* Order Now */}
+            {isPricingModalOpen && modalAction === "orderNow" ? (
+              <PricingModal
+                isOpen={isPricingModalOpen}
+                onClose={() => setIsPricingModalOpen(false)}
+                product={product}
+                selectedProduct={selectedProduct}
+                onAddToCart={handleResellerAddToCart}
+                onOrderNow={handleResellerOrderNow}
+                modalAction={modalAction}
+              />
+            ) : (
+              <button
+                onClick={user && isActive ? handleOrderNowClick : undefined}
+                disabled={product?.availability === "Out of Stock"}
+                className="btn primary-btn mb-5 h-12 w-full disabled:opacity-50"
+              >
+                <FaTruckArrowRight
+                  size={18}
+                  className={
+                    product?.availability === "Out of Stock" ||
+                    !user ||
+                    !isActive
+                      ? "hidden"
+                      : ""
+                  }
+                ></FaTruckArrowRight>
                 {product?.availability === "Out of Stock" ? (
                   "Out of Stock"
                 ) : !user ? (
@@ -327,60 +403,25 @@ const ProductDetails = () => {
                     {platform?.paymentGateway === "Manual" ? (
                       <Link
                         to={`/payment/Account/${platform?.accountActivationFee}`}
-                        className="text-xs text-red-500 font-medium hover:underline"
+                        className="text-xs text-danger font-medium hover:underline"
                       >
                         বিক্রেতা হোন
                       </Link>
-                    ) : platform?.paymentGateway === "ClickPay" ||
+                    ) : platform?.paymentGateway === "লগইন করুন" ||
                       platform?.paymentGateway === "StarPay" ? (
                       <SubscriptionPaymentTrigger
                         as="span"
-                        className="text-xs text-red-500 font-medium hover:underline"
+                        className="text-xs text-danger font-medium hover:underline"
                       >
                         বিক্রেতা হোন
                       </SubscriptionPaymentTrigger>
                     ) : null}
                   </>
                 ) : (
-                  "কার্টে যোগ করুন"
+                  "অর্ডার করুন"
                 )}
-              </span>
-            </button>
-
-            <button
-              onClick={user && isActive ? handleOrderNowClick : undefined}
-              disabled={product?.availability === "Out of Stock"}
-              className="btn secondary-btn mb-5 h-12 w-full disabled:opacity-50"
-            >
-              {product?.availability === "Out of Stock" ? (
-                "Out of Stock"
-              ) : !user ? (
-                <Link to="/auth/sign-in" className="text-blue-200 underline">
-                  লগইন করুন
-                </Link>
-              ) : !isActive ? (
-                <>
-                  {platform?.paymentGateway === "Manual" ? (
-                    <Link
-                      to={`/payment/Account/${platform?.accountActivationFee}`}
-                      className="text-xs text-red-500 font-medium hover:underline"
-                    >
-                      বিক্রেতা হোন
-                    </Link>
-                  ) : platform?.paymentGateway === "লগইন করুন" ||
-                    platform?.paymentGateway === "StarPay" ? (
-                    <SubscriptionPaymentTrigger
-                      as="span"
-                      className="text-xs text-red-500 font-medium hover:underline"
-                    >
-                      বিক্রেতা হোন
-                    </SubscriptionPaymentTrigger>
-                  ) : null}
-                </>
-              ) : (
-                "অর্ডার করুন"
-              )}
-            </button>
+              </button>
+            )}
 
             {product?.notes && (
               <div className="alert alert-info mb-5 p-3 text-sm font-medium md:text-base">
@@ -405,17 +446,6 @@ const ProductDetails = () => {
       <MatchingProducts
         category={product?.category}
         subCategory={product?.subCategory}
-      />
-
-      {/* Reseller Pricing Modal */}
-      <PricingModal
-        isOpen={isPricingModalOpen}
-        onClose={() => setIsPricingModalOpen(false)}
-        product={product}
-        selectedProduct={selectedProduct}
-        onAddToCart={handleResellerAddToCart}
-        onOrderNow={handleResellerOrderNow}
-        modalAction={modalAction}
       />
     </div>
   );

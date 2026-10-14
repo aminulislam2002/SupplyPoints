@@ -2,6 +2,7 @@ import { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { BsCartPlus } from "react-icons/bs";
 import { FaTruckArrowRight } from "react-icons/fa6";
+import { FaArrowRight } from "react-icons/fa";
 
 const PricingModal = ({
   isOpen,
@@ -37,9 +38,9 @@ const PricingModal = ({
       setError("");
     } else if (numericValue < minimumPrice) {
       if (product?.sellingPrice && numericValue < product.sellingPrice) {
-        setError(`Selling price must be at least ৳${product.sellingPrice}`);
+        setError(`৳${product.sellingPrice}`);
       } else {
-        setError(`Selling price must be at least ৳${product.price}`);
+        setError(`৳${product.price}`);
       }
     } else {
       setError("");
@@ -95,97 +96,71 @@ const PricingModal = ({
   };
 
   return (
-    <div className="modal-backdrop fixed inset-0 z-50 flex items-center justify-center px-4">
-      <div className="max-w-md w-full relative">
-        <div className="modal-surface rounded-b-none p-5">
-          {/* Close Button */}
+    <div className="w-full relative mb-5">
+      {/* Selling Price Input */}
+      <input
+        type="number"
+        min={minimumPrice}
+        value={sellingPrice}
+        onChange={(e) => handleSellingPriceChange(e.target.value)}
+        placeholder={`সর্বনিম্ন বিক্রয় মূল্য ৳${minimumPrice}`}
+        className="w-full h-12 bg-transparent text-primary-600 border border-border-color rounded-xl focus:outline-none px-2.5 text-sm font-medium"
+      />
+
+      <div className="flex justify-between items-center pt-2.5">
+        {error && (
+          <p className="text-xs font-medium text-warning">
+            সর্বনিম্ন বিক্রয় মূল্য: {error}
+          </p>
+        )}
+
+        {/* Profit Display */}
+        {sellingPrice && !error && (
+          <p className="text-xs font-medium text-primary-600">
+            লাভ: ৳{calculateProfit().toFixed(2)}
+          </p>
+        )}
+      </div>
+
+      {/* Action Button */}
+      <div className="absolute top-0 right-0 flex justify-center">
+        {modalAction === "addToCart" ? (
           <button
-            onClick={handleClose}
-            className="btn danger-btn absolute right-4 top-4 min-h-8 rounded-full p-1"
+            onClick={handleAddToCart}
+            disabled={isProceedDisabled()}
+            className="w-12 h-12 bg-primary-600 text-white flex justify-center items-center cursor-pointer"
           >
-            <IoClose size={24} />
-          </button>
-
-          {/* Modal Header */}
-          <h2 className="text-xl font-semibold mb-4">Set Selling Price</h2>
-        </div>
-
-        <div className="modal-surface rounded-t-none border-t-0 p-5">
-          {/* Product Info */}
-          <div className="text-sm space-y-3 pb-5 border-b border-border-color mb-5">
-            <p>
-              Product Price:{" "}
-              <span className="font-semibold">৳{product?.price}</span>
-            </p>
-            {product?.sellingPrice && (
-              <p>
-                Fixed Selling Price:{" "}
-                <span className="font-semibold text-red-600">
-                  ৳{product?.sellingPrice}
-                </span>
-              </p>
-            )}
-            {product?.suggestedPrice && (
-              <p>
-                Suggested Price:{" "}
-                <span className="font-semibold text-green-600">
-                  ৳{product?.suggestedPrice}
-                </span>
-              </p>
-            )}
-          </div>
-
-          {/* Selling Price Input */}
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-2">
-              Your Selling Price (৳)
-            </label>
-            <input
-              type="number"
-              min={minimumPrice}
-              value={sellingPrice}
-              onChange={(e) => handleSellingPriceChange(e.target.value)}
-              placeholder={`At least ৳${minimumPrice}`}
-              className="control w-full"
-            />
-
-            {error && <p className="alert alert-danger my-4 p-2.5">{error}</p>}
-          </div>
-
-          {/* Profit Display */}
-          {sellingPrice && !error && (
-            <div className="alert alert-success mb-4 p-2.5">
-              <p className="text-sm">
-                <span className="font-semibold">
-                  Your Profit: ৳{calculateProfit().toFixed(2)}
-                </span>
-              </p>
-            </div>
-          )}
-
-          {/* Action Button */}
-          <div className="flex justify-center">
-            {modalAction === "addToCart" ? (
-              <button
-                onClick={handleAddToCart}
-                disabled={isProceedDisabled()}
-                className="btn primary-btn h-12 w-full"
-              >
-                <BsCartPlus size={16} />
-                Add to Cart
-              </button>
+            {sellingPrice && !error ? (
+              <FaArrowRight size={20} />
             ) : (
-              <button
-                onClick={handleOrderNow}
-                disabled={isProceedDisabled()}
-                className="btn primary-btn h-12 w-full"
-              >
-                <FaTruckArrowRight size={16} />
-                Order Now
-              </button>
+              <BsCartPlus size={20} />
             )}
-          </div>
-        </div>
+
+            {/* Add to Cart */}
+          </button>
+        ) : (
+          <button
+            onClick={handleOrderNow}
+            disabled={isProceedDisabled()}
+            className="w-12 h-12 bg-primary-600 text-white flex justify-center items-center cursor-pointer"
+          >
+            {sellingPrice && !error ? (
+              <FaArrowRight size={20} />
+            ) : (
+              <FaTruckArrowRight size={20} />
+            )}
+
+            {/* Order Now */}
+          </button>
+        )}
+
+        {/* Close Button */}
+        <button
+          onClick={handleClose}
+          className="w-12 h-12 bg-danger text-white flex justify-center items-center rounded-r-xl cursor-pointer"
+        >
+          <IoClose size={24} />
+        </button>
       </div>
     </div>
   );
